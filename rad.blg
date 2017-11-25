@@ -1,0 +1,14 @@
+[0] Config.pm:354> INFO - This is Biber 2.7 (beta)
+[0] Config.pm:357> INFO - Logfile is 'rad.blg'
+[42] biber:303> INFO - === Wed Sep 20, 2017, 15:19:45
+[60] Biber.pm:360> INFO - Reading 'rad.bcf'
+[157] Biber.pm:836> INFO - Found 2 citekeys in bib section 0
+[178] Biber.pm:3671> INFO - Processing section 0
+[199] Biber.pm:3841> INFO - Looking for bibtex format file 'literatura.bib' for section 0
+[200] bibtex.pm:1424> INFO - Decoding LaTeX character macros into UTF-8
+[206] bibtex.pm:1281> INFO - Found BibTeX data source 'literatura.bib'
+[240] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[240] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'variable = shifted' with 'variable = non-ignorable'
+[240] Biber.pm:3500> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'sr-Latn'
+[244] bbl.pm:608> INFO - Writing 'rad.bbl' with encoding 'UTF-8'
+[246] bbl.pm:712> INFO - Output to rad.bbl

@@ -1,0 +1,95 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist[entry]{nty/global/}
+    \entry{GuSh:243}{article}{}
+      \name{author}{2}{}{%
+        {{hash=d36b6995ab536537094bfe3e5596722b}{%
+           family={Gurevich},
+           familyi={G\bibinitperiod},
+           given={Yuri},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=7d5fc2482a23e1353705eea5a284444e}{%
+           family={Shelah},
+           familyi={S\bibinitperiod},
+           given={Saharon},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {english}%
+      }
+      \strng{namehash}{9728f2a6053c849cb3b882df572a3dbd}
+      \strng{fullhash}{9728f2a6053c849cb3b882df572a3dbd}
+      \strng{authornamehash}{9728f2a6053c849cb3b882df572a3dbd}
+      \strng{authorfullhash}{9728f2a6053c849cb3b882df572a3dbd}
+      \field{sortinit}{G}
+      \field{sortinithash}{618d986594b7198ba52cf8b00d348f3f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{SIAM Journal on Computing}
+      \field{langid}{english}
+      \field{title}{{Expected computation time for Hamiltonian path problem}}
+      \field{volume}{16}
+      \field{year}{1987}
+      \field{pages}{486\bibrangedash 502}
+      \range{pages}{17}
+    \endentry
+    \entry{PetrovicMikic2015}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=a0f5d7ddd09c797da83a51ebb7189c8f}{%
+           family={Petrović},
+           familyi={P\bibinitperiod},
+           given={Petar},
+           giveni={P\bibinitperiod}}}%
+        {{hash=51fc5491b70a43c6cc5b66fb179cc0c4}{%
+           family={Mikić},
+           familyi={M\bibinitperiod},
+           given={Mika},
+           giveni={M\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=80c313e4f013809b5fb243c3adf259d3}{%
+           family={Milojević},
+           familyi={M\bibinitperiod},
+           given={Miloje},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {serbian}%
+      }
+      \strng{namehash}{068ff08a930e6268029bb4270cb185b6}
+      \strng{fullhash}{068ff08a930e6268029bb4270cb185b6}
+      \strng{authornamehash}{068ff08a930e6268029bb4270cb185b6}
+      \strng{authorfullhash}{068ff08a930e6268029bb4270cb185b6}
+      \strng{editornamehash}{80c313e4f013809b5fb243c3adf259d3}
+      \strng{editorfullhash}{80c313e4f013809b5fb243c3adf259d3}
+      \field{sortinit}{P}
+      \field{sortinithash}{24100cef455d7974167575052c29146e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Konferencija iz matematike i računarstva}
+      \field{langid}{serbian}
+      \field{title}{Naučni rad}
+      \field{year}{2015}
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+
