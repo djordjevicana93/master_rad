@@ -79,7 +79,7 @@
 Sistemi za analizu i verifikaciju softvera su veoma kompleksni. Njihovu osnovu predstavlja komponenta koja koristi logičke formule za opisivanja stanja i transformacija između stanja sistema. Opisivanje stanja sistema svodi se na proveravanje zadovoljivosti formula logike prvog reda. Proveravanje zadovoljivosti formula vrši se procedurama odlučivanja u odnosu na definisanu teoriju. Formalno, zadovoljivost u odnosu na teoriju (eng. Satisfiability Modulo Theory, skraćeno SMT) problem je odlučivanja zadovoljivosti u odnosu na osnovnu teoriju T opisanu u klasičnoj logici prvog reda sa jednakošću. Alati koji se koriste za rešavanje ovog problema nazivaju se SMT rešavači. 
 \par
 
-Jedan od najpoznatijih SMT rešavača je rešavač Z3 kompanije Microsoft koji se koristi za proveru zadovoljivosti logičkih formula u velikom broju teorija. Z3 se najčešče koristi kao podrška drugim alatima, pre svega alatima za analizu i verifikaciju softvera. Rešavač Z3 nudi interfejs za direktnu komunikaciju sa programskim jezicima C, C++ i Python. Pripada grupi SMT rešavača sa integrisanim procedurama odlučivanja.
+Jedan od najpoznatijih SMT rešavača je rešavač Z3 kompanije Microsoft koji se koristi za proveru zadovoljivosti logičkih formula u velikom broju teorija. Z3 se najčešče koristi kao podrška drugim alatima, pre svega alatima za analizu i verifikaciju softvera. Rešavač Z3 nudi interfejs za direktnu komunikaciju sa programskim jezicima C, C++ i Python\cite{Barrett}. Pripada grupi SMT rešavača sa integrisanim procedurama odlučivanja.
 \par
 U ovoj glavi biće opisane osnove rešavača Z3 u delu \ref{sec:num1}. U delu \ref{sec:num2} biće opisane najvažnije teorije uključujući teoriju linearne aritmetike, teoriju nelinearne aritmetike, teoriju bitvektora i teoriju nizova. U delu \ref{sec:num3} opisani su podržani tipovi podataka.  
 
@@ -87,40 +87,45 @@ U ovoj glavi biće opisane osnove rešavača Z3 u delu \ref{sec:num1}. U delu \r
 \section{Osnove rešavača}  \label{sec:num1}
 Ulazni format rešavača Z3 je definisan SMT-LIB 2.0 standardom. Standard definiše jezik logičkih formula čija se zadovoljivost proverava u odnosu na neku teoriju. Jezik definisan standardom koriste svi napredni SMT rešavači, uključujući i Z3. 
 \par
+Problem zadovoljivosti (eng. Satisfiability problem, skraćeno SAT) problem je odlučivanja da li za iskaznu formulu u konjunktivnoj normalnoj formi postoji valuacija u kojoj su sve njene klauze tačne.
+Rešavači koji se koriste za rešavanje ovog problema nazivaju se SAT rešavači. Rešavač Z3 integriše SAT rešavač zasnovan na savremenoj DPLL proceduri i veliki broj teorija. 
+Implementiran je u programskom jeziku C++. Šematski prikaz arhitekture rešavača prikazan je na slici. 
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=1\textwidth]{arhitektura.png}
+  \caption{Arhitektura rešavača Z3}
+  \label{fig:arhitektura}
+\end{figure}
+\par
+Formule prosleđene rešavaču se najpre procesiraju upotrebom simplifikacije. Simplifikacija primenjuje algebarska pravila redukcije kao što je \texttt{p $\land$ true $\vdash$ true}. Pored toga, ovim procesom se vrše odgovarajuće zamene kao što je \texttt{x=4 $\land$ q(x) $\vdash$ x=4 $\land$ q(4)}.
+Nakon simplifikacije, kompajler formira apstraktno sintaksno stablo formula čiji su čvorovi simplifikovane formule (klauze). Zatim se jezgru kongruentnog zatvorenja prosleđuje apstraktno sintaksno stablo. Jezgro kongruentnog zatvorenja komunicira sa SAT rešavačem koji određuje istinitosnu vrednost klauza. Ova komunikacija odvija se preko E-graf strukture podataka. Čvorovi u E-grafu mogu se referisati na jednu ili više teorija.
+\par
 Interno, Z3 održava stek korisnički definisanih formula i deklaracija. Nazivamo ih tvrđenjima definisanih od strane korisnika. Komandom \texttt{push} kreira se novi opseg i čuva se trenutna veličina steka. Komandom \texttt{pop} uklanjaju se sva tvrđenja i deklaracije zadate posle push-a sa kojim se komanda uparuje. Komandom \texttt{assert} dodaje se formula na interni stek. Skup formula na steku je zadovoljiv ako postoji interpretacija u kojoj sve formule imaju istinitosnu vrednost tačno. Ova provera se vrši komandom \texttt{check-sat}. U slučaju zadovoljivosti vraća se \texttt{sat}, u slučaju nezadovoljivosti vraća se \texttt{unsat} a kada rešavač ne može da proceni da li je formula zadovoljiva ili ne vraća se \texttt{unknown}. Komandom \texttt{get-model} vraća se interpretacija u kojoj su sve formule na steku tačne. 
 \par
 Glavni gradivni blokovi formula su konstante, funkcije i relacije. Konstante su specijalan slučaj funkcija bez parametara. 
-%OVOME OVDE NIJE MESTO
-%Z3 ne vrši automatsku konverziju celobrojnih konstanti u realne i obrnuto. %Funkcija to-real može se iskoristiti za konvertovanje celobrojnih vrednosti u %realne.
+
 Relacije su funkcije koje vraćaju povratnu vrednost tipa Boolean. Funkcije mogu uzimati argumente tipa Boolean pa se na taj način relacije mogu koristiti kao argumenti funkcija. Za razliku od programskih jezika, funkcije logike prvog reda su totalne, tj. definisane su za sve vrednosti ulaznih parametara. Na primer, deljenje 0 je dozvoljeno, ali nije specifikovano šta ono predstavlja. Funkcije i konstantni simboli su neiterpretirani. Ovo je kontrast u odnosu na funkcije odgovarajućih teorija. Funkcija + ima standardnu interpretaciju u teoriji aritmetike. Neiterpretirane funkcije i konstante su maksimalno fleksibilne i dozvoljavaju bilo koju interpretaciju koja je u skladu sa ograničenjima. 
-Sledi primer sa korišćenjem neinterpretiranih tipova i funkcija korišćenjem C++ API-ja . 
-\\ \\
-\begin{lstlisting}
-/*
-   Kod demonstrira upotrebu neiterpretiranih tipova
-   i funkcija 
-   dokazivanjem jednakosti:
-   x = y => g(x) = g(y)
-*/
-void dokazi_jednakost() {
-    
-    context c;
-    expr x      = c.int_const("x");
-    expr y      = c.int_const("y");
-    sort I      = c.int_sort();
-    func_decl g = function("g", I, I);
-    
-    solver s(c);
-    expr conjecture1 = implies(x == y, g(x) == g(y));
-    s.add(!conjecture1);
-    if (s.check() == unsat) 
-        std::cout << "dokazano";
-    else
-        std::cout << "ne moze se dokazati";
-}
+
+%\begin{primer} Kod demonstrira upotrebu neinterpretiranih tipova i funkcija %dokazivanjem identiteta: x = y => g(x) = g(y) upotrebom C++ API-ja. Formiramo %dva konstantna celobrojna izraza x i y i deklarišemo funkciju g sa jednim %argumentom. Dodajemo implikaciju, a zatim njenu negaciju prosleđujemo %rešavaču. Negacija implikacije je nezadovoljiva, pa je polazna formula validna %čime dokazujemo identitet.
+%\begin{lstlisting}
+%void dokazi_jednakost() {  
+%    context c;
+%    expr x      = c.int_const("x");
+%    expr y      = c.int_const("y");
+%    sort I      = c.int_sort();
+%    func_decl g = function("g", I, I);  
+%    solver s(c);
+%    expr conjecture1 = implies(x == y, g(x) == g(y));
+%    s.add(!conjecture1);
+%    if (s.check() == unsat) 
+%        std::cout << "dokazano";
+%    else
+%        std::cout << "ne moze se dokazati";
+%}
 
 
-\end{lstlisting}
+%\end{lstlisting}
+%\end{primer}
 
 Komandom \texttt{declare-const} deklariše se konstanta odgovarajuće sorte (odgovara tipu promenljive u programskim jezicima). Sorta može biti parametrizovana i u tom slučaju su specifikovana imena njenih parametara. Specifikacija sorte vrši se naredbom \texttt{(define-sort [symbol] ([symbol]+)[sort])}.
 Komandom \texttt{declare-fun} deklariše se funkcija. 
@@ -173,51 +178,39 @@ Izlaz:
 \\unsat
 \end{minipage}
 \end{primer}
+ 
+%Kao što je već napomenuto, rešavač Z3 nudi interfejs za direktnu komunikaciju %sa programskim jezicima. U daljem radu biće navedeni primeri korišćenjem C++ %API-ja.  
+%\begin{primer} Dokazujemo De Morganov zakon dualnosti korišćenjem formule 
+%$\neg{(a \land b)} \Leftrightarrow (\neg{a} \lor \neg{b}) $ korišćenjem C++ %API-ja. Rešavaču se prosleđuje negirana formula. Rešavač vraća %nezadovoljivost, čime pokazujemo da formula važi u svim interpretacijama.
+%\begin{lstlisting}
+%void demorgan() {
+%    context c;
+%    expr x = c.bool_const("a");
+%    expr y = c.bool_const("b");
+%    expr conjecture = !(a && b) == (!a || !b);
+%    solver s(c);
+%    // dodavanje negacije konjunkcije kao ogranicenja
+%    s.add(!conjecture);
+%    std::cout << s;
+%    switch (s.check()) {
+%    case unsat:   std::cout << "Formula je validna";
+%    case sat:     std::cout << "Formula nije validna";
+%    case unknown: std::cout << "Rezultat je nepoznat"; 
+%    }
+%}
 
-
-
-Prethodni primer ilustruje se korišćenjem C++ API-ja.
-\\ \\
-\begin{lstlisting}
-/**
-
-   Dokazivanje De Morganovog zakona dualnosti: 
-   {not(x and y) <-> (not x) or ( not y) }
-*/
-void demorgan() {
-
-    
-    context c;
-
-    expr x = c.bool_const("x");
-    expr y = c.bool_const("y");
-    expr conjecture = !(x && y) == (!x || !y);
-    
-    solver s(c);
-    // dodavanje negacije konjunkcije kao ogranicenja
-    s.add(!conjecture);
-    std::cout << s << "\n";
-    switch (s.check()) {
-    case unsat:   std::cout << "de-Morgan is valid\n"; break;
-    case sat:     std::cout << "de-Morgan is not valid\n"; break;
-    case unknown: std::cout << "unknown\n"; break;
-    }
-}
-
-\end{lstlisting}
-
+%\end{lstlisting}
+%\end{primer}
 
 \section{Teorije} \label{sec:num2}
 Teorije rešavača Z3 su opisane u okviru višesortne logike prvog reda sa jednakošću.  Definisanjem specifične teorije, uvode se restrikcije pri definisanju formula kao i podržanih relacija i operatora koje se na njih primenjuju. Na taj način, specijalizovane metode u odgovarajućoj teoriji mogu biti efikasnije implementirane u poređenju sa opštim slučajem. U nastavku će biti opisane teorija linearne aritmetike, teorija nelinearne aritmetike, teorija bitvektora i teorija nizova.
 
 \subsection{Teorija linearne aritmetike} 
 
-Rešavač Z3 sadrži procedure odlučivanja za linearnu aritmetiku nad celobrojnim i realnim brojevima. Dodatni materijali o procedurama odlučivanja linearne aritmetike dostupni su na REF ILI TAKO NEŠTO.
+Rešavač Z3 sadrži procedure odlučivanja za linearnu aritmetiku nad celobrojnim i realnim brojevima. Dodatni materijali o procedurama odlučivanja linearne aritmetike dostupni su na REF.
 \par
 
 U skladu sa standardom SMT-LIB 2.0, formule celobrojne linearne aritmetike konstruišu se korišćenjem funkcijskih simbola +, -, *, $\sim$ (unarna negacija), div i mod. Za funkcijske simbole div i mod, drugi operand mora biti različit od 0. 
-
-
 
 U realnoj linearnoj aritmetici, interpretirani funkcijski simboli su +,- ,* i $\sim$(unarna negacija). Konstante se mogu porediti korišćenjem operatora =, <, <=, >, >=. 
 \\
@@ -225,8 +218,7 @@ U realnoj linearnoj aritmetici, interpretirani funkcijski simboli su +,- ,* i $\
 Z3 rešavač ima podršku za celobrojne i realne konstante. Prethodno pomenutom komandom \texttt{declare-const} deklarišu se celobrojne i realne konstante. Rešavač ne vrši automatsku konverziju između celobrojnih i realnih konstanti. U tom slučaju koristi se funkcija \texttt{to-real} za konvertovanje celobrojnih u realne vrednosti.
 Realne konstante treba da budu zapisane sa decimalnom tačkom.
 
-\begin{primer} Naredni kod ilustruje pronalaženje interpretacija celobrojnih i realnih konstanti. Interpretacija se svodi na pridruživanje brojeva svakoj konstanti u slučaju zadovoljivosti formule. Ograničenja sadrže pomenute aritmetičke operatore.  Procedura odlučivanja vraća zadovoljivost tvrđenja i dobijeni model prikazujemo u nastavku.   \\ \\
-\hspace{-0.7cm}
+\begin{primer} Naredni kod ilustruje pronalaženje interpretacija celobrojnih i realnih konstanti. Interpretacija se svodi na pridruživanje brojeva svakoj konstanti u slučaju zadovoljivosti formule. Ograničenja sadrže pomenute aritmetičke operatore. Rešavač zadovoljivost tvrđenja i dobijeni model prikazujemo u nastavku.\\ \\
 \begin{minipage}[b]{0.4\textwidth}
 Formula prosleđena rešavaču:
 \\(declare-const a Int)
@@ -321,32 +313,6 @@ Izlaz:
 \\(define-fun c () Real (/ 1535.0 64.0)))
 \end{minipage}
 \end{primer}
-Sledi primer korišćenja C++ API-ja sa nelinearom aritmetikom. 
-\\ \\
-\begin{lstlisting}
-/*
-	Primer nelinearne aritmetike
-*/
-void nonlinear_example1() {
-
-    config cfg;
-
-    context c(cfg);
-
-    expr x = c.real_const("x");
-    expr y = c.real_const("y");
-    expr z = c.real_const("z");
-                     
-    solver s(c);
-
-    s.add(x*x + y*y == 1);                     // x^2 + y^2 == 1
-    s.add(x*x*x + z*z*z < c.real_val("1/2"));  // x^3 + z^3 < 1/2
-    s.add(z != 0);
-    std::cout << s.check() << "\n";
-    model m = s.get_model();
-}
-
-\end{lstlisting}
 
 \subsection{Teorija bitvektora} 
 Za razliku od programskih jezika, kao što su C, C++ i Java gde ne postoji razlika između označenih i neoznačenih bitvektora, rešavač Z3 ih tretira na različite načine. Teorija bitvektora ima na raspolaganju različite verzije aritmetičkih operacija za označene i neoznačene brojeve.
@@ -477,7 +443,6 @@ Izlaz:
 \\unsat
 \end{minipage}
 \end{primer}
-\vspace{0.5cm}
 
 \begin{primer} Ilustracija podržanih relacija nad bitvektorima. Podržane relacije uključuju neoznačene i označene verzije za operatore <, <=, > i >=. U nastavku slede pomenuti operatori primenom na dva operanda i njihove vrednosti kao izlaze.
 \\ \\ 
@@ -535,24 +500,24 @@ Izlaz:
 
 \end{primer}
 Svojstvo da Z3 različito tretira označene i neoznačene bitvektore ilustrovano je  primerom.
-\\ 
-\begin{lstlisting}
-/*
- Primer sa bitvektorom pokazuje razliku u koriscenju oznacenog i neoznacenog poredjenja
-*/
-void bitvector_example1() {
+ 
+%\begin{lstlisting}
+%/*
+% Primer sa bitvektorom pokazuje razliku u koriscenju oznacenog i neoznacenog %poredjenja
+%*/
+%void bitvector_example1() {
 
-    context c;
-    expr x = c.bv_const("x", 32);
+%    context c;
+%    expr x = c.bv_const("x", 32);
     
-    // koriscenje oznacenog <=
-    prove((x - 10 <= 0) == (x <= 10));
+%    // koriscenje oznacenog <=
+%    prove((x - 10 <= 0) == (x <= 10));
 
-    // koriscenje neoznacenog <=
-    prove(ule(x - 10, 0) == ule(x, 10));
-}
+%    // koriscenje neoznacenog <=
+%    prove(ule(x - 10, 0) == ule(x, 10));
+%}
 
-\end{lstlisting}
+%\end{lstlisting}
 
 \subsection{Teorija nizova} 
 Osnovnu teoriju nizova karakterisu select i store naredbe. 
