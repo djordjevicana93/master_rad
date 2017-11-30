@@ -12,7 +12,7 @@
 \usepackage[latinica,biblatex]{matfmaster} 
 \usepackage{listings}
 \usepackage{verbatim}
-\usepackage{xcolor}
+\usepackage{url}
 \newtheorem{primer}{Primer}
 
 \usepackage[latinica]{pangrami}
@@ -76,21 +76,22 @@
 \chapter{Rešavač Z3}
 \label{chp:razrada}
 
-Sistemi za analizu i verifikaciju softvera su veoma kompleksni. Njihovu osnovu predstavlja komponenta koja koristi logičke formule za opisivanja stanja i transformacija između stanja sistema. Opisivanje stanja sistema svodi se na proveravanje zadovoljivosti formula logike prvog reda. Proveravanje zadovoljivosti formula vrši se procedurama odlučivanja u odnosu na definisanu teoriju. Formalno, zadovoljivost u odnosu na teoriju (eng. Satisfiability Modulo Theory, skraćeno SMT) problem je odlučivanja zadovoljivosti u odnosu na osnovnu teoriju T opisanu u klasičnoj logici prvog reda sa jednakošću. Alati koji se koriste za rešavanje ovog problema nazivaju se SMT rešavači. 
+Sistemi za analizu i verifikaciju softvera su veoma kompleksni. Njihovu osnovu predstavlja komponenta koja koristi logičke formule za opisivanja stanja i transformacija između stanja sistema. Opisivanje stanja sistema svodi se na proveravanje zadovoljivosti formula logike prvog reda. 
+Proveravanje zadovoljivosti formula vrši se procedurama odlučivanja u odnosu na definisanu teoriju. Formalno, zadovoljivost u odnosu na teoriju (eng. Satisfiability Modulo Theory, skraćeno SMT) problem je odlučivanja zadovoljivosti u odnosu na osnovnu teoriju T opisanu u klasičnoj logici prvog reda sa jednakošću \cite{Barrett}. Alati koji se koriste za rešavanje ovog problema nazivaju se SMT rešavači. 
 \par
 
-Jedan od najpoznatijih SMT rešavača je rešavač Z3 kompanije Microsoft koji se koristi za proveru zadovoljivosti logičkih formula u velikom broju teorija. Z3 se najčešče koristi kao podrška drugim alatima, pre svega alatima za analizu i verifikaciju softvera. Rešavač Z3 nudi interfejs za direktnu komunikaciju sa programskim jezicima C, C++ i Python\cite{Barrett}. Pripada grupi SMT rešavača sa integrisanim procedurama odlučivanja.
+Jedan od najpoznatijih SMT rešavača je rešavač Z3 kompanije Microsoft koji se koristi za proveru zadovoljivosti logičkih formula u velikom broju teorija \cite{EfficientSMTSolver}. Z3 se najčešče koristi kao podrška drugim alatima, pre svega alatima za analizu i verifikaciju softvera. Rešavač Z3 nudi interfejs za direktnu komunikaciju sa programskim jezicima C, C++ i Python. Pripada grupi SMT rešavača sa integrisanim procedurama odlučivanja.
 \par
 U ovoj glavi biće opisane osnove rešavača Z3 u delu \ref{sec:num1}. U delu \ref{sec:num2} biće opisane najvažnije teorije uključujući teoriju linearne aritmetike, teoriju nelinearne aritmetike, teoriju bitvektora i teoriju nizova. U delu \ref{sec:num3} opisani su podržani tipovi podataka.  
 
 
 \section{Osnove rešavača}  \label{sec:num1}
-Ulazni format rešavača Z3 je definisan SMT-LIB 2.0 standardom. Standard definiše jezik logičkih formula čija se zadovoljivost proverava u odnosu na neku teoriju. Jezik definisan standardom koriste svi napredni SMT rešavači, uključujući i Z3. 
-\par
-Problem zadovoljivosti (eng. Satisfiability problem, skraćeno SAT) problem je odlučivanja da li za iskaznu formulu u konjunktivnoj normalnoj formi postoji valuacija u kojoj su sve njene klauze tačne.
-Rešavači koji se koriste za rešavanje ovog problema nazivaju se SAT rešavači. Rešavač Z3 integriše SAT rešavač zasnovan na savremenoj DPLL proceduri i veliki broj teorija. 
-Implementiran je u programskom jeziku C++. Šematski prikaz arhitekture rešavača prikazan je na slici. 
-\begin{figure}[!ht]
+Problem zadovoljivosti (eng. Satisfiability problem, skraćeno SAT) problem je odlučivanja da li za iskaznu formulu u konjunktivnoj normalnoj formi postoji valuacija u kojoj su sve njene 
+klauze tačne \cite{Handbook}. 
+Rešavači koji se koriste za rešavanje ovog problema nazivaju se SAT rešavači.   
+Rešavač Z3 integriše SAT rešavač zasnovan na savremenoj DPLL proceduri i veliki broj teorija. 
+Implementiran je u programskom jeziku C++. Šematski prikaz arhitekture \cite{EfficientSMTSolver} rešavača prikazan je na slici \ref{slika1}. 
+\begin{figure}[!ht]\label{slika1}
   \centering
   \includegraphics[width=1\textwidth]{arhitektura.png}
   \caption{Arhitektura rešavača Z3}
@@ -98,7 +99,9 @@ Implementiran je u programskom jeziku C++. Šematski prikaz arhitekture rešava�
 \end{figure}
 \par
 Formule prosleđene rešavaču se najpre procesiraju upotrebom simplifikacije. Simplifikacija primenjuje algebarska pravila redukcije kao što je \texttt{p $\land$ true $\vdash$ true}. Pored toga, ovim procesom se vrše odgovarajuće zamene kao što je \texttt{x=4 $\land$ q(x) $\vdash$ x=4 $\land$ q(4)}.
-Nakon simplifikacije, kompajler formira apstraktno sintaksno stablo formula čiji su čvorovi simplifikovane formule (klauze). Zatim se jezgru kongruentnog zatvorenja prosleđuje apstraktno sintaksno stablo. Jezgro kongruentnog zatvorenja komunicira sa SAT rešavačem koji određuje istinitosnu vrednost klauza. Ova komunikacija odvija se preko E-graf strukture podataka. Čvorovi u E-grafu mogu se referisati na jednu ili više teorija.
+Nakon simplifikacije, kompajler formira apstraktno sintaksno stablo formula čiji su čvorovi simplifikovane formule (klauze). Zatim se jezgru kongruentnog zatvorenja (eng. Congruence closure core) prosleđuje apstraktno sintaksno stablo. Jezgro kongruentnog zatvorenja komunicira sa SAT rešavačem koji određuje istinitosnu vrednost klauza. 
+\par
+Ulazni format rešavača Z3 je definisan SMT-LIB 2.0 standardom. Standard definiše jezik logičkih formula čija se zadovoljivost proverava u odnosu na neku teoriju. Cilj standarda je obezbeđivanje zajedničkog jezika za sve SMT rešavače. 
 \par
 Interno, Z3 održava stek korisnički definisanih formula i deklaracija. Nazivamo ih tvrđenjima definisanih od strane korisnika. Komandom \texttt{push} kreira se novi opseg i čuva se trenutna veličina steka. Komandom \texttt{pop} uklanjaju se sva tvrđenja i deklaracije zadate posle push-a sa kojim se komanda uparuje. Komandom \texttt{assert} dodaje se formula na interni stek. Skup formula na steku je zadovoljiv ako postoji interpretacija u kojoj sve formule imaju istinitosnu vrednost tačno. Ova provera se vrši komandom \texttt{check-sat}. U slučaju zadovoljivosti vraća se \texttt{sat}, u slučaju nezadovoljivosti vraća se \texttt{unsat} a kada rešavač ne može da proceni da li je formula zadovoljiva ili ne vraća se \texttt{unknown}. Komandom \texttt{get-model} vraća se interpretacija u kojoj su sve formule na steku tačne. 
 \par
@@ -207,7 +210,7 @@ Teorije rešavača Z3 su opisane u okviru višesortne logike prvog reda sa jedna
 
 \subsection{Teorija linearne aritmetike} 
 
-Rešavač Z3 sadrži procedure odlučivanja za linearnu aritmetiku nad celobrojnim i realnim brojevima. Dodatni materijali o procedurama odlučivanja linearne aritmetike dostupni su na REF.
+Rešavač Z3 sadrži procedure odlučivanja za linearnu aritmetiku nad celobrojnim i realnim brojevima. Dodatni materijali o procedurama odlučivanja linearne aritmetike dostupni su na \cite{FastLinearArithmetic}.
 \par
 
 U skladu sa standardom SMT-LIB 2.0, formule celobrojne linearne aritmetike konstruišu se korišćenjem funkcijskih simbola +, -, *, $\sim$ (unarna negacija), div i mod. Za funkcijske simbole div i mod, drugi operand mora biti različit od 0. 
@@ -315,7 +318,7 @@ Izlaz:
 \end{primer}
 
 \subsection{Teorija bitvektora} 
-Za razliku od programskih jezika, kao što su C, C++ i Java gde ne postoji razlika između označenih i neoznačenih bitvektora, rešavač Z3 ih tretira na različite načine. Teorija bitvektora ima na raspolaganju različite verzije aritmetičkih operacija za označene i neoznačene brojeve.
+Za razliku od programskih jezika, kao što su C, C++ i Java gde ne postoji razlika između označenih i neoznačenih bitvektora, rešavač Z3 ih tretira na različite načine. Teorija bitvektora ima na raspolaganju različite verzije aritmetičkih operacija za označene i neoznačene brojeve. Više materijala o procedurama odlučivanja za teoriju bitvektora može se naći na \cite{DPBitvector}.
 \par
 Z3 podržava vektore proizvoljne dužine. (\_ BitVec n) je sorta bitvektora čija je dužina n. Bitvektor literali se mogu definisati koristeći binarnu, decimalnu ili heksadecimalnu notaciju. U binarnom i heksadecimalnom slučaju, veličina bitvektora je određena brojem karaktera. Na primer, literal \#b010 u binarnom formatu je bitvektor dužine 3, a literal \#x0a0 u heksadecimalnom formatu je bitvektor veličine 12. Veličina bitvektora mora biti specifikovana u decimalnom formatu. Na primer, reprezentacija (\_ bv10 32) je bitvektor dužine 32 sa vrednošću 10. Podrazumevano, Z3 predstavlja bitvektore u heksadecimalnom formatu ukoliko je dužina bitvektora umnožak broja 4 a u suprotnom u binarnom formatu. Komanda 
 (set-option :pp.bv-literals false) se može koristiti za predstavljanje literala bitvektora u decimalnom formatu. 
@@ -683,7 +686,7 @@ Deklaracija rekurzivnog tipa podataka uključuje sebe direktno kao komponentu. S
 Postoji podrška za rekurzivni tip podataka korišćenjem ključne reči List. 
 Prazna lista se definiše korišćenjem reči nil a konstruktor insert se koristi za formiranje novih lista. Selektori head i tail se definišu na uobičajan način.
 
-\begin{primer} Korišćenje ugrađene podrške za liste. Deklarišemo tri liste l1,l2 i l3 sa celobrojnim vrednostima, kao i celobrojnu konstantu x. Dodaju se ograničenja za prve i poslednje elemente liste korišćenjem selektora. 
+\begin{primer} Deklarišemo tri liste l1,l2 i l3 sa celobrojnim vrednostima, kao i celobrojnu konstantu x. Dodaju se ograničenja za prve i poslednje elemente liste korišćenjem selektora. 
 \\ \\
 \begin{minipage}[b]{0.5\textwidth}
 Formula prosleđena rešavaču:
