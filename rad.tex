@@ -83,7 +83,7 @@ Proveravanje zadovoljivosti formula vrši se procedurama odlučivanja u odnosu n
 
 Jedan od najpoznatijih SMT rešavača je rešavač Z3 kompanije Microsoft koji se koristi za proveru zadovoljivosti logičkih formula u velikom broju teorija \cite{EfficientSMTSolver}. Z3 se najčešče koristi kao podrška drugim alatima, pre svega alatima za analizu i verifikaciju softvera. Rešavač Z3 nudi interfejs za direktnu komunikaciju sa programskim jezicima C, C++ i Python. Pripada grupi SMT rešavača sa integrisanim procedurama odlučivanja.
 \par
-U ovoj glavi biće opisane osnove rešavača Z3 u delu \ref{sec:num1}. U delu \ref{sec:num2} biće opisane najvažnije teorije uključujući teoriju linearne aritmetike, teoriju nelinearne aritmetike, teoriju bitvektora i teoriju nizova. U delu \ref{sec:num3} opisani su podržani tipovi podataka.  
+U ovoj glavi biće opisane osnove rešavača Z3 u delu \ref{sec:num1}. U delu \ref{sec:num2} biće opisane najvažnije teorije uključujući teoriju neinterpretiranih funkcija, teoriju linearne aritmetike, teoriju nelinearne aritmetike, teoriju bitvektora i teoriju nizova. U delu \ref{sec:num3} opisani su podržani tipovi podataka.  
 
 
 \section{Osnove rešavača}  \label{sec:num1}
@@ -105,9 +105,9 @@ Nakon simplifikacije, kompajler formira apstraktno sintaksno stablo formula čij
 \par
 Ulazni format rešavača Z3 je definisan SMT-LIB 2.0 standardom. Standard definiše jezik logičkih formula čija se zadovoljivost proverava u odnosu na neku teoriju. Cilj standarda je obezbeđivanje zajedničkog jezika za sve SMT rešavače. 
 \par
-Interno, Z3 održava stek korisnički definisanih formula i deklaracija. Formule i deklaracije jednim imenom nazivamo tvrđenjima. Komandom \texttt{push} kreira se novi opseg i čuva se trenutna veličina steka. Komandom \texttt{pop} uklanjaju se sva tvrđenja i deklaracije zadate posle push-a sa kojim se komanda uparuje. Komandom \texttt{assert} dodaje se formula na interni stek. Skup formula na steku je zadovoljiv ako postoji interpretacija u kojoj sve formule imaju istinitosnu vrednost tačno. Ova provera se vrši komandom \texttt{check-sat}. U slučaju zadovoljivosti vraća se \texttt{sat}, u slučaju nezadovoljivosti vraća se \texttt{unfsat} a kada rešavač ne može da proceni da li je formula zadovoljiva ili ne vraća se \texttt{unknown}. Komandom \texttt{get-model} vraća se interpretacija u kojoj su sve formule na steku tačne. 
+Interno, Z3 održava stek korisnički definisanih formula i deklaracija. Formule i deklaracije jednim imenom nazivamo tvrđenjima. Komandom \texttt{push} kreira se novi opseg i čuva se trenutna veličina steka. Komandom \texttt{pop} uklanjaju se sva tvrđenja i deklaracije zadate posle push-a sa kojim se komanda uparuje. Komandom \texttt{assert} dodaje se formula na interni stek. Skup formula na steku je zadovoljiv ako postoji interpretacija u kojoj sve formule imaju istinitosnu vrednost tačno. Ova provera se vrši komandom \texttt{check-sat}. U slučaju zadovoljivosti vraća se \texttt{sat}, u slučaju nezadovoljivosti vraća se \texttt{unsat} a kada rešavač ne može da proceni da li je formula zadovoljiva ili ne vraća se \texttt{unknown}. Komandom \texttt{get-model} vraća se interpretacija u kojoj su sve formule na steku tačne. 
 \par
-Glavni gradivni blokovi formula su konstante, funkcije i relacije. Konstante su specijalan slučaj funkcija bez parametara. Relacije su funkcije koje vraćaju povratnu vrednost tipa Boolean. Funkcije mogu uzimati argumente tipa Boolean pa se na taj način relacije mogu koristiti kao argumenti funkcija. Za razliku od programskih jezika, funkcije logike prvog reda su totalne, tj. definisane su za sve vrednosti ulaznih parametara. Na primer, deljenje 0 je dozvoljeno, ali nije specifikovano šta ono predstavlja. Funkcije i konstantni simboli su neinterpretirani. Ovo je kontrast u odnosu na funkcije odgovarajućih teorija. Funkcija + ima standardnu interpretaciju u teoriji aritmetike. Neinterpretirane funkcije i konstante su maksimalno fleksibilne i dozvoljavaju bilo koju interpretaciju koja je u skladu sa ograničenjima. 
+Glavni gradivni blokovi formula su konstante, funkcije i relacije. Konstante su specijalan slučaj funkcija bez parametara. Relacije su funkcije koje vraćaju povratnu vrednost tipa Boolean. Funkcije mogu uzimati argumente tipa Boolean pa se na taj način relacije mogu koristiti kao argumenti funkcija.  
 
 %\begin{primer} Kod demonstrira upotrebu neinterpretiranih tipova i funkcija %dokazivanjem identiteta: x = y => g(x) = g(y) upotrebom C++ API-ja. Formiramo %dva konstantna celobrojna izraza x i y i deklarišemo funkciju g sa jednim %argumentom. Dodajemo implikaciju, a zatim njenu negaciju prosleđujemo %rešavaču. Negacija implikacije je nezadovoljiva, pa je polazna formula validna %čime dokazujemo identitet.
 %\begin{lstlisting}
@@ -129,6 +129,41 @@ Glavni gradivni blokovi formula su konstante, funkcije i relacije. Konstante su 
 
 %\end{lstlisting}
 %\end{primer}
+
+
+Formula $F$ je validna ako je vrednost valuacije $true$ za bilo koje interpretacije funkcija i konstantnih simbola. Formula $F$ je zadovoljiva ukoliko postoji valuacija u kojoj je formula tačna. Da bismo odredili da li je formula $F$ valjana, rešavač Z3 proverava da li je formula $\lnot F$ zadovoljiva. Ukoliko je negacija formule nezadovoljiva, onda je polazna formula validna. 
+
+ 
+%Kao što je već napomenuto, rešavač Z3 nudi interfejs za direktnu komunikaciju %sa programskim jezicima. U daljem radu biće navedeni primeri korišćenjem C++ %API-ja.  
+%\begin{primer} Dokazujemo De Morganov zakon dualnosti korišćenjem formule 
+%$\neg{(a \land b)} \Leftrightarrow (\neg{a} \lor \neg{b}) $ korišćenjem C++ %API-ja. Rešavaču se prosleđuje negirana formula. Rešavač vraća %nezadovoljivost, čime pokazujemo da formula važi u svim interpretacijama.
+%\begin{lstlisting}
+%void demorgan() {
+%    context c;x
+%    expr x = c.bool_const("a");
+%    expr y = c.bool_const("b");
+%    expr conjecture = !(a && b) == (!a || !b);
+%    solver s(c);
+%    // dodavanje negacije konjunkcije kao ogranicenja
+%    s.add(!conjecture);
+%    std::cout << s;
+%    switch (s.check()) {
+%    case unsat:   std::cout << "Formula je validna";
+%    case sat:     std::cout << "Formula nije validna";
+%    case unknown: std::cout << "Rezultat je nepoznat"; 
+%    }
+%}
+
+%\end{lstlisting}
+%\end{primer}
+
+\section{Teorije} \label{sec:num2}
+Teorije rešavača Z3 su opisane u okviru višesortne logike prvog reda sa jednakošću.  Definisanjem specifične teorije, uvode se restrikcije pri definisanju formula kao i podržanih relacija i operatora koje se nad njima primenjuju. Na taj način, specijalizovane metode u odgovarajućoj teoriji mogu biti efikasnije implementirane u poređenju sa opštim slučajem. U nastavku će biti opisane teorija neinterpretiranih funkcija, teorija linearne aritmetike, teorija nelinearne aritmetike, teorija bitvektora i teorija nizova.
+
+\subsection{Teorija neinterpretiranih funkcija}
+Teorije obično određuju interpretaciju funkcijskih simbola. Teorija koja ne zadaje nikakva ograničenja za funkcijske simbole naziva se teorija neinterpretiranih funkcija 
+(eng. \textit{theory of equality with Uninterpreted Functions}, skraćeno EUF). Kod rešavača Z3, funkcije i konstantni simboli su neinterpretirani. Ovo je kontrast u odnosu na funkcije odgovarajućih teorija. Funkcija + ima standardnu interpretaciju u teoriji aritmetike. Neinterpretirane funkcije i konstante su maksimalno fleksibilne i dozvoljavaju bilo koju interpretaciju koja je u skladu sa ograničenjima. Za razliku od programskih jezika, funkcije logike prvog reda su totalne, tj. definisane su za sve vrednosti ulaznih parametara. Na primer, deljenje 0 je dozvoljeno, ali nije specifikovano šta ono predstavlja. Teorija neinterpretiranih funkcija je odlučiva i postoji procedura odlučivanja polinomijalne vremenske složenosti. Jedna od procedura odlučivanja za ovu teoriju zasniva se na primeni algoritma Nelson-Open(eng. \textit{Nelson-Open algorithm}). O ovom algoritmu može se više naći u literaturi. REFERENCA
+\par
 
 Komandom \texttt{declare-const} deklariše se konstanta odgovarajuće sorte (odgovara tipu promenljive u programskim jezicima). Sorta može biti parametrizovana i u tom slučaju su specifikovana imena njenih parametara. Specifikacija sorte vrši se naredbom \texttt{(define-sort [symbol] ([symbol]+)[sort])}.
 Komandom \texttt{declare-fun} deklariše se funkcija. 
@@ -160,8 +195,7 @@ Komandom \texttt{declare-fun} deklariše se funkcija.
 \end{minipage}
 \end{primer}
 
-
-Formula $F$ je validna ako je vrednost valuacije $true$ za bilo koje interpretacije funkcija i konstantnih simbola. Formula $F$ je zadovoljiva ukoliko postoji valuacija u kojoj je formula tačna. Da bismo odredili da li je formula $F$ valjana, rešavač Z3 proverava da li je formula $\lnot F$ zadovoljiva. Ukoliko je negacija formule nezadovoljiva, onda je polazna formula validna. 
+U narednom primeru koristimo činjenicu da se validnost formule pokazuje ispitivanjem nezadovoljivosti negirane formule. 
 
 \begin{primer} Dokazivanje de Morganovog zakona dualnosti ispitivanjem validnosti formule: $\neg{(a \land b)} \Leftrightarrow (\neg{a} \lor \neg{b}) $ tako što se kao ograničenje dodaje negacija polazne formule. Z3 pronalazi da je negacija formule nezadovoljiva, pa je polazna formula tačna u svim interpretacijama. \\
 
@@ -184,32 +218,7 @@ Formula $F$ je validna ako je vrednost valuacije $true$ za bilo koje interpretac
 \\unsat
 \end{minipage}
 \end{primer}
- 
-%Kao što je već napomenuto, rešavač Z3 nudi interfejs za direktnu komunikaciju %sa programskim jezicima. U daljem radu biće navedeni primeri korišćenjem C++ %API-ja.  
-%\begin{primer} Dokazujemo De Morganov zakon dualnosti korišćenjem formule 
-%$\neg{(a \land b)} \Leftrightarrow (\neg{a} \lor \neg{b}) $ korišćenjem C++ %API-ja. Rešavaču se prosleđuje negirana formula. Rešavač vraća %nezadovoljivost, čime pokazujemo da formula važi u svim interpretacijama.
-%\begin{lstlisting}
-%void demorgan() {
-%    context c;
-%    expr x = c.bool_const("a");
-%    expr y = c.bool_const("b");
-%    expr conjecture = !(a && b) == (!a || !b);
-%    solver s(c);
-%    // dodavanje negacije konjunkcije kao ogranicenja
-%    s.add(!conjecture);
-%    std::cout << s;
-%    switch (s.check()) {
-%    case unsat:   std::cout << "Formula je validna";
-%    case sat:     std::cout << "Formula nije validna";
-%    case unknown: std::cout << "Rezultat je nepoznat"; 
-%    }
-%}
 
-%\end{lstlisting}
-%\end{primer}
-
-\section{Teorije} \label{sec:num2}
-Teorije rešavača Z3 su opisane u okviru višesortne logike prvog reda sa jednakošću.  Definisanjem specifične teorije, uvode se restrikcije pri definisanju formula kao i podržanih relacija i operatora koje se nad njima primenjuju. Na taj način, specijalizovane metode u odgovarajućoj teoriji mogu biti efikasnije implementirane u poređenju sa opštim slučajem. U nastavku će biti opisane teorija linearne aritmetike, teorija nelinearne aritmetike, teorija bitvektora i teorija nizova.
 
 \subsection{Teorija linearne aritmetike} 
 
@@ -326,7 +335,7 @@ Nelinearna celobrojna aritmetika je neodlučiva, tj. ne postoji procedura koja z
 \end{primer}
 
 \subsection{Teorija bitvektora} 
-Z3 podržava vektore proizvoljne dužine. \texttt{(\_ BitVec n)} je sorta bitvektora čija je dužina \texttt{n}. Bitvektor literali se mogu definisati koristeći binarnu, decimalnu ili heksadecimalnu notaciju. U binarnom i heksadecimalnom slučaju, veličina bitvektora je određena brojem karaktera. Na primer, literal \texttt{\#b010} u binarnom formatu je bitvektor dužine 3, a literal \texttt{\#x0a0} u heksadecimalnom formatu je bitvektor veličine 12. Veličina bitvektora mora biti specifikovana u decimalnom formatu. Na primer, reprezentacija \texttt{(\_ bv10 32)} je bitvektor dužine 32 sa vrednošću 10. Podrazumevano, Z3 predstavlja bitvektore u heksadecimalnom formatu ukoliko je dužina bitvektora umnožak broja 4 a u suprotnom u binarnom formatu. Komanda 
+Z3 podržava vektore proizvoljne dužine. \texttt{(\_ BitVec n)} je sorta bitvektora čija je dužina \texttt{n}. Bitvektor literali se mogu definisati koristeći binarnu, decimalnu ili heksadecimalnu notaciju. U binarnom i heksadecimalnom slučaju, veličina bitvektora je određena brojem karaktera. Na primer, literal \textit{\#b010} u binarnom formatu je bitvektor dužine 3, a literal \textit{\#x0a0} u heksadecimalnom formatu je bitvektor veličine 12. Veličina bitvektora mora biti specifikovana u decimalnom formatu. Na primer, reprezentacija \textit{(\_ bv10 32)} je bitvektor dužine 32 sa vrednošću 10. Podrazumevano, Z3 predstavlja bitvektore u heksadecimalnom formatu ukoliko je dužina bitvektora umnožak broja 4 a u suprotnom u binarnom formatu. Komanda 
 \texttt{(set-option :pp.bv-literals false)} se može koristiti za predstavljanje literala bitvektora u decimalnom formatu. Više materijala o procedurama odlučivanja za teoriju bitvektora može se naći u literaturi \cite{DPBitvector}.
 \begin{primer} Navodimo različite načine predstavljanja bitvektora. Ukoliko zapis počinje sa \#b, bitvektor se zapisuje u binarnom formatu. Ukoliko zapis počinje sa \#x, bitvektor se zapisuje u heksadecimalnom formatu. U oba slučaja, nakon specifikacije formata, zapisuje se dužina vektora. Drugi način zapisa počinje skraćenicom bv, navođenjem vrednosti i na kraju dužine. Komandom \texttt{(display t)} štampa se izraz \texttt{t}.\\\\
 \begin{minipage}[b]{0.45\textwidth}
@@ -360,29 +369,28 @@ Pri korišćenju operatora nad bitvektorima, mora se eksplicitno navesti tip ope
 Teorija bitvektora ima na raspolaganju različite verzije aritmetičkih operacija za označene i neoznačene brojeve. 
 \par
 
-Za rad sa bitvektorima, definisane su operacije sabiranja, oduzimanja, negacije, množenja, izračunavanja modula pri deljenju, šiftovanje u levo kao i označeno i neoznačeno šifrovanje u desno. Podržane su sledeće logičke operacije nad bitovima: disjunkcija, konjunkcija, unarna negacija, negacija konjunkcije i negacija disjunkcije. Definisane su različite relacije nad bitvektorima kao što su <=, <, >=, > pri čemu su podržane i označene i neoznačene varijante pa se poređenje izvršava na različite načine. 
+Za rad sa bitvektorima od aritmetičkih operacija definisane su operacije sabiranja, oduzimanja, određivanje negacije (zapisivanja broja u komplementu invertovanjem svih bitova polaznog broja), množenja, izračunavanja modula pri deljenju, šiftovanje u levo kao i označeno i neoznačeno šifrovanje u desno. Podržane su sledeće logičke operacije nad bitovima: disjunkcija, konjunkcija, unarna negacija, negacija konjunkcije i negacija disjunkcije. Definisane su različite relacije nad bitvektorima kao što su <=, <, >=, > pri čemu su podržane i označene i neoznačene varijante pa se poređenje izvršava na različite načine. 
 
 
-\begin{primer} Ilustracija podržanih aritmetičkih operacija nad bitvektorima uklučujući sabiranje, oduzimanje, unarnu negaciju, množenje, računanje modula, šiftovanje ulevo, neoznačeno (logičko) šiftovanje udesno i označeno (aritmetičko) šiftovanje udesno.
+\begin{primer} Naredni primer ilustruje aritmetičke operacije nad bitvektorima. Podržane aritmetičke operacije su sabiranje (bvadd), oduzimanje (bvsub), unarnu negaciju (bvneg), množenje (bvmul), računanje modula (bvmod), šiftovanje ulevo (bvshl), neoznačeno (logičko) šiftovanje udesno (bvlshr) i označeno (aritmetičko) šiftovanje udesno (bvashr). Od logičkih operacija postoji podrška za disjunkciju (bvor), konjunkciju (bvand), ekskluzivnu disjunkciju (dvxor), negaciju disjunkcije (bvnor), negaciju konjunkcije (bvnand) i negaciju ekskluzivne disjunkcije (bvnxor).
 Komandom \texttt{(simplify t)} prikazuje se jednostavniji izraz ekvivalentan izrazu \texttt{t} ukoliko postoji.
 \\\\
 \begin{minipage}[b]{0.5\textwidth}
 \textbf{Formula prosleđena rešavaču:}
 \\(simplify (bvadd \#x07 \#x03)) 
-\\(simplify (bvsub \#x07 \#x03))
-\\(simplify (bvneg \#x07)) 
+\\(simplify (bvsub \#x07 \#x03)) 
+\\(simplify (bvneg \#x07))       
 \\(simplify (bvmul \#x07 \#x03)) 
 \\(simplify (bvsmod \#x07 \#x03)) 
 \\(simplify (bvshl \#x07 \#x03)) 
-\\(simplify (bvlshr \#xf0 \#x03)) 
-\\(simplify (bvashr \#xf0 \#x03)) 
+\\(simplify (bvlshr \#xf0 \#x03))  
+\\(simplify (bvashr \#xf0 \#x03))  
 \\(simplify (bvor \#x6 \#x3)) 
 \\(simplify (bvand \#x6 \#x3))  
-\\(simplify (bvnot \#x6)) 
+\\(simplify (bvxor \#x6)) 
 \\(simplify (bvnand \#x6 \#x3)) 
 \\(simplify (bvnor \#x6 \#x3)) 
 \\(simplify (bvxnor \#x6 \#x3)) 
-
 \end{minipage}
 \hspace{2.5cm}
 \begin{minipage}[b]{0.5\textwidth}
@@ -406,7 +414,7 @@ Komandom \texttt{(simplify t)} prikazuje se jednostavniji izraz ekvivalentan izr
 \end{primer}
 
 
-\begin{primer} Naredni kod dokazuje validnost De Morganovog zakona korišćenjem bitvektora. Deklarišu se dve konstante predstavljene bitvektorima dužine 64 a zatim se dodaje negacija formule i ispituje se njena zadovoljivost. Rešavač Z3 vraća unsat, negacija formule je nezadovoljiva.
+\begin{primer} Naredni primer dokazuje validnost De Morganovog zakona korišćenjem bitvektora. Deklarišu se dve konstante predstavljene bitvektorima dužine 64 a zatim se dodaje negacija formule i ispituje se njena zadovoljivost. Rešavač Z3 vraća unsat, negacija formule je nezadovoljiva.
 Odavde zaključujemo da je polazna formula valjana.
 \\ \\
 \hspace{9.5cm}
@@ -461,7 +469,7 @@ x \& (x - 1) jednaka 0.
 \end{minipage}
 \end{primer}
 
-\begin{primer} Ilustracija podržanih relacija nad bitvektorima. Podržane relacije uključuju neoznačene i označene verzije za operatore <, <=, > i >=. U nastavku slede pomenuti operatori primenom na dva operanda i njihove vrednosti kao izlaze.
+\begin{primer} Ovaj primer ilustruje upotrebu relacija nad bitvektorima. Podržane relacije uključuju neoznačene i označene verzije za operatore <, <=, > i >=. Neoznačene varijante počinju nazivom bvu, a u nastavku sledi ime relacije. Na primer, relacija <= nad neoznačenim brojevima zadaje se komandom bvule, a relacija > nad neoznačenim brojevima komandom bvugt. Označene varijante počinju nazivom bvs, a u nastavku ponovo sledi ime relacije. Na primer, relacija >= nad neoznačenim brojevima zadaje se komandom bvsge, a relacija < nad označenim brojevima komandom bvslt.
 \\ \\ 
 \begin{minipage}[b]{0.5\textwidth}
 \textbf{Formula prosleđena rešavaču:}
@@ -493,7 +501,7 @@ x \& (x - 1) jednaka 0.
 \end{primer}
 
 
-\begin{primer} Ilustracija označenog i neoznačenog poređenja bitvektora. Označeno poređenje, kao što je bvsle, uzima u obzir znak bitvektora za poređenje, dok neoznačeno poređenje tretira bitvektor kao prirodan broj. Z3 rešavač pronalazi da je tvrđenje zadovoljivo i daje prikazani model.
+\begin{primer} Ovaj primer poredi bitvektore koristeći označene i neoznačene verzije operatora. Označeno poređenje, kao što je bvsle, uzima u obzir znak bitvektora za poređenje, dok neoznačeno poređenje tretira bitvektor kao prirodan broj. Z3 rešavač pronalazi da je tvrđenje zadovoljivo i daje prikazani model.
 \\ \\
 \begin{minipage}[b]{0.5\textwidth}
 \textbf{Formula prosleđena rešavaču:}
