@@ -7,7 +7,8 @@
 % Ove parametre možete menjati samo ako pravite nezvanične verzije
 % mastera za privatnu upotrebu (na primer, u b5 varijanti ima smisla 
 % smanjiti 
-\documentclass[12pt,oneside]{memoir} 
+\documentclass[12pt,oneside]{memoir}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}} 
 % Paket koji definiše sve specifičnosti master rada Matematičkog fakulteta
 \usepackage[latinica,biblatex]{matfmaster} 
 \usepackage{listings}
@@ -76,8 +77,8 @@
 \chapter{Rešavač Z3}
 \label{chp:razrada}
 
-Sistemi za analizu i verifikaciju softvera su veoma kompleksni. Njihovu osnovu predstavlja komponenta koja koristi logičke formule za opisivanja stanja i transformacija između stanja sistema. Opisivanje stanja sistema svodi se na proveravanje zadovoljivosti formula logike prvog reda. 
-Proveravanje zadovoljivosti formula vrši se procedurama odlučivanja u odnosu na definisanu teoriju. Formalno, zadovoljivost u odnosu na teoriju (eng. Satisfiability Modulo Theory, skraćeno SMT) problem je odlučivanja zadovoljivosti u odnosu na osnovnu teoriju T opisanu u klasičnoj logici prvog reda sa jednakošću \cite{Barrett}. Alati koji se koriste za rešavanje ovog problema nazivaju se SMT rešavači. 
+Sistemi za analizu i verifikaciju softvera su veoma kompleksni. Njihovu osnovu predstavlja komponenta koja koristi logičke formule za opisivanja stanja i transformacija između stanja sistema. Opisivanje stanja sistema često se svodi na proveravanje zadovoljivosti formula logike prvog reda. 
+Proveravanje zadovoljivosti formula vrši se procedurama odlučivanja u odnosu na definisanu teoriju. Formalno, zadovoljivost u odnosu na teoriju (eng. \textit{Satisfiability Modulo Theory}, skraćeno SMT) problem je odlučivanja zadovoljivosti u odnosu na osnovnu teoriju T opisanu u klasičnoj logici prvog reda sa jednakošću \cite{Barrett}. Alati koji se koriste za rešavanje ovog problema nazivaju se SMT rešavači. 
 \par
 
 Jedan od najpoznatijih SMT rešavača je rešavač Z3 kompanije Microsoft koji se koristi za proveru zadovoljivosti logičkih formula u velikom broju teorija \cite{EfficientSMTSolver}. Z3 se najčešče koristi kao podrška drugim alatima, pre svega alatima za analizu i verifikaciju softvera. Rešavač Z3 nudi interfejs za direktnu komunikaciju sa programskim jezicima C, C++ i Python. Pripada grupi SMT rešavača sa integrisanim procedurama odlučivanja.
@@ -86,7 +87,7 @@ U ovoj glavi biće opisane osnove rešavača Z3 u delu \ref{sec:num1}. U delu \r
 
 
 \section{Osnove rešavača}  \label{sec:num1}
-Problem zadovoljivosti (eng. Satisfiability problem, skraćeno SAT) problem je odlučivanja da li za iskaznu formulu u konjunktivnoj normalnoj formi postoji valuacija u kojoj su sve njene 
+Problem zadovoljivosti (eng. \textit{Satisfiability problem}, skraćeno SAT) problem je odlučivanja da li za iskaznu formulu u konjunktivnoj normalnoj formi postoji valuacija u kojoj su sve njene 
 klauze tačne \cite{Handbook}. 
 Rešavači koji se koriste za rešavanje ovog problema nazivaju se SAT rešavači.   
 Rešavač Z3 integriše SAT rešavač zasnovan na savremenoj DPLL proceduri i veliki broj teorija. 
@@ -99,15 +100,14 @@ Implementiran je u programskom jeziku C++. Šematski prikaz arhitekture \cite{Ef
 \end{figure}
 \par
 Formule prosleđene rešavaču se najpre procesiraju upotrebom simplifikacije. Simplifikacija primenjuje algebarska pravila redukcije kao što je \texttt{p $\land$ true $\vdash$ true}. Pored toga, ovim procesom se vrše odgovarajuće zamene kao što je \texttt{x=4 $\land$ q(x) $\vdash$ x=4 $\land$ q(4)}.
-Nakon simplifikacije, kompajler formira apstraktno sintaksno stablo formula čiji su čvorovi simplifikovane formule (klauze). Zatim se jezgru kongruentnog zatvorenja (eng. Congruence closure core) prosleđuje apstraktno sintaksno stablo. Jezgro kongruentnog zatvorenja komunicira sa SAT rešavačem koji određuje istinitosnu vrednost klauza. 
+Nakon simplifikacije, kompajler formira apstraktno sintaksno stablo formula čiji su čvorovi simplifikovane formule (klauze). Zatim se jezgru kongruentnog zatvorenja (eng. 
+\textit{Congruence closure core}) prosleđuje apstraktno sintaksno stablo. Jezgro kongruentnog zatvorenja komunicira sa SAT rešavačem koji određuje istinitosnu vrednost klauza. 
 \par
 Ulazni format rešavača Z3 je definisan SMT-LIB 2.0 standardom. Standard definiše jezik logičkih formula čija se zadovoljivost proverava u odnosu na neku teoriju. Cilj standarda je obezbeđivanje zajedničkog jezika za sve SMT rešavače. 
 \par
-Interno, Z3 održava stek korisnički definisanih formula i deklaracija. Nazivamo ih tvrđenjima definisanih od strane korisnika. Komandom \texttt{push} kreira se novi opseg i čuva se trenutna veličina steka. Komandom \texttt{pop} uklanjaju se sva tvrđenja i deklaracije zadate posle push-a sa kojim se komanda uparuje. Komandom \texttt{assert} dodaje se formula na interni stek. Skup formula na steku je zadovoljiv ako postoji interpretacija u kojoj sve formule imaju istinitosnu vrednost tačno. Ova provera se vrši komandom \texttt{check-sat}. U slučaju zadovoljivosti vraća se \texttt{sat}, u slučaju nezadovoljivosti vraća se \texttt{unsat} a kada rešavač ne može da proceni da li je formula zadovoljiva ili ne vraća se \texttt{unknown}. Komandom \texttt{get-model} vraća se interpretacija u kojoj su sve formule na steku tačne. 
+Interno, Z3 održava stek korisnički definisanih formula i deklaracija. Formule i deklaracije jednim imenom nazivamo tvrđenjima. Komandom \texttt{push} kreira se novi opseg i čuva se trenutna veličina steka. Komandom \texttt{pop} uklanjaju se sva tvrđenja i deklaracije zadate posle push-a sa kojim se komanda uparuje. Komandom \texttt{assert} dodaje se formula na interni stek. Skup formula na steku je zadovoljiv ako postoji interpretacija u kojoj sve formule imaju istinitosnu vrednost tačno. Ova provera se vrši komandom \texttt{check-sat}. U slučaju zadovoljivosti vraća se \texttt{sat}, u slučaju nezadovoljivosti vraća se \texttt{unfsat} a kada rešavač ne može da proceni da li je formula zadovoljiva ili ne vraća se \texttt{unknown}. Komandom \texttt{get-model} vraća se interpretacija u kojoj su sve formule na steku tačne. 
 \par
-Glavni gradivni blokovi formula su konstante, funkcije i relacije. Konstante su specijalan slučaj funkcija bez parametara. 
-
-Relacije su funkcije koje vraćaju povratnu vrednost tipa Boolean. Funkcije mogu uzimati argumente tipa Boolean pa se na taj način relacije mogu koristiti kao argumenti funkcija. Za razliku od programskih jezika, funkcije logike prvog reda su totalne, tj. definisane su za sve vrednosti ulaznih parametara. Na primer, deljenje 0 je dozvoljeno, ali nije specifikovano šta ono predstavlja. Funkcije i konstantni simboli su neiterpretirani. Ovo je kontrast u odnosu na funkcije odgovarajućih teorija. Funkcija + ima standardnu interpretaciju u teoriji aritmetike. Neiterpretirane funkcije i konstante su maksimalno fleksibilne i dozvoljavaju bilo koju interpretaciju koja je u skladu sa ograničenjima. 
+Glavni gradivni blokovi formula su konstante, funkcije i relacije. Konstante su specijalan slučaj funkcija bez parametara. Relacije su funkcije koje vraćaju povratnu vrednost tipa Boolean. Funkcije mogu uzimati argumente tipa Boolean pa se na taj način relacije mogu koristiti kao argumenti funkcija. Za razliku od programskih jezika, funkcije logike prvog reda su totalne, tj. definisane su za sve vrednosti ulaznih parametara. Na primer, deljenje 0 je dozvoljeno, ali nije specifikovano šta ono predstavlja. Funkcije i konstantni simboli su neinterpretirani. Ovo je kontrast u odnosu na funkcije odgovarajućih teorija. Funkcija + ima standardnu interpretaciju u teoriji aritmetike. Neinterpretirane funkcije i konstante su maksimalno fleksibilne i dozvoljavaju bilo koju interpretaciju koja je u skladu sa ograničenjima. 
 
 %\begin{primer} Kod demonstrira upotrebu neinterpretiranih tipova i funkcija %dokazivanjem identiteta: x = y => g(x) = g(y) upotrebom C++ API-ja. Formiramo %dva konstantna celobrojna izraza x i y i deklarišemo funkciju g sa jednim %argumentom. Dodajemo implikaciju, a zatim njenu negaciju prosleđujemo %rešavaču. Negacija implikacije je nezadovoljiva, pa je polazna formula validna %čime dokazujemo identitet.
 %\begin{lstlisting}
@@ -138,8 +138,8 @@ Komandom \texttt{declare-fun} deklariše se funkcija.
 \\ \\
 
 \hspace{-0.7cm}
-\begin{minipage}[b]{0.4\textwidth}
-Formula prosleđena rešavaču:
+\begin{minipage}[b]{0.43\textwidth}
+\textbf{Formula prosleđena rešavaču:}\\
 (declare-const a Int)\\
 (declare-fun f (Int Bool) Int)\\
 (assert (> a 10))\\
@@ -147,37 +147,40 @@ Formula prosleđena rešavaču:
 (check-sat)\\
 (get-model) \\
 \end{minipage}
-\hspace{2.4cm}
-\begin{minipage}[t]{0.4\textwidth}
-\vspace{-4.75cm}
-Izlaz:
-\\sat (model 
-\\(define-fun a () Int 11) 
-\\(define-fun f ((x!1 Int) (x!2 Bool)) Int 
-\\(ite (and (= x!1 11) (= x!2 true)) 0 0)))
+\hspace{0.6cm}
+\begin{minipage}[t]{0.5\textwidth}
+\vspace{-4.715cm}
+\textbf{Izlaz:}
+\\sat 
+\\(model 
+\\\tab(define-fun a () Int 11) 
+\\\tab(define-fun f ((x!1 Int) (x!2 Bool)) Int 
+\\\tab(ite (and (= x!1 11) (= x!2 true)) 0 0))
+\\)
 \end{minipage}
 \end{primer}
 
 
-Formula F je validna ako je vrednost valuacije true za bilo koje interpretacije funkcija i konstantnih simbola. Formula F je zadovoljiva ukoliko postoji evaluacija u kojoj je njena vrednost tačna. Da bismo odredili da li je formula F valjana, rešavač Z3 proverava da li je formula not F zadovoljiva. Ukoliko je negacija formule nezadovoljiva, onda je polazna formula validna. 
+Formula $F$ je validna ako je vrednost valuacije $true$ za bilo koje interpretacije funkcija i konstantnih simbola. Formula $F$ je zadovoljiva ukoliko postoji valuacija u kojoj je formula tačna. Da bismo odredili da li je formula $F$ valjana, rešavač Z3 proverava da li je formula $\lnot F$ zadovoljiva. Ukoliko je negacija formule nezadovoljiva, onda je polazna formula validna. 
 
 \begin{primer} Dokazivanje de Morganovog zakona dualnosti ispitivanjem validnosti formule: $\neg{(a \land b)} \Leftrightarrow (\neg{a} \lor \neg{b}) $ tako što se kao ograničenje dodaje negacija polazne formule. Z3 pronalazi da je negacija formule nezadovoljiva, pa je polazna formula tačna u svim interpretacijama. \\
 
-\hspace{-0.7cm}
-\begin{minipage}[b]{0.4\textwidth}
-Formula prosleđena rešavaču:
+\hspace{-0.6cm}
+\begin{minipage}[b]{0.5\textwidth}
+\textbf{Formula prosleđena rešavaču:}
 \\(declare-const a Bool)
 \\(declare-const b Bool)
 \\(define-fun demorgan () Bool
-\\    (= (and a b) (not (or (not a) (not b)))))
+\\\tab (= (and a b) (not (or (not a) (not b))))
+\\)
 \\(assert (not demorgan))
 \\(check-sat) 
 \\(get-model)
 \end{minipage}
-\hspace{3.5cm}
+\hspace{1.5cm}
 \begin{minipage}[t]{0.4\textwidth}
 \vspace{-5.35cm}
-Izlaz:
+\textbf{Izlaz:}
 \\unsat
 \end{minipage}
 \end{primer}
@@ -206,7 +209,7 @@ Izlaz:
 %\end{primer}
 
 \section{Teorije} \label{sec:num2}
-Teorije rešavača Z3 su opisane u okviru višesortne logike prvog reda sa jednakošću.  Definisanjem specifične teorije, uvode se restrikcije pri definisanju formula kao i podržanih relacija i operatora koje se na njih primenjuju. Na taj način, specijalizovane metode u odgovarajućoj teoriji mogu biti efikasnije implementirane u poređenju sa opštim slučajem. U nastavku će biti opisane teorija linearne aritmetike, teorija nelinearne aritmetike, teorija bitvektora i teorija nizova.
+Teorije rešavača Z3 su opisane u okviru višesortne logike prvog reda sa jednakošću.  Definisanjem specifične teorije, uvode se restrikcije pri definisanju formula kao i podržanih relacija i operatora koje se nad njima primenjuju. Na taj način, specijalizovane metode u odgovarajućoj teoriji mogu biti efikasnije implementirane u poređenju sa opštim slučajem. U nastavku će biti opisane teorija linearne aritmetike, teorija nelinearne aritmetike, teorija bitvektora i teorija nizova.
 
 \subsection{Teorija linearne aritmetike} 
 
@@ -221,9 +224,9 @@ U realnoj linearnoj aritmetici, interpretirani funkcijski simboli su +,- ,* i $\
 Z3 rešavač ima podršku za celobrojne i realne konstante. Prethodno pomenutom komandom \texttt{declare-const} deklarišu se celobrojne i realne konstante. Rešavač ne vrši automatsku konverziju između celobrojnih i realnih konstanti. U tom slučaju koristi se funkcija \texttt{to-real} za konvertovanje celobrojnih u realne vrednosti.
 Realne konstante treba da budu zapisane sa decimalnom tačkom.
 
-\begin{primer} Naredni kod ilustruje pronalaženje interpretacija celobrojnih i realnih konstanti. Interpretacija se svodi na pridruživanje brojeva svakoj konstanti u slučaju zadovoljivosti formule. Ograničenja sadrže pomenute aritmetičke operatore. Rešavač zadovoljivost tvrđenja i dobijeni model prikazujemo u nastavku.\\ \\
-\begin{minipage}[b]{0.4\textwidth}
-Formula prosleđena rešavaču:
+\begin{primer} Naredni kod ilustruje pronalaženje interpretacija celobrojnih i realnih konstanti. Interpretacija se svodi na pridruživanje brojeva svakoj konstanti u slučaju zadovoljivosti formule. Ograničenja sadrže pomenute aritmetičke operatore. Rešavač pokazuje da je tvrđenje zadovoljivo i dobijeni model prikazujemo u nastavku.\\ \\
+\begin{minipage}[b]{0.47\textwidth}
+\textbf{Formula prosleđena rešavaču:}
 \\(declare-const a Int)
 \\(declare-const b Int)
 \\(declare-const c Int)
@@ -235,17 +238,20 @@ Formula prosleđena rešavaču:
 \\(check-sat)
 \\(get-model)
 \end{minipage}
-\hspace{3.15cm}
+\hspace{1.6cm}
 \begin{minipage}[t]{0.4\textwidth}
-\vspace{-7.2cm}
-Izlaz:
+\vspace{-6.55cm}
+\textbf{Izlaz:}
 \\sat 
 \\(model
-\\(define-fun b () Int 0) 
-\\(define-fun a () Int 1) 
-\\(define-fun e () Real 4.0) \\(define-fun c () Int 0) \\(define-fun d () Real (/ 1.0 2.0)))
+\\\tab(define-fun b () Int 0) 
+\\\tab(define-fun a () Int 1) 
+\\\tab(define-fun e () Real 4.0) 
+\\\tab(define-fun c () Int 0) 
+\\\tab(define-fun d () Real (/ 1.0 
+\\\tab 2.0))
+\\)
 \end{minipage}
-
 
 \end{primer}
 
@@ -257,13 +263,11 @@ U slučaju deljenja, može se koristiti ite (if-then-else) operator i na taj na�
 \par
 Mogu se konstruisati novi operatori, korišćenjem define-fun konstruktora. Ovo je zapravo makro, pa će rešavač vršiti odgovarajuće zamene.
 \begin{primer} Kod definiše operator deljenja tako da rezultat bude specifikovan i kada je delilac 0. Zatim se uvode dve konstante realnog tipa i primenjuje se definisani operator. Z3 rešavač pronalazi nezadovoljivost tvrđenja, s obzirom da operator mydiv vraća 0 pa relacija poređenja ne može biti tačna.\\ \\
-\begin{minipage}[b]{0.4\textwidth}
-Formula prosleđena rešavaču:
-\\; definišemo da je x/0.0 == 0.0 za svako x
+\begin{minipage}[b]{0.5\textwidth}
+\textbf{Formula prosleđena rešavaču:}
+\\;vazi da je x/0.0 == 0.0 za svako x
 \\(define-fun mydiv ((x Real) (y Real)) Real
-\\  (if (not (= y 0.0))
-\\      (/ x y)
-\\      0.0))
+\\\tab (if (not (= y 0.0))  (/ x y)  0.0))
 \\(declare-const a Real)
 \\(declare-const b Real)
 \\(assert (>= (mydiv a b) 1.0))
@@ -273,8 +277,8 @@ Formula prosleđena rešavaču:
 \end{minipage}
 \hspace{3cm}
 \begin{minipage}[t]{0.4\textwidth}
-\vspace{-7.85cm}
-Izlaz:
+\vspace{-5.3cm}
+\textbf{Izlaz:}
 \\unsat
 \end{minipage}
 \end{primer}
@@ -285,8 +289,8 @@ Formula predstavlja formulu nelinearne aritmetike ako je oblika (* t s), pri če
 Nelinearna celobrojna aritmetika je neodlučiva, tj. ne postoji procedura koja za proizvoljan ulaz vraća odgovor sat ili unsat. U najvećem broju slučajeva, Z3 vraća kao rezultat unknown. Postoje nelinearni problemi za koje Z3 rešavač vraća odgovarajući model koristeći procedure odlučivanja zasnovana na Grebnerovim bazama.
 
 \begin{primer} Rešavanje različitih nelinearnih problema sa celobrojnim i realnim konstantama. Z3 rešavač ne pronalazi uvek model za nelinearne probleme, ovde se za drugo tvrđenje vraća nezadovoljivost. Kada su prisutna samo nelinearna ograničenja nad realnim konstantama, Z3 koristi posebne metode odlučivanja. Ove metode korišćene su za dokazivanje trećeg tvrđenja.\\ \\
-\begin{minipage}[b]{0.4\textwidth}
-Formula prosleđena rešavaču:
+\begin{minipage}[b]{0.43\textwidth}
+\textbf{Formula prosleđena rešavaču:}
 \\(declare-const a Int)
 \\(assert (> (* a a) 3))
 \\(check-sat)
@@ -302,29 +306,31 @@ Formula prosleđena rešavaču:
 \\(get-model)
 
 \end{minipage}
-\hspace{2.6cm}
-\begin{minipage}[t]{0.4\textwidth}
-\vspace{-9.75cm}
-Izlaz:
+\hspace{1cm}
+\begin{minipage}[t]{0.45\textwidth}
+\vspace{-8.5cm}
+\textbf{Izlaz:}
 \\sat 
 \\(model 
-\\(define-fun a () Int (-8)) ) 
+\\\tab(define-fun a () Int (- 8))
+\\) 
+\\
 \\unsat 
-\\sat (
-\\model 
-\\(define-fun b () Real (/ 1.0 8.0)) 
-\\(define-fun c () Real (/ 1535.0 64.0)))
+\\
+\\sat 
+\\(model 
+\\\tab(define-fun b () Real (/ 1.0 8.0)) 
+\\\tab(define-fun c () Real (/ 15.0 64.0))
+\\)
 \end{minipage}
 \end{primer}
 
 \subsection{Teorija bitvektora} 
-Za razliku od programskih jezika, kao što su C, C++ i Java gde ne postoji razlika između označenih i neoznačenih bitvektora, rešavač Z3 ih tretira na različite načine. Teorija bitvektora ima na raspolaganju različite verzije aritmetičkih operacija za označene i neoznačene brojeve. Više materijala o procedurama odlučivanja za teoriju bitvektora može se naći na \cite{DPBitvector}.
-\par
-Z3 podržava vektore proizvoljne dužine. (\_ BitVec n) je sorta bitvektora čija je dužina n. Bitvektor literali se mogu definisati koristeći binarnu, decimalnu ili heksadecimalnu notaciju. U binarnom i heksadecimalnom slučaju, veličina bitvektora je određena brojem karaktera. Na primer, literal \#b010 u binarnom formatu je bitvektor dužine 3, a literal \#x0a0 u heksadecimalnom formatu je bitvektor veličine 12. Veličina bitvektora mora biti specifikovana u decimalnom formatu. Na primer, reprezentacija (\_ bv10 32) je bitvektor dužine 32 sa vrednošću 10. Podrazumevano, Z3 predstavlja bitvektore u heksadecimalnom formatu ukoliko je dužina bitvektora umnožak broja 4 a u suprotnom u binarnom formatu. Komanda 
-(set-option :pp.bv-literals false) se može koristiti za predstavljanje literala bitvektora u decimalnom formatu. 
-\begin{primer} Navodimo različite načine predstavljanja bitvektora. Ukoliko zapis počinje sa \#b, bitvektor se zapisuje u binarnom formatu. Ukoliko zapis počinje sa \#x, bitvektor se zapisuje u heksadecimalnom formatu. U oba slučaja, nakon specifikacije formata, zapisuje se dužina vektora. Drugi način zapisa počinje skraćenicom bv, navođenjem vrednosti i na kraju dužine. \\\\
-\begin{minipage}[b]{0.4\textwidth}
-Formula prosleđena rešavaču:
+Z3 podržava vektore proizvoljne dužine. \texttt{(\_ BitVec n)} je sorta bitvektora čija je dužina \texttt{n}. Bitvektor literali se mogu definisati koristeći binarnu, decimalnu ili heksadecimalnu notaciju. U binarnom i heksadecimalnom slučaju, veličina bitvektora je određena brojem karaktera. Na primer, literal \texttt{\#b010} u binarnom formatu je bitvektor dužine 3, a literal \texttt{\#x0a0} u heksadecimalnom formatu je bitvektor veličine 12. Veličina bitvektora mora biti specifikovana u decimalnom formatu. Na primer, reprezentacija \texttt{(\_ bv10 32)} je bitvektor dužine 32 sa vrednošću 10. Podrazumevano, Z3 predstavlja bitvektore u heksadecimalnom formatu ukoliko je dužina bitvektora umnožak broja 4 a u suprotnom u binarnom formatu. Komanda 
+\texttt{(set-option :pp.bv-literals false)} se može koristiti za predstavljanje literala bitvektora u decimalnom formatu. Više materijala o procedurama odlučivanja za teoriju bitvektora može se naći u literaturi \cite{DPBitvector}.
+\begin{primer} Navodimo različite načine predstavljanja bitvektora. Ukoliko zapis počinje sa \#b, bitvektor se zapisuje u binarnom formatu. Ukoliko zapis počinje sa \#x, bitvektor se zapisuje u heksadecimalnom formatu. U oba slučaja, nakon specifikacije formata, zapisuje se dužina vektora. Drugi način zapisa počinje skraćenicom bv, navođenjem vrednosti i na kraju dužine. Komandom \texttt{(display t)} štampa se izraz \texttt{t}.\\\\
+\begin{minipage}[b]{0.45\textwidth}
+\textbf{Formula prosleđena rešavaču:}
 \\(display \#b0100)
 \\(display (\_ bv20 8))
 \\(display (\_ bv20 7))
@@ -338,7 +344,7 @@ Formula prosleđena rešavaču:
 \hspace{2.5cm}
 \begin{minipage}[t]{0.4\textwidth}
 \vspace{-5.9cm}
-Izlaz:
+\textbf{Izlaz:}
 \\\#x4 
 \\\#x14 
 \\\#b0010100 
@@ -348,18 +354,20 @@ Izlaz:
 \\(\_ bv20 7) 
 \\(\_ bv10 8)
 \end{minipage}
-
-
 \end{primer}
 
+Pri korišćenju operatora nad bitvektorima, mora se eksplicitno navesti tip operanada. Ovo je kontrast u odnosu na programske jezike u kojima kompajler na osnovu argumenata implicitno određuje tip operacije (označena ili neoznačena varijanta).
+Teorija bitvektora ima na raspolaganju različite verzije aritmetičkih operacija za označene i neoznačene brojeve. 
+\par
 
 Za rad sa bitvektorima, definisane su operacije sabiranja, oduzimanja, negacije, množenja, izračunavanja modula pri deljenju, šiftovanje u levo kao i označeno i neoznačeno šifrovanje u desno. Podržane su sledeće logičke operacije nad bitovima: disjunkcija, konjunkcija, unarna negacija, negacija konjunkcije i negacija disjunkcije. Definisane su različite relacije nad bitvektorima kao što su <=, <, >=, > pri čemu su podržane i označene i neoznačene varijante pa se poređenje izvršava na različite načine. 
 
 
 \begin{primer} Ilustracija podržanih aritmetičkih operacija nad bitvektorima uklučujući sabiranje, oduzimanje, unarnu negaciju, množenje, računanje modula, šiftovanje ulevo, neoznačeno (logičko) šiftovanje udesno i označeno (aritmetičko) šiftovanje udesno.
+Komandom \texttt{(simplify t)} prikazuje se jednostavniji izraz ekvivalentan izrazu \texttt{t} ukoliko postoji.
 \\\\
 \begin{minipage}[b]{0.5\textwidth}
-Formula prosleđena rešavaču:
+\textbf{Formula prosleđena rešavaču:}
 \\(simplify (bvadd \#x07 \#x03)) 
 \\(simplify (bvsub \#x07 \#x03))
 \\(simplify (bvneg \#x07)) 
@@ -378,7 +386,7 @@ Formula prosleđena rešavaču:
 \end{minipage}
 \hspace{2.5cm}
 \begin{minipage}[b]{0.5\textwidth}
-Izlaz:
+\textbf{Izlaz:}
 \\\#x0a 
 \\\#x04 
 \\\#xf9 
@@ -402,18 +410,20 @@ Izlaz:
 Odavde zaključujemo da je polazna formula valjana.
 \\ \\
 \hspace{9.5cm}
-\begin{minipage}[t]{0.5\textwidth}
-Formula prosleđena rešavaču:
+\begin{minipage}[t]{0.7\textwidth}
+\textbf{Formula prosleđena rešavaču:}
 \\(declare-const x (\_ BitVec 64))
 \\(declare-const y (\_ BitVec 64))
 \\(assert 
-\\(not (= (bvand (bvnot x) (bvnot y)) (bvnot (bvor x y)))))
+\\\tab(not (= (bvand (bvnot x) (bvnot y)) (bvnot (bvor x y)))
+\\)
 \\(check-sat)
 \\(get-model)
 \end{minipage}
-\hspace{2.5cm}
-\begin{minipage}[t]{0.5\textwidth}
-Izlaz:
+\hspace{1cm}
+\begin{minipage}[t]{0.4\textwidth}
+\vspace{-0.25cm}
+\textbf{Izlaz:}
 \\unsat
 \end{minipage}
 \end{primer}
@@ -424,25 +434,29 @@ Ispostavlja se da je bitvektor x stepen dvojke ako i samo ako je vrednost izraza
 x \& (x - 1) jednaka 0.
 \begin{primer} Provera da li je broj stepen dvojke vrši se definisanjem funkcije korišćenjem prethodno pomenute jednakosti. Dodaje se negacija ove jednakosti kao tvrđenja i vrši se proveravanje za bitvektore vrednosti 0, 1, 2, 4 i 8. U svim slučajevima brojevi su stepeni dvojke pa Z3 rešavač vraća nezadovoljivost.\\ \\
 \begin{minipage}[b]{0.5\textwidth}
-Formula prosleđena rešavaču:
+\textbf{Formula prosleđena rešavaču:}
 \\(define-fun is-power-of-two 
-\\((x (\_ BitVec 4))) Bool 
-\\(= \#x0 (bvand x (bvsub x \#x1))))
+\\\tab((x (\_ BitVec 4))) Bool 
+\\\tab(= \#x0 (bvand x (bvsub x \#x1)))
+\\)
 \\(declare-const a (\_ BitVec 4))
 \\(assert 
-\\ (not (= (is-power-of-two a) 
-\\         (or (= a \#x0) 
-\\             (= a \#x1) 
-\\             (= a \#x2) 
-\\             (= a \#x4) 
-\\             (= a \#x8)))))
+\\\tab(not (= (is-power-of-two a) 
+\\\tab\tab    (or (= a \#x0) 
+\\\tab\tab\tab     (= a \#x1) 
+\\\tab\tab\tab     (= a \#x2) 
+\\\tab\tab\tab     (= a \#x4) 
+\\\tab\tab\tab     (= a \#x8)
+\\\tab\tab		))
+\\\tab )
+\\)
 \\(check-sat)
 \\(get-model)
 \end{minipage}
 \hspace{2.5cm}
 \begin{minipage}[t]{0.5\textwidth}
-\vspace{-8.35cm}
-Izlaz:
+\vspace{-10.95cm}
+\textbf{Izlaz:}
 \\unsat
 \end{minipage}
 \end{primer}
@@ -450,7 +464,7 @@ Izlaz:
 \begin{primer} Ilustracija podržanih relacija nad bitvektorima. Podržane relacije uključuju neoznačene i označene verzije za operatore <, <=, > i >=. U nastavku slede pomenuti operatori primenom na dva operanda i njihove vrednosti kao izlaze.
 \\ \\ 
 \begin{minipage}[b]{0.5\textwidth}
-Formula prosleđena rešavaču:
+\textbf{Formula prosleđena rešavaču:}
 \\(simplify (bvule \#x0a \#xf0))  
 \\(simplify (bvult \#x0a \#xf0))  
 \\(simplify (bvuge \#x0a \#xf0))  
@@ -463,8 +477,8 @@ Formula prosleđena rešavaču:
 \end{minipage}
 \hspace{2cm} 
 \begin{minipage}[t]{0.5\textwidth}
-\vspace{-5.25cm}
-Izlaz:
+\vspace{-5.3cm}
+\textbf{Izlaz:}
 \\true 
 \\true 
 \\false 
@@ -482,7 +496,7 @@ Izlaz:
 \begin{primer} Ilustracija označenog i neoznačenog poređenja bitvektora. Označeno poređenje, kao što je bvsle, uzima u obzir znak bitvektora za poređenje, dok neoznačeno poređenje tretira bitvektor kao prirodan broj. Z3 rešavač pronalazi da je tvrđenje zadovoljivo i daje prikazani model.
 \\ \\
 \begin{minipage}[b]{0.5\textwidth}
-Formula prosleđena rešavaču:
+\textbf{Formula prosleđena rešavaču:}
 \\(declare-const a (\_ BitVec 4))
 \\(declare-const b (\_ BitVec 4))
 \\(assert (not (= (bvule a b) (bvsle a b)))
@@ -491,12 +505,12 @@ Formula prosleđena rešavaču:
 \end{minipage}
 \hspace{1.15cm} 
 \begin{minipage}[t]{0.5\textwidth}
-\vspace{-3.4cm}
-Izlaz:
+\vspace{-3.45cm}
+\textbf{Izlaz:}
 \\sat 
 \\(model 
-\\(define-fun b () (\_ BitVec 4) \#xe) 
-\\(define-fun a () (\_ BitVec 4) \#x0)
+\\\tab(define-fun b () (\_ BitVec 4) \#xe) 
+\\\tab(define-fun a () (\_ BitVec 4) \#x0)
 \\)
 \end{minipage}
 
@@ -523,16 +537,16 @@ Svojstvo da Z3 različito tretira označene i neoznačene bitvektore ilustrovano
 %\end{lstlisting}
 
 \subsection{Teorija nizova} 
-Osnovnu teoriju nizova karakterisu select i store naredbe. 
-Komandom (select a i) vraća se vrednost na poziciji i u nizu a, a izraz (store a i v) formira novi niz, identičan nizu a pri čemu se na poziciji i nalazi vrednost v.
+Osnovnu teoriju nizova karakterišu \texttt{select} i \texttt{store} naredbe. 
+Komandom \texttt{(select a i)} vraća se vrednost na poziciji i u nizu a, a izraz \texttt{(store a i v)} formira novi niz, identičan nizu a pri čemu se na poziciji i nalazi vrednost v.
 Z3 sadrži procedure odlučivanja za osnovnu teoriju nizova.
 Dva niza su jednaka ukoliko su vrednosti elemenata sa odgovarajućim indeksima jednake.
  
 \begin{primer} Definišemo tri konstante x, y i z celobrojnog tipa. Neka je a1 niz celobrojnih vrednosti. Tada je ograničenje (and (= (select a1 x) x) (= (store a1 x y) a1)) zadovoljivo kada je element niza a na poziciji x jednak definisanoj konstanti x i u slučaju kada su konstante x i y jednake.
 Rešavač Z3 vraća zadovoljivost zadatog tvrđenja i odgovarajući model.
  \\ \\
-\begin{minipage}[b]{0.5\textwidth}
-Formula prosleđena rešavaču:
+\begin{minipage}[b]{0.45\textwidth}
+\textbf{Formula prosleđena rešavaču:}
 \\(declare-const x Int)
 \\(declare-const y Int)
 \\(declare-const z Int)
@@ -544,69 +558,74 @@ Formula prosleđena rešavaču:
 \end{minipage}
 \hspace{1.3cm} 
 \begin{minipage}[t]{0.5\textwidth}
-\vspace{-5.4cm}
-Izlaz:
+\vspace{-5.3cm}
+\textbf{Izlaz:}
 \\sat
 \\(model 
-\\(define-fun y () Int 1)
-\\(define-fun a1 () (Array Int Int)
-\\(\_ as-array k!0))
-\\(define-fun x () Int 1)
-\\(define-fun k!0 ((x!1 Int)) Int
-\\    (ite (= x!1 1) 1
-\\      0))
-)
+\\\tab(define-fun y () Int 1)
+\\\tab(define-fun a1 () (Array Int Int)
+\\\tab\tab(\_ as-array k!0)
+\\\tab)
+\\\tab(define-fun x () Int 1)
+\\\tab(define-fun k!0 
+\\\tab\tab((x!1 Int)) Int (ite (= x!1 1) 1 0)
+\\\tab)
+\\)
 
 \end{minipage}
 \end{primer} 
  
 
-\subsection{Konstantni nizovi}
+\subsubsection{Konstantni nizovi}
 
-Nizovi koji sadrže konstantne vrednosti mogu se specifikovati koristeći const konstrukciju. Upotrebom const konstrukcije Z3 ne može da odluči kog tipa su elementi niza pa se on mora eksplicitno navesti. Interpretacija nizova je slična interpretaciji funkcija. Z3 koristi konstrukciju (\_ as-array f) za određivanje interpretacije niza. Ako je niz a jednak rezultatu konstrukcije (\_ as-array f), tada za svaki indeks i, vrednost (select a i) odgovara vrednosti (f i). 
+Nizovi koji sadrže konstantne vrednosti mogu se specifikovati koristeći const konstrukciju. Upotrebom const konstrukcije Z3 ne može da odluči kog tipa su elementi niza pa se on mora eksplicitno navesti. Interpretacija nizova je slična interpretaciji funkcija. Z3 koristi konstrukciju \texttt{(\_ as-array f)} za određivanje interpretacije niza. Ako je niz a jednak rezultatu konstrukcije \texttt{(\_ as-array f)}, tada za svaki indeks i, vrednost \texttt{(select a i)} odgovara vrednosti \texttt{(f i)}. 
 
-\begin{primer} Defnišemo konstantni niz all1 celobrojnog tipa i dve celobrojne konstante a i i. Uvodimo ograničenje da niz all1 sadrži samo jedinice. Z3 pronalazi da je ovo tvrdjenje zadovoljivo, i daje prikazani model.\\ \\
-\begin{minipage}[b]{0.5\textwidth}
-Formula prosleđena rešavaču:
-\\(declare-const all1 (Array Int Int))
+\begin{primer} Defnišemo konstantni niz m celobrojnog tipa i dve celobrojne konstante a i i. Uvodimo ograničenje da niz m sadrži samo jedinice. Z3 pronalazi da je ovo tvrdjenje zadovoljivo, i daje prikazani model.\\ \\
+\begin{minipage}[b]{0.55\textwidth}
+\textbf{Formula prosleđena rešavaču:}
+\\(declare-const m (Array Int Int))
 \\(declare-const a Int)
 \\(declare-const i Int)
-\\(assert (= all1 ((as const (Array Int Int)) 1)))
-\\(assert (= a (select all1 i)))
+\\(assert (= m ((as const (Array Int Int)) 1)))
+\\(assert (= a (select m i)))
 \\(check-sat)
 \\(get-model)
 \end{minipage}
-\hspace{1.5cm} 
-\begin{minipage}[b]{0.5\textwidth}
-Izlaz:
+\hspace{1.1cm} 
+\begin{minipage}[t]{0.5\textwidth}
+\vspace{-4.65cm}
+\textbf{Izlaz:}
 \\sat 
 \\(model 
-\\(define-fun all1 () (Array Int Int) 
-\\(\_ as-array k!0)) 
-\\(define-fun i () Int 0) 
-\\(define-fun a () Int 1) 
-\\(define-fun k!0 ((x!0 Int)) Int 
-\\(ite (= x!0 0) 1 1)) )
+\\\tab(define-fun m () (Array Int Int) 
+\\\tab\tab(\_ as-array k!0)
+\\\tab) 
+\\\tab(define-fun i () Int 0) 
+\\\tab(define-fun a () Int 1) 
+\\\tab(define-fun k!0 ((x!0 Int)) 
+\\\tab\tab Int (ite (= x!0 0) 1 1)
+\\\tab)
+\\)
 \end{minipage}
 \end{primer}
 
 Primena map funkcije na nizove
 Z3 nudi parametrizovanu funkciju map na nizove. Omogućava primenu proizvoljnih funkcija na sve elemente niza.
 \begin{primer} Definišemo dva konstantna niza a i b tipa Boolean i dokazujemo da važi svojstvo $\neg{(a \land b)} \Leftrightarrow (\neg{a} \lor \neg{b}) $ primenom na sve elemente nizova a i b korišćenjem funkcije map. Kao ograničenje dodajemo negaciju prethodno navedene formule. Rešavaš Z3 vraća nezadovoljivost negirane formule, odakle zaključujemo da je polazna formula validna.\\ \\
-\begin{minipage}[b]{0.5\textwidth}
-Formula prosleđena rešavaču:
+\begin{minipage}[b]{0.65\textwidth}
+\textbf{Formula prosleđena rešavaču:}
 \\(define-sort Set (T) (Array T Bool))
 \\(declare-const a (Set Int))
 \\(declare-const b (Set Int))
-\\(assert (not (= ((\_ map and) a b) 
-\\((\_ map not) 
-\\((\_ map or) ((\_ map not) b) ((\_ map not) a))))))
+\\(assert (not (= ((\_ map and) a b) ((\_ map not) 
+\\\tab((\_ map or) ((\_ map not) b) ((\_ map not) a)))))
+\\)
 \\(check-sat)
 \end{minipage}
 \hspace{2.5cm} 
 \begin{minipage}[t]{0.5\textwidth}
-\vspace{-5.3cm}
-Izlaz:
+\vspace{-4.65cm}
+\textbf{Izlaz:}
 \\unsat 
 \end{minipage}
 \end{primer}
@@ -620,9 +639,9 @@ Slog se specifikuje kao tip podataka sa jednim konstruktorom i proizvoljnim broj
 \begin{primer} Pokazujemo svojstvo da su dva sloga jednaka ako i samo ako su im svi argumenti jednaki. Uvodimo parametarski tip Pair, sa konstruktorom mk-pair i dva argumenta kojima se može pristupiti koristeći selektorske funkcije first i second. Definišemo dva sloga p1 i p2, čija su oba podatka celobrojnog tipa. Dodajemo ograničenja da su slogovi p1 i p2 jednaki kao i ograničenje koje se odnosi na drugi element sloga. Rešavač Z3 u prvom slučaju vraća zadovoljivost formule i odgovarajući model. Dodavanjem ograničenja da prvi elementi slogova nisu jednaki korišćenjem selektorske funkcije first, tvrđenje postaje nezadovoljivo.
 \\ \\
 \begin{minipage}[b]{0.5\textwidth}
-Formula prosleđena rešavaču:
+\textbf{Formula prosleđena rešavaču:}
 \\(declare-datatypes (T1 T2) 
-\\((Pair (mk-pair (first T1) (second T2)))))
+\\\tab[0.3cm](Pair (mk-pair (first T1) (second T2))))
 \\(declare-const p1 (Pair Int Int))
 \\(declare-const p2 (Pair Int Int))
 \\(assert (= p1 p2))
@@ -632,16 +651,18 @@ Formula prosleđena rešavaču:
 \\(assert (not (= (first p1) (first p2))))
 \\(check-sat)
 \end{minipage}
-\hspace{2cm} 
+\hspace{1.5cm} 
 \begin{minipage}[t]{0.5\textwidth}
-\vspace{-6.5cm}
-Izlaz:
+\vspace{-6.59cm}
+\textbf{Izlaz:}
 \\sat 
 \\(model 
-\\(define-fun p1 () (Pair Int Int) 
-\\(mk-pair 0 21)) 
-\\(define-fun p2 () (Pair Int Int) 
-\\(mk-pair 0 21)) )
+\\\tab(define-fun p1 () (Pair Int Int) 
+\\\tab\tab(mk-pair 0 21)
+\\\tab) 
+\\\tab(define-fun p2 () (Pair Int Int) 
+\\\tab\tab(mk-pair 0 21)
+\\\tab)
 \\unsat
 \end{minipage}
 
@@ -652,7 +673,7 @@ Sorta skalara je sorta konačnog domena. Elementi konačnog domena se tretiraju 
 
 \begin{primer} Prilikom deklaracije skalarnog tipa podataka, navodi se broj različitih elemenata domena, u ovom primeru tri i pokazuje se nezadovoljivost tvrđenja sa četiri različita elementa domena. \\ \\
 \begin{minipage}[b]{0.5\textwidth}
-Formula prosleđena rešavaču:
+\textbf{Formula prosleđena rešavaču:}
 \\(declare-datatypes () ((S A B C)))
 \\(declare-const x S)
 \\(declare-const y S)
@@ -663,15 +684,16 @@ Formula prosleđena rešavaču:
 \\(assert (distinct x y z u))
 \\(check-sat)
 \end{minipage}
-\hspace{3cm} 
+\hspace{2.5cm} 
 \begin{minipage}[t]{0.5\textwidth}
-\vspace{-5.9cm}
-Izlaz:
+\vspace{-6cm}
+\textbf{Izlaz:}
 \\sat 
 \\(model 
-\\(define-fun z () S A) 
-\\(define-fun y () S B) 
-\\(define-fun x () S C) ) 
+\\\tab(define-fun z () S A) 
+\\\tab(define-fun y () S B) 
+\\\tab(define-fun x () S C)  
+\\)
 \\unsat
 \end{minipage}
 \end{primer}
@@ -688,8 +710,8 @@ Prazna lista se definiše korišćenjem reči nil a konstruktor insert se korist
 
 \begin{primer} Deklarišemo tri liste l1,l2 i l3 sa celobrojnim vrednostima, kao i celobrojnu konstantu x. Dodaju se ograničenja za prve i poslednje elemente liste korišćenjem selektora. 
 \\ \\
-\begin{minipage}[b]{0.5\textwidth}
-Formula prosleđena rešavaču:
+\begin{minipage}[b]{0.42\textwidth}
+\textbf{Formula prosleđena rešavaču:}
 \\(declare-const l1 (List Int))
 \\(declare-const l2 (List Int))
 \\(declare-const x Int)
@@ -704,20 +726,20 @@ Formula prosleđena rešavaču:
 \\(assert (= (tail l1) (tail l2)))
 \\(check-sat)
 \end{minipage}
-\hspace{2.2cm}
-\begin{minipage}[t]{0.5\textwidth}
-\vspace{-8.45cm}
-Izlaz:
+\hspace{0.4cm}
+\begin{minipage}[t]{0.55\textwidth}
+\vspace{-8.5cm}
+\textbf{Izlaz:}
 \\sat 
 \\(model 
-\\(define-fun l3 () (List Int) 
-\\(insert 101 
-\\(insert 0 (insert 1 nil)))) 
-\\(define-fun x () Int 101) 
-\\(define-fun l1 () (List Int) 
-\\(insert 0 nil)) 
-\\(define-fun l2 () (List Int) 
-\\(insert 0 (insert 1 nil)))) 
+\\\tab(define-fun l3 () (List Int) 
+\\\tab(insert 101 (insert 0 (insert 1 nil)))
+\\\tab(define-fun x () Int 101) 
+\\\tab(define-fun l1 () (List Int) (insert 0 nil)) 
+\\\tab(define-fun l2 () (List Int) (insert 0 
+\\\tab\tab(insert 1 nil))
+\\\tab)
+\\) 
 \\unsat
 \end{minipage}
 
