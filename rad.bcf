@@ -2145,10 +2145,13 @@
   <bcf:section number="0">
     <bcf:citekey order="1">Barrett</bcf:citekey>
     <bcf:citekey order="2">EfficientSMTSolver</bcf:citekey>
-    <bcf:citekey order="3">Handbook</bcf:citekey>
-    <bcf:citekey order="4">EfficientSMTSolver</bcf:citekey>
-    <bcf:citekey order="5">FastLinearArithmetic</bcf:citekey>
-    <bcf:citekey order="6">DPBitvector</bcf:citekey>
+    <bcf:citekey order="3">api</bcf:citekey>
+    <bcf:citekey order="4">Handbook</bcf:citekey>
+    <bcf:citekey order="5">EfficientSMTSolver</bcf:citekey>
+    <bcf:citekey order="6">SMTLIB</bcf:citekey>
+    <bcf:citekey order="7">NelsonOpen</bcf:citekey>
+    <bcf:citekey order="8">FastLinearArithmetic</bcf:citekey>
+    <bcf:citekey order="9">DPBitvector</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="nty/global/" type="entry" sortscheme="nty" sortnamekeyscheme="global" labelprefix="">
   <bcf:sorting>

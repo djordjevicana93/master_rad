@@ -1,0 +1,214 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist[entry]{nty/global/}
+    \entry{Barrett}{book}{}
+      \name{author}{2}{}{%
+        {{hash=a6540c79db660bc41e6094caa55711d2}{%
+           family={Barrett},
+           familyi={B\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+        {{hash=671d518c39f432bb9520d0f36a34b688}{%
+           family={Sebastiani},
+           familyi={S\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{7bc15f9aef8444e15d3a2afb8723f00b}
+      \strng{fullhash}{7bc15f9aef8444e15d3a2afb8723f00b}
+      \strng{authornamehash}{7bc15f9aef8444e15d3a2afb8723f00b}
+      \strng{authorfullhash}{7bc15f9aef8444e15d3a2afb8723f00b}
+      \field{sortinit}{B}
+      \field{sortinithash}{5f6fa000f686ee5b41be67ba6ff7962d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Satisfiability Modulo Theories, Frontiers in Artificial Intelligence and Applications}}
+      \field{year}{1987}
+      \field{pages}{825\bibrangedash 885}
+      \range{pages}{61}
+    \endentry
+    \entry{Handbook}{book}{}
+      \name{author}{2}{}{%
+        {{hash=22081d00e30965a89f413e528510617e}{%
+           family={Biere},
+           familyi={B\bibinitperiod},
+           given={Armin},
+           giveni={A\bibinitperiod}}}%
+        {{hash=b11bf1d4cc4974f593f500e89e59139a}{%
+           family={Heule},
+           familyi={H\bibinitperiod},
+           given={Marijin},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{62054458d87609caa3da8657dff6cba8}
+      \strng{fullhash}{62054458d87609caa3da8657dff6cba8}
+      \strng{authornamehash}{62054458d87609caa3da8657dff6cba8}
+      \strng{authorfullhash}{62054458d87609caa3da8657dff6cba8}
+      \field{sortinit}{B}
+      \field{sortinithash}{5f6fa000f686ee5b41be67ba6ff7962d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Handbook of Satisfiability, volume 185 of Frontiers in Artificial Intelligence and Applications}
+      \field{year}{2009}
+    \endentry
+    \entry{DPBitvector}{book}{}
+      \name{author}{1}{}{%
+        {{hash=83fc588d159fa4e179c8dcd1ec3c9f17}{%
+           family={C.\bibnamedelimi Barrett},
+           familyi={C\bibinitperiod\bibinitdelim B\bibinitperiod},
+           given={J.\bibnamedelimi Levitt},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod},
+           suffix={D.\bibnamedelimi Dill},
+           suffixi={D\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{83fc588d159fa4e179c8dcd1ec3c9f17}
+      \strng{fullhash}{83fc588d159fa4e179c8dcd1ec3c9f17}
+      \strng{authornamehash}{83fc588d159fa4e179c8dcd1ec3c9f17}
+      \strng{authorfullhash}{83fc588d159fa4e179c8dcd1ec3c9f17}
+      \field{sortinit}{C}
+      \field{sortinithash}{095692fd22cc3c74d7fe223d02314dbd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A decision procedure for bit-vector arithmetic}
+      \field{year}{1998}
+      \field{pages}{522\bibrangedash 527}
+      \range{pages}{6}
+    \endentry
+    \entry{SMTLIB}{book}{}
+      \name{author}{1}{}{%
+        {{hash=e8cf11bdde1ddabc598e33abb3771d86}{%
+           family={Clark\bibnamedelima Barrett},
+           familyi={C\bibinitperiod\bibinitdelim B\bibinitperiod},
+           given={Aaron\bibnamedelima Stump},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{e8cf11bdde1ddabc598e33abb3771d86}
+      \strng{fullhash}{e8cf11bdde1ddabc598e33abb3771d86}
+      \strng{authornamehash}{e8cf11bdde1ddabc598e33abb3771d86}
+      \strng{authorfullhash}{e8cf11bdde1ddabc598e33abb3771d86}
+      \field{sortinit}{C}
+      \field{sortinithash}{095692fd22cc3c74d7fe223d02314dbd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The SMT-LIB Standard - version 2.0}
+      \field{year}{2013}
+    \endentry
+    \entry{FastLinearArithmetic}{book}{}
+      \name{author}{2}{}{%
+        {{hash=c2bffa727749f729abb75d8d435815b7}{%
+           family={Dutertre},
+           familyi={D\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+        {{hash=5c96e1bd6db8b3b7a2517717109c68a4}{%
+           family={Moura},
+           familyi={M\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+      }
+      \strng{namehash}{ebcde6fbe2bfd42db757c9fc4210359e}
+      \strng{fullhash}{ebcde6fbe2bfd42db757c9fc4210359e}
+      \strng{authornamehash}{ebcde6fbe2bfd42db757c9fc4210359e}
+      \strng{authorfullhash}{ebcde6fbe2bfd42db757c9fc4210359e}
+      \field{sortinit}{D}
+      \field{sortinithash}{d10b5413de1f3d197b20897dd0d565bb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A Fast Linear-Arithmetic Solver for DPLL(T)}
+      \field{year}{2006}
+    \endentry
+    \entry{NelsonOpen}{book}{}
+      \name{author}{2}{}{%
+        {{hash=800e03a3a47526fd4223d6de647dd875}{%
+           family={House},
+           familyi={H\bibinitperiod},
+           given={R.\bibnamedelimi W.},
+           giveni={R\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=5a619af7109aa05fa905185fe44f4f76}{%
+           family={Rado},
+           familyi={R\bibinitperiod},
+           given={T.},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{45a6c653f40212c06ef58d46508657a9}
+      \strng{fullhash}{45a6c653f40212c06ef58d46508657a9}
+      \strng{authornamehash}{45a6c653f40212c06ef58d46508657a9}
+      \strng{authorfullhash}{45a6c653f40212c06ef58d46508657a9}
+      \field{sortinit}{H}
+      \field{sortinithash}{2f664b453ec75da1fe3804ca92633405}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A Generalization of Nelson-Open's Algorithm for Obtaining Prime Implicants}
+    \endentry
+    \entry{EfficientSMTSolver}{book}{}
+      \name{author}{2}{}{%
+        {{hash=04ffe79f369bf9f16e299fcf4f98e780}{%
+           family={Moura},
+           familyi={M\bibinitperiod},
+           given={Leonardo},
+           giveni={L\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+        {{hash=b31af11eae16b1786153bd694f83763b}{%
+           family={Bjorner},
+           familyi={B\bibinitperiod},
+           given={Nikolaj},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{d8fc3570b8d62cfe0a1613d8993e2ce3}
+      \strng{fullhash}{d8fc3570b8d62cfe0a1613d8993e2ce3}
+      \strng{authornamehash}{d8fc3570b8d62cfe0a1613d8993e2ce3}
+      \strng{authorfullhash}{d8fc3570b8d62cfe0a1613d8993e2ce3}
+      \field{sortinit}{M}
+      \field{sortinithash}{c26a05ef03e4429073ed5c825140fac3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Z3 - An Efficient SMT Solver, Microsoft Research}
+      \field{year}{2008}
+      \field{pages}{337\bibrangedash 340}
+      \range{pages}{4}
+    \endentry
+    \entry{api}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=2766b3f2d6ad1844b368d1a847d0d24e}{%
+           family={Research},
+           familyi={R\bibinitperiod},
+           given={Microsoft},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{2766b3f2d6ad1844b368d1a847d0d24e}
+      \strng{fullhash}{2766b3f2d6ad1844b368d1a847d0d24e}
+      \strng{authornamehash}{2766b3f2d6ad1844b368d1a847d0d24e}
+      \strng{authorfullhash}{2766b3f2d6ad1844b368d1a847d0d24e}
+      \field{sortinit}{R}
+      \field{sortinithash}{c15bc8eb6936bc6b3c8baa9e8575af53}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://z3prover.github.io/api/html/index.html}}
+      \field{title}{{Automatically generated documentation for the Z3 APIs}}
+      \field{year}{2016}
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+

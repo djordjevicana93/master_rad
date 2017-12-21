@@ -13,6 +13,7 @@
 \usepackage[latinica,biblatex]{matfmaster} 
 \usepackage{verbatim}
 \usepackage{url}
+\usepackage{hyperref}
 \newtheorem{primer}{Primer}
 
 \usepackage[latinica]{pangrami}
@@ -110,7 +111,7 @@ Proveravanje zadovoljivosti formula vrši se procedurama odlučivanja u odnosu n
 
 Jedan od najpoznatijih SMT rešavača je rešavač Z3 kompanije Microsoft koji se koristi za proveru zadovoljivosti logičkih formula u velikom broju teorija \cite{EfficientSMTSolver}. Z3 se najčešče koristi kao podrška drugim alatima, pre svega alatima za analizu i verifikaciju softvera. Pripada grupi SMT rešavača sa integrisanim procedurama odlučivanja.
 \par
-U ovoj glavi biće opisane osnove rešavača Z3 u delu \ref{sec:num1}. U delu \ref{sec:num2} biće opisane najvažnije teorije uključujući teoriju neinterpretiranih funkcija, teoriju linearne aritmetike, teoriju nelinearne aritmetike, teoriju bitvektora i teoriju nizova. U delu \ref{sec:num3} opisani su podržani tipovi podataka. U delu \ref{sec:num4} opisani su interfejsi rešavača Z3 za direktnu komunikaciju sa programskim jezicima.  
+U ovoj glavi biće opisane osnove rešavača Z3 u delu \ref{sec:num1}. U delu \ref{sec:num2} biće opisane najvažnije teorije uključujući teoriju neinterpretiranih funkcija, teoriju linearne aritmetike, teoriju nelinearne aritmetike, teoriju bitvektora i teoriju nizova. U delu \ref{sec:num3} opisani su podržani tipovi podataka. Rešavač Z3 nudi interfejse za direktnu komunikaciju sa programskim jezicima C, C++ i Python. U delu \ref{sec:num4} opisan je interfejs rešavača Z3 za komunikaciju sa programskim jezikom C++. Više materijala o podržanim interfejsima za programske jezike C, C++ i Python može se pronaći u literaturi \cite{api}.
 
 
 \section{Osnove rešavača}  \label{sec:num1}
@@ -131,7 +132,7 @@ Nakon simplifikacije, kompajler formira apstraktno sintaksno stablo formula čij
 \textit{Congruence closure core}) prosleđuje apstraktno sintaksno stablo. Jezgro kongruentnog zatvorenja komunicira sa SAT rešavačem koji određuje istinitosnu vrednost klauza. 
 \par
 
-Ulazni format rešavača Z3 je definisan SMT-LIB 2.0 standardom \cite{SMTLIB}. Standard definiše jezik logičkih formula čija se zadovoljivost proverava u odnosu na neku teoriju. Cilj standarda je pojednostavljivanje jezika logičkih formula povecavanjem njihove izražajnosti i fleksibilnosti kao i obezbeđivanje zajedničkog jezika za sve SMT rešavače. 
+Ulazni format rešavača Z3 je definisan SMT-LIB 2.0 standardom \cite{SMTLIB}. Standard definiše jezik logičkih formula čija se zadovoljivost proverava u odnosu na neku teoriju. Cilj standarda je pojednostavljivanje jezika logičkih formula povećavanjem njihove izražajnosti i fleksibilnosti kao i obezbeđivanje zajedničkog jezika za sve SMT rešavače. 
 \par
 Interno, Z3 održava stek korisnički definisanih formula i deklaracija. Formule i deklaracije jednim imenom nazivamo tvrđenjima. Komandom \texttt{push} kreira se novi opseg i čuva se trenutna veličina steka. Komandom \texttt{pop} uklanjaju se sva tvrđenja i deklaracije zadate posle push-a sa kojim se komanda uparuje. Komandom \texttt{assert} dodaje se formula na interni stek. Skup formula na steku je zadovoljiv ako postoji interpretacija u kojoj sve formule imaju istinitosnu vrednost tačno. Ova provera se vrši komandom \texttt{check-sat}. U slučaju zadovoljivosti vraća se \texttt{sat}, u slučaju nezadovoljivosti vraća se \texttt{unsat} a kada rešavač ne može da proceni da li je formula zadovoljiva ili ne vraća se \texttt{unknown}. Komandom \texttt{get-model} vraća se interpretacija u kojoj su sve formule na steku tačne. 
 \par
@@ -275,7 +276,7 @@ Mogu se konstruisati novi operatori, korišćenjem \texttt{define-fun} konstrukt
 Formula predstavlja formulu nelinearne aritmetike ako je oblika (* t s), pri čemu t i s nisu linearnog oblika.
 Nelinearna celobrojna aritmetika je neodlučiva, tj. ne postoji procedura koja za proizvoljan ulaz vraća odgovor \texttt{sat} ili \texttt{unsat}. U najvećem broju slučajeva, Z3 vraća kao rezultat \texttt{unknown}. Postoje nelinearni problemi za koje Z3 rešavač vraća odgovarajući model koristeći procedure odlučivanja zasnovana na Grebnerovim bazama.
 
-\begin{primer} Naredni primer ilustruje rešavanje različitih nelinearnih problema sa celobrojnim i realnim konstantama. Z3 rešavač ne pronalazi uvek model za nelinearne probleme, ovde se za drugo tvrđenje vraća nezadovoljivost. Kada su prisutna samo nelinearna ograničenja nad realnim konstantama, Z3 koristi posebne metode odlučivanja. Ove metode korišćene su za dokazivanje trećeg tvrđenja.\\ \\
+\begin{primer} Ovaj primer ilustruje rešavanje različitih nelinearnih problema sa celobrojnim i realnim konstantama. Z3 rešavač ne pronalazi uvek model za nelinearne probleme, ovde se za drugo tvrđenje vraća nezadovoljivost. Kada su prisutna samo nelinearna ograničenja nad realnim konstantama, Z3 koristi posebne metode odlučivanja. Ove metode korišćene su za dokazivanje trećeg tvrđenja.\\ \\
 \begin{minipage}[b]{0.43\textwidth}
 \textbf{Formula prosleđena rešavaču:}
 \\(declare-const a Int)
@@ -347,7 +348,7 @@ Pri korišćenju operatora nad bitvektorima, mora se eksplicitno navesti tip ope
 \par
 U skladu sa prethodno navedenom činjenicom, teorija bitvektora ima na raspolaganju različite verzije aritmetičkih operacija za označene i neoznačene operande. Za rad sa bitvektorima od aritmetičkih operacija definisane su operacije sabiranja, oduzimanja, određivanje negacije (zapisivanja broja u komplementu invertovanjem svih bitova polaznog broja), množenja, izračunavanja modula pri deljenju, šiftovanje u levo kao i označeno i neoznačeno šifrovanje u desno. Podržane su sledeće logičke operacije: disjunkcija, konjunkcija, unarna negacija, negacija konjunkcije i negacija disjunkcije. Definisane su različite relacije nad bitvektorima kao što su <=, <, >=, >.
 
-\begin{primer} Naredni primer ilustruje aritmetičke operacije nad bitvektorima. Podržane aritmetičke operacije su sabiranje (bvadd), oduzimanje (bvsub), unarna negacija (bvneg), množenje (bvmul), računanje modula (bvmod), šiftovanje ulevo (bvshl), neoznačeno (logičko) šiftovanje udesno (bvlshr) i označeno (aritmetičko) šiftovanje udesno (bvashr). Od logičkih operacija postoji podrška za disjunkciju (bvor), konjunkciju (bvand), ekskluzivnu disjunkciju (bvxor), negaciju disjunkcije (bvnor), negaciju konjunkcije (bvnand) i negaciju ekskluzivne disjunkcije (bvnxor).
+\begin{primer} Ovaj primer ilustruje aritmetičke operacije nad bitvektorima. Podržane aritmetičke operacije su sabiranje (bvadd), oduzimanje (bvsub), unarna negacija (bvneg), množenje (bvmul), računanje modula (bvmod), šiftovanje ulevo (bvshl), neoznačeno (logičko) šiftovanje udesno (bvlshr) i označeno (aritmetičko) šiftovanje udesno (bvashr). Od logičkih operacija postoji podrška za disjunkciju (bvor), konjunkciju (bvand), ekskluzivnu disjunkciju (bvxor), negaciju disjunkcije (bvnor), negaciju konjunkcije (bvnand) i negaciju ekskluzivne disjunkcije (bvnxor).
 Komandom \texttt{(simplify t)} prikazuje se jednostavniji izraz ekvivalentan izrazu \texttt{t} ukoliko postoji.
 \\\\
 \begin{minipage}[b]{0.5\textwidth}
@@ -520,9 +521,9 @@ Rešavač Z3 vraća zadovoljivost zadatog tvrđenja i odgovarajući model.
 
 \subsubsection{Konstantni nizovi}
 
-Nizovi sa konstantnim vrednostima mogu se specifikovati koristeći \texttt{const} konstrukciju. Priikom upotrebe const konstrukcije rešavač Z3 ne može da odluči kog tipa su elementi niza pa se on mora eksplicitno navesti. Interpretacija nizova je slična interpretaciji funkcija. Z3 koristi konstrukciju \texttt{(\_ as-array f)} za određivanje interpretacije niza. Ako je niz a jednak rezultatu konstrukcije \texttt{(\_ as-array f)}, tada za svaki indeks i, vrednost \texttt{(select a i)} odgovara vrednosti \texttt{(f i)}. 
+Nizovi sa konstantnim vrednostima mogu se specifikovati koristeći \texttt{const} konstrukciju. Prilikom upotrebe const konstrukcije rešavač Z3 ne može da odluči kog tipa su elementi niza pa se on mora eksplicitno navesti. Interpretacija nizova je slična interpretaciji funkcija. Z3 koristi konstrukciju \texttt{(\_ as-array f)} za određivanje interpretacije niza. Ako je niz a jednak rezultatu konstrukcije \texttt{(\_ as-array f)}, tada za svaki indeks i, vrednost \texttt{(select a i)} odgovara vrednosti \texttt{(f i)}. 
 
-\begin{primer} Definišemo konstantni niz m celobrojnog tipa i dve celobrojne konstante a i i. Uvodimo ograničenje da niz m sadrži samo jedinice. Z3 pronalazi da je ovo tvrdjenje zadovoljivo, i daje prikazani model.\\
+\begin{primer} Definišemo konstantni niz m celobrojnog tipa i dve celobrojne konstante a i i. Uvodimo ograničenje da niz m sadrži samo jedinice. Z3 pronalazi da je ovo tvrdjenje zadovoljivo i daje prikazani model.\\
 \begin{minipage}[b]{0.55\textwidth}
 \vspace{0.5cm} 
 \textbf{Formula prosleđena rešavaču:}
@@ -696,9 +697,10 @@ nije specifikovana u slučaju praznih lista.
 
 
 \section{Interfejsi rešavača}  \label{sec:num4}
-Rešavač Z3 obezbeđuje interfejse za direktnu podršku sa programskim jezicima C, C++ i Python. U nastavku će biti navedeni primeri korišćenja C++ API-ja za komunikaciju sa rešavačem Z3.
+Rešavač Z3 obezbeđuje interfejse za direktnu podršku sa programskim jezicima C, C++ i Python. U nastavku će biti navedeni primeri korišćenja C++ API-ja za komunikaciju sa rešavačem Z3.\par
+Primer \ref{ex1} ilustruje upotrebu neinterpretiranih funkcija dokazivanjem jednostavne formule gde se u zavisnosti od rezultata štampa odgovarajuća poruka. U primeru \ref{ex2} određuju se interpretacije konstanti u modelu a zatim se vrši evaluacija izraza sastavljenih od dobijenih interpretacija. Primer \ref{ex3} ilustruje ispitivanje validnosti De Morganove formule pokazivanjem nezadovoljivosti negirane formule. Primer \ref{ex4} ilustruje pronalaženje interpretacija konstanti modela za problem linearne aritmetike uvođenjem jednostavnih linearnih ograničenja. Za svaku od konstanti ispisuje se njeno ime i dodeljena vrednost. Primer \ref{ex5} ilustruje pronalaženje interpretacija realnih konstanti modela za problem nelinearne aritmetike uvođenjem jednostavnih ograničenja. Interpretacija realnih konstanti ispisuje se u celobrojnom i realnom formatu. Primer \ref{ex6} ilustruje pronalaženje interpretacija konstanti koje imaju bitvektorsku reprezentaciju pri čemu je ispunjeno jednostavno ograničenje. Za svaku od konstanti ispisuje se njeno ime i dodeljena vrednost.
 
-\begin{primer} Primer demonstrira upotrebu neinterpretiranih funkcija dokazivanjem formule x = y => g(x) = g(y), pri čemu su x i y celobrojne konstante, a g funkcijski simbol arnosti 1. Najpre se deklariše kontekst koji se prosleđuje rešavaču, a zatim celobrojne konstante x i y. Nakon toga, deklariše se funkcijski simbol g, sa ulaznim parametrom celobrojne sorte i izlaznom vrednošću celobrojne sorte. Dodaje se negacija prethodno navedene formule. U zavisnosti od rezultata, štampa se odgovarajuća poruka.\\
+\begin{primer} \label{ex1} Primer demonstrira upotrebu neinterpretiranih funkcija dokazivanjem formule x = y => g(x) = g(y), pri čemu su x i y celobrojne konstante, a g funkcijski simbol arnosti 1. Najpre se deklariše kontekst koji se prosleđuje rešavaču, a zatim celobrojne konstante x i y. Nakon toga, deklariše se funkcijski simbol g, sa ulaznim parametrom celobrojne sorte i izlaznom vrednošću celobrojne sorte. Dodaje se negacija prethodno navedene formule. U zavisnosti od rezultata, štampa se odgovarajuća poruka.\\
 \begin{lstlisting}[language=C++]
 void primer_sa_neinterpretiranim_funkcijama() { 
     context c;
@@ -716,9 +718,8 @@ void primer_sa_neinterpretiranim_funkcijama() {
         std::cout << "nije dokazano";
 }
 \end{lstlisting}
-\end{primer}\par
-U slučaju zadovoljivosti tvrđenja, interpretacije konstanti modela mogu se koristiti za dalja izračunavanja.
-\begin{primer} Primer demonstrira evaluaciju izraza u modelu. Najpre se definiše kontekst c i celobrojne konstante x i y. Zatim se rešavaču prosleđuju ograničenja x < y i x > 2. Proverava se zadovoljivost ograničenja i traži model. Na kraju se vrši evaluacija izraza x+y. 
+\end{primer}
+\begin{primer} \label{ex2} Primer demonstrira evaluaciju izraza u modelu. Najpre se definiše kontekst c i celobrojne konstante x i y. Zatim se rešavaču prosleđuju ograničenja x < y i x > 2. Proverava se zadovoljivost ograničenja i traži model. Na kraju se vrši evaluacija izraza x+y. 
 \begin{lstlisting}[language=C++]
 void eval_primer() {
     context c;
@@ -735,9 +736,8 @@ void eval_primer() {
     std::cout << "x+y = " << m.eval(x+y);
 }
 \end{lstlisting}
-\end{primer}\par
-U nastavku sledi dokazivanje validnosti formule pokazivanjem nezadovoljivosti njene negacije.
-\begin{primer} Primer demonstrira dokazivanje De Morganovog zakona korišćenjem C++ API-ja i ranije pomenute formule. Na početku se deklariše kontekst, konstante x i y kao i izraz e čija se validnost ispituje. Rešavaču se prosleđuje negacija izraza kao ograničenje i ispituje se zadovoljivost negirane formule. U zavisnosti od rezultata štampa se odgovarajuća poruka.
+\end{primer}
+\begin{primer} \label{ex3} Primer demonstrira dokazivanje De Morganovog zakona korišćenjem C++ API-ja i ranije pomenute formule. Na početku se deklariše kontekst, konstante x i y kao i izraz e čija se validnost ispituje. Rešavaču se prosleđuje negacija izraza kao ograničenje i ispituje se zadovoljivost negirane formule. U zavisnosti od rezultata štampa se odgovarajuća poruka.
 \begin{lstlisting}[language=C++]
 void demorgan() {
     context c;
@@ -756,9 +756,7 @@ void demorgan() {
 }
 \end{lstlisting}
 \end{primer}
-
-U nastavku sledi problem pronalaženja modela u linearnoj aritmetici korišćenjem C++ API-ja. 
-\begin{primer} Primer ilustruje traženje interpretacija celobrojnih konstanti x i y, pri čemu moraju biti ispunjene nejednakosti x >= 1 i y < x+3. Na početku se deklariše kontekst c i celobrojne konstante x i y. Zatim se rešavaču prosleđuju ograničenja i traži model. U okviru modela, pronalaze se interpretacije funkcijskih simbola. U ovom slučaju to su interpretacije konstanti, kao funkcijskih simbola arnosti 0. Na kraju se za svaku od konstanti ispisuje njeno ime i dodeljena vrednost. \\
+\begin{primer} \label{ex4} Primer ilustruje traženje interpretacija celobrojnih konstanti x i y, pri čemu moraju biti ispunjene nejednakosti x >= 1 i y < x+3. Na početku se deklariše kontekst c i celobrojne konstante x i y. Zatim se rešavaču prosleđuju ograničenja i traži model. U okviru modela, pronalaze se interpretacije funkcijskih simbola. U ovom slučaju to su interpretacije konstanti, kao funkcijskih simbola arnosti 0. Na kraju se za svaku od konstanti ispisuje njeno ime i dodeljena vrednost. \\
 \begin{lstlisting}[language=C++]
 void primer_linearne_aritmetike() {
     context c;
@@ -778,9 +776,7 @@ void primer_linearne_aritmetike() {
 \end{lstlisting}
 \end{primer}
 
-
-U nastavku sledi problem pronalaženja modela u nelinearnoj aritmetici korišćenjem C++ API-ja. 
-\begin{primer}
+\begin{primer} \label{ex5}
 Primer ilustruje traženje interpretacija realnih konstanti x, y i z, pri čemu moraju biti ispunjene nejednakosti \(x^2 + y^2 = 1\) i \(x^3 + z^3 < 1/2\). Najpre se definiše kontekst i realne konstante x, y, z a zatim se rešavaču prosleđuju pomenuta ograničenja. Rešavač pronalazi interpretaciju realnih konstanti koje se zapisuju najpre u celobrojnom formatu, a zatim i u realnom formatu.
 \\
 \begin{lstlisting}[language=C++]
@@ -803,8 +799,7 @@ void primer_nelinearne_aritmetike() {
 \end{lstlisting}
 \end{primer}
 
-U nastavku sledi upotreba bitvektora korišćenjem C++ API-ja za komunikaciju za Z3 rešavačem.
-\begin{primer} Primer pronalazi interpretacije konstanti x i y koje imaju reprezentaciju bitvektora. Deklariše se kontekst c i dve konstante x i y predstavljene bitvektorima dužine 32. Dodaje se ograničenje \(x^y - 103 = x*y\). Rešavač vraća zadovoljivost prosleđenih ograničenja a u nastavku se ispisuju imena i vrednosti konstanti.
+\begin{primer} \label{ex6} Primer pronalazi interpretacije konstanti x i y koje imaju reprezentaciju bitvektora. Deklariše se kontekst c i dve konstante x i y predstavljene bitvektorima dužine 32. Dodaje se ograničenje \(x^y - 103 = x*y\). Rešavač vraća zadovoljivost prosleđenih ograničenja a u nastavku se ispisuju imena i vrednosti konstanti.
 \begin{lstlisting}[language=C++]
 void primer_sa_bitvektorima() {
     context c;
