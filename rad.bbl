@@ -208,6 +208,26 @@
       \field{title}{{Automatically generated documentation for the Z3 APIs}}
       \field{year}{2016}
     \endentry
+    \entry{cppapi}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=2766b3f2d6ad1844b368d1a847d0d24e}{%
+           family={Research},
+           familyi={R\bibinitperiod},
+           given={Microsoft},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{2766b3f2d6ad1844b368d1a847d0d24e}
+      \strng{fullhash}{2766b3f2d6ad1844b368d1a847d0d24e}
+      \strng{authornamehash}{2766b3f2d6ad1844b368d1a847d0d24e}
+      \strng{authorfullhash}{2766b3f2d6ad1844b368d1a847d0d24e}
+      \field{sortinit}{R}
+      \field{sortinithash}{c15bc8eb6936bc6b3c8baa9e8575af53}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://z3prover.github.io/api/html/group__cppapi.html}}
+      \field{title}{{Automatically generated documentation for the Z3 C++ API}}
+      \field{year}{2016}
+    \endentry
   \endsortlist
 \endrefsection
 \endinput

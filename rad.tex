@@ -699,7 +699,7 @@ nije specifikovana u slučaju praznih lista.
 
 
 \section{Interfejsi rešavača}  \label{sec:num4}
-C++ interfejs prema rešavaču Z3 obezbeđuje različite strukture podataka, klase i funkcije koje su potrebne za direktnu komunikaciju C++ aplikacije sa rešavačem. Neke od najbitnijih klasa biće opisane u nastavku, dok se kompletan opis interfejsa može naći na internetu.
+C++ interfejs prema rešavaču Z3 obezbeđuje različite strukture podataka, klase i funkcije koje su potrebne za direktnu komunikaciju C++ aplikacije sa rešavačem. Neke od najbitnijih klasa biće opisane u nastavku, dok se kompletan opis interfejsa može naći na internetu \cite{cppapi}.
 
 Klasa \texttt{Z3\_sort} koristi se za definisanje tipa izraza.  Prilikom definisanja izraza navodi se tip kako bi bio poznat skup vrednosti koje mu se mogu dodeliti kao i skup dozvoljenih metoda. Sorte izraza definisane su tipom enumeracije. Neke od najvažnijih sorti su \texttt{Z3\_BOOL\_SORT}, \texttt{Z3\_INT\_SORT}, \texttt{Z3\_REAL\_SORT}, \texttt{Z3\_BV\_SORT} i \texttt{Z3\_ARRAY\_SORT}. Određivanje sorte izraza vrši se funkcijom \texttt{sort\_kind()} sa povratnom vrednošću tipa enumeracije. Za proveru pripadnosti izraza sorti, koriste se funkcije \texttt{is\_bool()}, \texttt{is\_int()}, \texttt{is\_real()}, \texttt{is\_array()} i \texttt{is\_bv()}. Sorte različitih izraza se mogu porediti korišćenjem operatora jednakosti. \par 
 
