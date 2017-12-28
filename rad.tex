@@ -111,7 +111,7 @@ Proveravanje zadovoljivosti formula vrši se procedurama odlučivanja u odnosu n
 
 Jedan od najpoznatijih SMT rešavača je rešavač Z3 kompanije Microsoft koji se koristi za proveru zadovoljivosti logičkih formula u velikom broju teorija \cite{EfficientSMTSolver}. Z3 se najčešče koristi kao podrška drugim alatima, pre svega alatima za analizu i verifikaciju softvera. Pripada grupi SMT rešavača sa integrisanim procedurama odlučivanja.
 \par
-U ovoj glavi biće opisane osnove rešavača Z3 u delu \ref{sec:num1}. U delu \ref{sec:num2} biće opisane najvažnije teorije uključujući teoriju neinterpretiranih funkcija, teoriju linearne aritmetike, teoriju nelinearne aritmetike, teoriju bitvektora i teoriju nizova. U delu \ref{sec:num3} opisani su podržani tipovi podataka. Rešavač Z3 nudi interfejse za direktnu komunikaciju sa programskim jezicima C, C++ i Python. U delu \ref{sec:num4} opisan je interfejs rešavača Z3 za komunikaciju sa programskim jezikom C++. Više materijala o podržanim interfejsima za programske jezike C, C++ i Python može se pronaći u literaturi \cite{api}.
+U ovoj glavi biće opisane osnove rešavača Z3 u delu \ref{sec:num1}. U delu \ref{sec:num2} biće opisane najvažnije teorije uključujući teoriju neinterpretiranih funkcija, teoriju linearne aritmetike, teoriju nelinearne aritmetike, teoriju bitvektora i teoriju nizova. U delu \ref{sec:num3} opisani su podržani tipovi podataka. Rešavač Z3 nudi interfejse za direktnu komunikaciju sa programskim jezicima C, C++ i Python. U delu \ref{sec:num4} opisan je interfejs rešavača Z3 za komunikaciju sa programskim jezikom C++. Više materijala o podržanim interfejsima za programske jezike C, C++, Java i Python može se pronaći u literaturi \cite{api}.
 
 
 \section{Osnove rešavača}  \label{sec:num1}
@@ -698,16 +698,17 @@ U prethodnom primeru, uvode se ograničenja da su liste l1 i l2 različite od ni
 nije specifikovana u slučaju praznih lista.
 
 
-\section{Interfejsi rešavača}  \label{sec:num4}
+\section{C++ interfejs rešavača}  \label{sec:num4}
 C++ interfejs prema rešavaču Z3 obezbeđuje različite strukture podataka, klase i funkcije koje su potrebne za direktnu komunikaciju C++ aplikacije sa rešavačem. Neke od najbitnijih klasa biće opisane u nastavku, dok se kompletan opis interfejsa može naći na internetu \cite{cppapi}.
 
 Klasa \texttt{Z3\_sort} koristi se za definisanje tipa izraza.  Prilikom definisanja izraza navodi se tip kako bi bio poznat skup vrednosti koje mu se mogu dodeliti kao i skup dozvoljenih metoda. Sorte izraza definisane su tipom enumeracije. Neke od najvažnijih sorti su \texttt{Z3\_BOOL\_SORT}, \texttt{Z3\_INT\_SORT}, \texttt{Z3\_REAL\_SORT}, \texttt{Z3\_BV\_SORT} i \texttt{Z3\_ARRAY\_SORT}. Određivanje sorte izraza vrši se funkcijom \texttt{sort\_kind()} sa povratnom vrednošću tipa enumeracije. Za proveru pripadnosti izraza sorti, koriste se funkcije \texttt{is\_bool()}, \texttt{is\_int()}, \texttt{is\_real()}, \texttt{is\_array()} i \texttt{is\_bv()}. Sorte različitih izraza se mogu porediti korišćenjem operatora jednakosti. \par 
 
-Za upravljanje objektima interfejsa kao i za globalno konfigurisanje koristi se klasa \texttt{context}. Klasa sadrži konstruktor bez argumenata. Korišćenjem klase \texttt{context}, mogu se detektovati različite vrste grešaka u korišćenju C++ API-ja. Greške su definisane tipom enumeracije \texttt{Z3\_ERROR\_CODE}. Neke od konstanti enumeracije su \texttt{Z3\_OK}, \texttt{Z3\_SORT\_ERROR}, \texttt{Z3\_INVALID\_USAGE} i \texttt{Z3\_INTERNAL\_FATAL}.  Kontekst omogućava kreiranje konstanti metodama \texttt{bool\_const()}, \texttt{int\_const()}, \texttt{real\_const()} i \texttt{bv\_const()}. Definisanje različitih sorti omogućeno je metodama \texttt{bool\_sort()}, \texttt{int\_sort()}, \texttt{real\_sort()}, \texttt{bv\_sort()} i \texttt{array\_sort()}. 
+Za upravljanje objektima interfejsa kao i za globalno konfigurisanje koristi se klasa \texttt{context}. Klasa sadrži konstruktor bez argumenata. Upotrebom klase \texttt{context}, mogu se detektovati različite vrste grešaka u korišćenju C++ API-ja. Greške su definisane tipom enumeracije \texttt{Z3\_ERROR\_CODE}. Neke od konstanti enumeracije su \texttt{Z3\_OK}, \texttt{Z3\_SORT\_ERROR}, \texttt{Z3\_INVALID\_USAGE} i \texttt{Z3\_INTERNAL\_FATAL}.  Kontekst omogućava kreiranje konstanti metodama \texttt{bool\_const()}, \texttt{int\_const()}, \texttt{real\_const()} i \texttt{bv\_const()}. Definisanje različitih sorti omogućeno je metodama \texttt{bool\_sort()}, \texttt{int\_sort()}, \texttt{real\_sort()}, \texttt{bv\_sort()} i \texttt{array\_sort()}. 
 \par
 
-Izrazi koji se formiraju pripadaju klasi \texttt{expr}. Z3 izraz se koristi za predstavljanje formula i termova. Formula je proizvoljan izraz sorte \texttt{Boolean}. Sadrži konstruktor čiji je argument objekat klase \texttt{context}. Poređenje dva izraza vrši se operatorom \texttt{expr\& operator= (expr const \&n)}. Konstanti izrazi mogu se definisati metodama \texttt{bool\_const()}, \texttt{int\_const()} i \texttt{real\_const()}. Za određivanje sorti izraza koriste se metode \texttt{is\_bool()}, \texttt{is\_int()}, \texttt{is\_real()}, \texttt{is\_array()} i \texttt{is\_bv()}. Za dobijanje izraza na zadatoj poziciji u skupu izraza koristi se metoda \texttt{at(expr const \&index)}.  Provera da li podizraz predstavlja deo drugog izraza vrši se metodom  \texttt{contains(expr const \&s)}. Za dobijanje pojednostavljenog izraza ekvivalentnog polaznom koristi se metoda \texttt{simplify()} ukoliko takav izraz postoji. Za dobijanje pojednostavljenog izraza može se navesti i skup parametara koji se prosleđuju Z3 simplifikatoru. Zamenu vektora izraza drugim vektorom vrši se metodom \texttt{substitute(expr\_vector const \&source, expr\_vector const \&destination)}. 	
-
+Izrazi koji se formiraju pripadaju klasi \texttt{expr}. Z3 izraz se koristi za predstavljanje formula i termova. Formula je proizvoljan izraz sorte \texttt{Boolean}. Sadrži konstruktor čiji je argument objekat klase \texttt{context}. Konstanti izrazi mogu se definisati metodama \texttt{bool\_const()}, \texttt{int\_const()} i \texttt{real\_const()}. Za dobijanje izraza na zadatoj poziciji u skupu izraza koristi se metoda \texttt{at(expr const \&index)}.  Provera da li podizraz predstavlja deo drugog izraza vrši se metodom  \texttt{contains(expr const \&s)}. Za dobijanje pojednostavljenog izraza ekvivalentnog polaznom koristi se metoda \texttt{simplify()} ukoliko takav izraz postoji. Za dobijanje pojednostavljenog izraza može se navesti i skup parametara koji se prosleđuju Z3 simplifikatoru. Zamenu vektora izraza drugim vektorom vrši se metodom \texttt{substitute(expr\_vector const \&source, expr\_vector const \&destination)}. 
+\par
+Postoji veliki broj metoda i operatora koji se koriste za izgradnju složenih izraza. Neke od podržanih logičkih operacija su konjunkcija, disjunkcija, implikacija, negacija konjunkcije i negacija disjunkcije. Konjunkcija vektora izraza vrši se metodom \texttt{mk\_and(expr\_vector const \&args)}. Disjunkcija vektora izraza vrši se metodom \texttt{mk\_or(expr\_vector const \&args)}. Implikacija dva izraza vrši se metodom \texttt{implies(expr const \&a, expr const \&b)}. Negacija konjunkcije dva izraza vrši se metodom \texttt{nand(expr const  \&a, expr const \&b)}. Negacija disjunkcije dva izraza vrši se metodom \texttt{nor(expr const \&a, expr const \&b)}. Nad izrazima se mogu primenjivati relacijski operatori \texttt{==}, \texttt{!=}, \texttt{<}, \texttt{<=}, \texttt{>}, \texttt{>=} pri čemu izrazi moraju biti odgovarajuće sorte kako bi poređenje bilo moguće. Nadovezivanje dva izraza vrši se metodom \texttt{concat(expr const \&a, expr const \&b)}. Može se vršiti i nadovezivanje vektora izraza. Kombinovanjem pomenutih metoda i operatora mogu se graditi izrazi proizvoljne složenosti. 	
 \par
 Funkcije predstavljaju osnovne gradivne blokove. Definicija funkcije vrši se objektima klase \texttt{func\_decl}. Korišćenjem ove klase definišu se interpretirane i neinterpretirane funkcije rešavača Z3. 
 Povratne vrednosti funkcija određene su tipom enumeracije \texttt{Z3\_decl\_kind}. Neke od konstanti enumeracije su \texttt{Z3\_OP\_TRUE}, \texttt{Z3\_OP\_FALSE}, \texttt{Z3\_OP\_REAL}, \texttt{Z3\_OP\_INT} i \texttt{Z3\_OP\_ARRAY}. Dobijanje imena funkcijskog simbola vrši se metodom \texttt{name()}. Određivanje arnosti funkcijskog simbola vrši se metodom \texttt{arity()}. Određivanje sorte i-tog parametra funkcijskog simbola određuje se metodom \texttt{domain(unsigned i)}. 
@@ -718,31 +719,11 @@ U okviru C++ interfejsa, teorije rešavača Z3 zadate su semantički navođenjem
 Metodom \texttt{get\_const\_decl(unsigned i)} dobija se interpretacija i-te konstante modela. Metodom \texttt{num\_consts()} dobija se broj konstanti datog modela kao funkcijskih simbola arnosti 0. Metodom \texttt{num\_funcs()} dobija se broj funkcijskih simbola arnosti veće od 0.  Metodom \texttt{size()} vraća se broj funkcijskih simbola modela. Poređenje modela vrši se operatorom jednakosti. Dva modela su jednaka ukoliko su im jednake interpretacije svih funkcijskih simbola. Za ispisivanje modela, koristi se funkcija \texttt{Z3\_model\_to\_string} čiji su argumenti objekti klasa \texttt{context} i \texttt{model}.\par 
 
 
-
 Sa Z3 rešavačem komunicira se korišćenjem objekta klase \texttt{solver}. Objekat klase \texttt{solver} inicijalizuje se vrednostima objekta klase \texttt{context}. Osnovni metodi klase solver su \texttt{add}, \texttt{check} i \texttt{get\_model}. Metodom \texttt{add(expr const \&e)} dodaje se ograničenje koje se prosleđuje rešavaču. Metodom \texttt{check()} proverava se zadovoljivost ograničenja prosleđenih rešavaču. Metodom \texttt{get\_model()} vraća se model definisan ograničenjima ukoliko postoji. Pre korišćenja metode \texttt{get\_model()}, mora se pozvati metod \texttt{check()}. Metodom \texttt{assertions()} vraća se vektor ograničenja prosleđenih rešavaču. Ograničenja se mogu čitati iz fajla i iz stringa, korišćenjem metoda \texttt{from\_file(char const *file)} i \texttt{from\_string(char const *s)}. Uklanjanje svih ograničenja prosleđenih rešavaču vrši se metodom \texttt{reset()}. \par
 
-Primer \ref{ex1} ilustruje upotrebu neinterpretiranih funkcija dokazivanjem jednostavne formule gde se u zavisnosti od rezultata štampa odgovarajuća poruka. Primer \ref{ex2} ilustruje ispitivanje validnosti De Morganove formule pokazivanjem nezadovoljivosti negirane formule. U primeru \ref{ex3} određuju se interpretacije konstanti u modelu a zatim se vrši evaluacija izraza sastavljenih od dobijenih interpretacija.  Primer \ref{ex4} ilustruje pronalaženje interpretacija konstanti modela za problem linearne aritmetike uvođenjem linearnih ograničenja. Za svaku od konstanti ispisuje se njeno ime i dodeljena vrednost. Primer \ref{ex5} ilustruje pronalaženje interpretacija realnih konstanti modela za problem nelinearne aritmetike uvođenjem ograničenja. Interpretacija realnih konstanti ispisuje se u celobrojnom i realnom formatu. Primer \ref{ex6} ilustruje pronalaženje interpretacija konstanti koje imaju bitvektorsku reprezentaciju pri čemu je ispunjeno jednostavno ograničenje. Za svaku od konstanti ispisuje se njeno ime i dodeljena vrednost.
+Primer \ref{ex1} ilustruje kreiranje bulovskih izraza i jednostavne formule i prikazuje kako se kreira i upotrebljava klasa kontekst i klasa solver. U ovom primeru, ilustrovano je dodavanje ogranicenje u solver metodom add i proveravanje njegove zadovoljivosti metodom check. 
 
-\begin{primer} \label{ex1} Primer demonstrira upotrebu neinterpretiranih funkcija dokazivanjem formule x = y => g(x) = g(y), pri čemu su x i y celobrojne konstante, a g funkcijski simbol arnosti 1. Najpre se deklariše kontekst koji se prosleđuje rešavaču, a zatim celobrojne konstante x i y. Nakon toga, deklariše se funkcijski simbol g, sa ulaznim parametrom celobrojne sorte i izlaznom vrednošću celobrojne sorte. Dodaje se negacija prethodno navedene formule. U zavisnosti od rezultata, štampa se odgovarajuća poruka.\\
-\begin{lstlisting}[language=C++]
-void primer_sa_neinterpretiranim_funkcijama() { 
-    context c;
-    expr x      = c.int_const("x");
-    expr y      = c.int_const("y");
-    sort I      = c.int_sort();
-    func_decl g = function("g", I, I);
-    
-    solver s(c);
-    expr e = implies(x == y, g(x) == g(y));
-    s.add(!e);
-    if (s.check() == unsat) 
-        std::cout << "dokazano";
-    else
-        std::cout << "nije dokazano";
-}
-\end{lstlisting}
-\end{primer}
-\begin{primer} \label{ex2} Primer demonstrira dokazivanje De Morganovog zakona korišćenjem C++ API-ja i formule pomenute u primeru \ref{primer:demorgan}. Na početku se deklariše kontekst, konstante x i y kao i izraz e čija se validnost ispituje. Rešavaču se prosleđuje negacija izraza kao ograničenje i ispituje se zadovoljivost negirane formule. U zavisnosti od rezultata štampa se odgovarajuća poruka.
+\begin{primer} \label{ex1} Primer demonstrira važenje De Morganovog zakona dokazivanjem formule iz primera \ref{primer:demorgan}. Pokazuje se nezadovoljivost negirane formule. U zavisnosti od rezultata štampa se odgovarajuća poruka.
 \begin{lstlisting}[language=C++]
 void demorgan() {
     context c;
@@ -762,8 +743,30 @@ void demorgan() {
 \end{lstlisting}
 \end{primer}
 
+Primer \ref{ex2} ilustruje kreiranje celobrojnih konstanti i jednostavne neinterpretirane funkcije upotrebom klase func\_decl. Ilustruje se kreiranje složenijeg izraza upotrebom metode implies koji odgovara logičkom operatoru implikacije. Složeniji izraz prosleđuje se solveru i proverava se njegova zadovoljivost.
+\begin{primer} \label{ex2} Primer demonstrira upotrebu neinterpretiranih funkcija dokazivanjem formule x = y => g(x) = g(y). Dodaje se negacija prethodno navedene formule. U zavisnosti od rezultata, štampa se odgovarajuća poruka.\\
+\begin{lstlisting}[language=C++]
+void primer_sa_neinterpretiranim_funkcijama() { 
+    context c;
+    expr x      = c.int_const("x");
+    expr y      = c.int_const("y");
+    sort I      = c.int_sort();
+    func_decl g = function("g", I, I);
+    
+    solver s(c);
+    expr e = implies(x == y, g(x) == g(y));
+    s.add(!e);
+    if (s.check() == unsat) 
+        std::cout << "dokazano";
+    else
+        std::cout << "nije dokazano";
+}
+\end{lstlisting}
+\end{primer}
 
-\begin{primer} \label{ex3} Primer demonstrira evaluaciju izraza u modelu. Najpre se definiše kontekst c i celobrojne konstante x i y. Zatim se rešavaču prosleđuju ograničenja x < y i x > 2. Proverava se zadovoljivost ograničenja i traži model. Na kraju se vrši evaluacija izraza x+y. 
+
+U primeru \ref{ex3} korišćenjem metode get\_model pristupa se modelu koji je solver vratio. Vrši se evaluacija izraza dobijenih iz modela primenom metode eval.  
+\begin{primer} \label{ex3} Rešavaču se prosleđuju jednostavna ograničenja nad konstantama. Zatim se vrši evaluacija jednostavnih izraza nad konstantama definisanih u modelu.
 \begin{lstlisting}[language=C++]
 void eval_primer() {
     context c;
@@ -781,7 +784,12 @@ void eval_primer() {
 }
 \end{lstlisting}
 \end{primer}
-\begin{primer} \label{ex4} Primer ilustruje traženje interpretacija celobrojnih konstanti x i y, pri čemu moraju biti ispunjene nejednakosti x >= 1 i y < x+3. Na početku se deklariše kontekst c i celobrojne konstante x i y. Zatim se rešavaču prosleđuju ograničenja i traži model. U okviru modela, pronalaze se interpretacije funkcijskih simbola. U ovom slučaju to su interpretacije konstanti, kao funkcijskih simbola arnosti 0. Na kraju se za svaku od konstanti ispisuje njeno ime i dodeljena vrednost. \\
+
+
+Primer \ref{ex4} ilustruje pronalaženje interpretacija konstanti modela za problem linearne aritmetike uvođenjem ograničenja. Korišćenjem klase func\_decl, za svaku od konstanti kao funkcijskih simbola arnosti 0 ispisuje se njeno ime i dodeljena vrednost. 
+\begin{primer} \label{ex4}
+Primer ispisuje imena i interpretacije konstanti modela korišćenjem funkcije arity klase func\_decl.
+\\
 \begin{lstlisting}[language=C++]
 void primer_linearne_aritmetike() {
     context c;
@@ -801,8 +809,10 @@ void primer_linearne_aritmetike() {
 \end{lstlisting}
 \end{primer}
 
+Primer \ref{ex5} ilustruje pronalaženje interpretacija realnih konstanti modela za problem nelinearne aritmetike uvođenjem ograničenja. Interpretacija realnih konstanti ispisuje se u celobrojnom i realnom formatu korišćenjem opcija za konfigurisanje formata ispisa klase context. 
+
 \begin{primer} \label{ex5}
-Primer ilustruje traženje interpretacija realnih konstanti x, y i z, pri čemu moraju biti ispunjene nejednakosti \(x^2 + y^2 = 1\) i \(x^3 + z^3 < 1/2\). Najpre se definiše kontekst i realne konstante x, y, z a zatim se rešavaču prosleđuju pomenuta ograničenja. Rešavač pronalazi interpretaciju realnih konstanti koje se zapisuju najpre u celobrojnom formatu, a zatim i u realnom formatu.
+Primer ispisuje imena i interpretacije realnih konstanti modela korišćenjem funkcije arity klase func\_decl.
 \\
 \begin{lstlisting}[language=C++]
 void primer_nelinearne_aritmetike() {    
@@ -817,14 +827,22 @@ void primer_nelinearne_aritmetike() {
     
     std::cout << s.check();
     model m = s.get_model();
-    std::cout << m << "\n";
-    c.set(":pp-decimal", true); 
     std::cout << m;
+    
+    for(unsigned i = 0; i < m.size(); i++) {
+        func_decl v = m[i];
+        assert(v.arity() == 0); 
+        std::cout << v.name() << "=" << m.get_const_interp(v);
+    }
+
 }
 \end{lstlisting}
 \end{primer}
 
-\begin{primer} \label{ex6} Primer pronalazi interpretacije konstanti x i y koje imaju reprezentaciju bitvektora. Deklariše se kontekst c i dve konstante x i y predstavljene bitvektorima dužine 32. Dodaje se ograničenje \(x^y - 103 = x*y\). Rešavač vraća zadovoljivost prosleđenih ograničenja a u nastavku se ispisuju imena i vrednosti konstanti.
+
+Primer \ref{ex6} ilustruje pronalaženje interpretacija konstanti koje imaju bitvektorsku reprezentaciju korišćenjem metode bv\_const klase context. Parametri ove metode su ime i broj mesta za zapisivanje konstante. Za svaku od konstanti ispisuje se njeno ime i dodeljena vrednost.
+
+\begin{primer} \label{ex6} Primer ispisuje imena i interpretacije konstantni predstavljenih bitvektorom dužine 32.
 \begin{lstlisting}[language=C++]
 void primer_sa_bitvektorima() {
     context c;
