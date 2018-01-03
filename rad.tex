@@ -357,8 +357,7 @@ Definišemo operator deljenja tako da rezultat bude specifikovan i kada je delil
 \end{minipage}
 \end{primer}
 \par
-Primer \ref{example5} ilustruje rešavanje nelinearnog problema uvođenjem ograničenja nad realnim konstantama. Ispituje se zadovoljivost prosleđenih ograničenja. Kada su prisutna samo nelinearna ograničenja nad realnim konstantama, Z3 koristi posebne metode odlučivanja,
-\begin{primer} \label{example5} Rešavaču se prosleđuje ograničenja $b^{3} + b*c = 3$ nad realnim konstantama. Rešavač vraća zadovoljivost tvrđenja i dobijeni model prikazujemo u nastavku.   
+Primer \ref{example5} ilustruje rešavanje nelinearnog problema uvođenjem ograničenja nad realnim konstantama. Ispituje se zadovoljivost prosleđenih ograničenja. Kada su prisutna samo nelinearna ograničenja nad realnim konstantama, Z3 koristi posebne metode odlučivanja\begin{primer} \label{example5} Rešavaču se prosleđuje ograničenja $b^{3} + b*c = 3$ nad realnim konstantama. Rešavač vraća zadovoljivost tvrđenja i dobijeni model prikazujemo u nastavku.   
 \\ \\
 \begin{minipage}[b]{0.43\textwidth}
 \textbf{Formula prosleđena rešavaču:}
@@ -619,7 +618,7 @@ Dodajemo i ograničenje da su slogovi p1 i p2 jednaki. Rešavač Z3 vraća zadov
 \par
 U primeru \ref{example14} ilustruje se definisanje listi kao i dodavanje ograničenja korišćenjem selektorskih funkcija \texttt{head} i \texttt{tail}. Ispituje se zadovoljivost tvrđenja.
 \begin{primer} \label{example14}
-Pored ograničenja za prve elemente liste, tražimo model takav da liste l1 i l2 nisu jednake, tj. da nisu svi elementi na odgovarajućim pozicijama u listama jednaki. Rešavač Z3 vraća zadovoljivost tvrđenja i dobijeni model prikazujemo u nastavku.
+Pored ograničenja za prve elemente listi, tražimo model takav da liste l1 i l2 nisu jednake, tj. da nisu svi elementi na odgovarajućim pozicijama u listama jednaki. Rešavač Z3 vraća zadovoljivost tvrđenja i dobijeni model prikazujemo u nastavku.
 \\ \\
 \begin{minipage}[b]{0.42\textwidth}
 \textbf{Formula prosleđena rešavaču:}
@@ -655,7 +654,7 @@ Pored ograničenja za prve elemente liste, tražimo model takav da liste l1 i l2
 
 \end{primer}
 
-U prethodnom primeru, uvode se ograničenja da su liste l1 i l2 različite od \texttt{nil}. Vrši se uvođenje ovih ograničenja jer interpretacija selektora \texttt{head} i \texttt{tail} 
+U prethodnom primeru, uvode se ograničenja da su liste l1 i l2 različite od \texttt{nil}. Ova ograničenja se uvode jer interpretacija selektora \texttt{head} i \texttt{tail} 
 nije specifikovana u slučaju praznih lista.
 
 
@@ -726,6 +725,7 @@ void primer_sa_neinterpretiranim_funkcijama() {
 }
 \end{lstlisting}
 \end{primer}
+\par
 U primeru \ref{ex3} korišćenjem metode \texttt{get\_model} pristupa se modelu koji je solver vratio. Vrši se evaluacija izraza dobijenih iz modela primenom metode \texttt{eval}.  
 \begin{primer} \label{ex3} Rešavaču se prosleđuju jednostavna ograničenja nad konstantama. Zatim se vrši evaluacija jednostavnih izraza nad konstantama definisanih u modelu.
 \begin{lstlisting}[language=C++]
