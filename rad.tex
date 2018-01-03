@@ -123,6 +123,27 @@ Evaluacija testova predstavlja kreiranje izveštaja kojim se opisuje šta je tes
 
 \section{Vrste testiranja}
 Testiranje se može izvoditi na različite načine. Jedan od njih je testiranje jedinice koda (eng. \textit{Unit test}). Testiranje jedinice koda proverava funkcionisanje softverskih delova koji se nezavisno mogu testirati. U zavisnosti od konteksta, to mogu biti podprogrami ili veće komponente kreirane od tesno povezanih jedinica. Ova vrsta testiranja se precizno definiše standardom IEEE Standard for Software Unit Testing (IEEE1008-87). Tipično, testiranje jedinice se dešava sa pristupom kodu koji se testira i sa podrškom alata za debagovanje. Cilj jediničnih testova je pokazivanje da komponenta ima predviđenu funkcionalnost i da nema neželjeno ponašanje. Ukoliko postoje greške u komponenti, one bi trebalo da budu otkrivene u fazi testiranja te komponente. Iz tog razloga, postoje dva tipa testiranja jedinice koda. Prvi bi trebalo da pokaže da jedinica radi u skladu sa planovima. Drugi bi trebalo da budu zasnovani na dosadašnjem iskustvu u testiranju. Treba koristiti specijalne slučajeve ulaza, probati granice domena kao i nekorektan ulaz kako bi obezbedili da ne dolazi do pada softverskog sistema pri ovakvim situacijama.
+\par
+Testiranje prihvatljivosti podrazumeva da se klijentima i korisnicima omogući da se sami uvere da li napravljeni softver zaista zadovoljava njihove potrebe i očekivanja. Testove prihvatljivosti pišu, izvode i procenjuju korisnici, a učesnici u razvoju softvera im pružaju pomoć oko tehničkih pitanja, ukoliko se to od njih zahteva. Klijent može da proceni sistem na tri načina: referentnim testiranje, pilot testiranjem i paralelnim testiranjem. Kod referentnog testiranja, klijent generiše referentne test slučajeve koji predstavljaju uobičajne uslove u kojima sistem treba da radi. Ove testove obično izvode stvarni korisnici ili posebni timovi koji su dobro upoznati sa zahtevima i mogu da procene performanse sistema. Pilot testiranja podrazumeva instalaciju sistema na probnoj lokaciji. Zatim korisnici rade na sistemu kao da je on već u upotebi. Kod ove vrste testiranja ne prave se posebni test slučajevi, već se testiranje sprovodi simulacijom svakodnevnog rada na sistemu. Paralelno testiranje se koristi tokom razvoja, kada jedna verzija softvera zamenjuje drugu ili kada novi sistem treba da zameni stari. Ovaj način testiranja podrazumeva da paralelno rade dva sistema (stari i novi). Korisnici se postepeno privikavaju na novi sistem, ali i dalje koriste stari. Na taj način, korisnici mogu da uporede dva sistema i provere da li je novi sistem efikasniji.
+\par 
+Sistemsko testiranje je najviši, završni nivo testiranja koji obuhvata proveravanje sistema kao celine. Ispituje se da li je ponašanje sistema u skladu sa specifikacijom zadatom od strane klijenta.
+Pošto je većina funkcionalnih zahteva već proverena na nižim nivoima testiranja, sada je naglasak na nefunkcionalnim zahtevima kao što su brzina, pouzdanost, efikasnost, veze prema drugim aplikacijama i okruženju u kome će se sistem koristiti. Testiranje sistema obavlja se u drugačijim uslovima u odnosu na testiranje jedinica koda i testiranje prihvatljivosti. Kada se testira sistem, u proces se mora uključiti ceo razvojni tim pod kontrolom rukovodioca projekta. U sistemsko testiranje, između ostalog spada i testiranje performansi. Tokom testiranja performansi, izvršavaju se testovi konfiguracije, opterećenja, kapaciteta, kompatibilnosti i bezbednosti. Testovima konfiguracije ispituje se ponašanje softvera u različitim hardverskim/softverskim okruženjima navedenim u zahtevima. Postoje sistemi koji imaju ceo spektar konfiguracija namenjenih različitim korisnicima. Testovi ispituju sve konfiguracije i proveravaju da li one zadovoljavaju sistemske zahteve. Testovima opterećenja ocenjuje se rad sistema kada se on optereti do svojih operativnih granica u kratkom vremenskom periodu. Ovim testovima se mogu ispitivati i porediti i sistemi sa različitim konfiguracijama pri istom opterećenju. Testovima kapaciteta proverava se kako sistem obrađuje velike količine podataka. Ispituje se i ispravnost rada sistema u slučaju kada skupovi podataka dostignu svoje maksimalne vrednosti. Testovima kompatibilnosti proverava se kako sistem ostvaruje spregu sa drugim sistemima iz okruženja. Ovim testovima se proverava da li je realizacija interfejsa u skladu sa  zahtevima. Pri testiranju sistema, bezbednost je od velikog značaja. Ovim testovima ispituje se da li su određene funkcije dostupne isključivo onim korisnicima kojima su namenjene. Takođe se testiraju i dostupnost, integritet i poverljivost različitih vrsta podataka. 
+\par 
+Regresiono testiranje spada u grupu testiranja performansi. Ova vrsta testiranja podrazumeva da se jednom razvijen test primer primeni više puta za testiranje istog softvera. To se obično radi posle neke izmene u softveru, kako bi se proverilo da nije došlo do lošeg rada nekih funkcija koje nisu bile obuhvaćene izmenom. Regresioni testovi se koriste i kada testirani sistem treba da zameni postojeći sistem kao i prilikom faznog razvoja softvera.
+
+\par 
+Opisani načini testiranja ilustrovani su piramidom testiranja. Piramidom testiranja na slici ilustruje se redosled izvršavanja testova. Testiranje softvera počinje izvršavanjem testova jedinica koda, zatim slede testovi prihvatljivosti kao i sistemsko testiranje. Najveći broj testova piše se za testiranje jedinica koda pri čemu svaki deo koda softverskog sistema mora biti pokriven. Broj testova na svim nivoima zavisi od konkretnog projekta i prilagođava se potrebama klijenata i krajnjih korisnika.
+\begin{figure}[!ht]\label{slika1}
+  \centering
+  \includegraphics[width=0.9\textwidth]{piramida.png}
+  \caption{Piramida testiranja}
+  \label{fig:piramida}
+\end{figure}
+
+Pored opisanih vrsta, postoje i drugi načini testiranja softvera. Neki od njih su alfa-beta testiranje, instalaciono testiranje i testiranje korisničkih funkcija. Više o podržanim načinima testiranja može se naći u literaturi.
+
+\section{Strategije testiranja}
+
 \chapter{Rešavač Z3}
 \label{chp:razrada}
 
@@ -139,8 +160,8 @@ Problem zadovoljivosti (eng. \textit{Satisfiability problem}, skraćeno SAT) pro
 klauze tačne \cite{Handbook}. 
 Rešavači koji se koriste za rešavanje ovog problema nazivaju se SAT rešavači.   
 Rešavač Z3 integriše SAT rešavač zasnovan na savremenoj DPLL proceduri i veliki broj teorija. 
-Implementiran je u programskom jeziku C++. Šematski prikaz arhitekture rešavača \cite{EfficientSMTSolver} prikazan je na slici \ref{slika1}. 
-\begin{figure}[!ht]\label{slika1}
+Implementiran je u programskom jeziku C++. Šematski prikaz arhitekture rešavača \cite{EfficientSMTSolver} prikazan je na slici \ref{slika2}. 
+\begin{figure}[!ht]\label{slika2}
   \centering
   \includegraphics[width=1\textwidth]{arhitektura.png}
   \caption{Arhitektura rešavača Z3}
