@@ -137,6 +137,25 @@
       \field{title}{A Fast Linear-Arithmetic Solver for DPLL(T)}
       \field{year}{2006}
     \endentry
+    \entry{Strategies}{book}{}
+      \name{author}{1}{}{%
+        {{hash=b8b97e34b0be58190fea73a7ea5385c8}{%
+           family={Ehmer\bibnamedelima Khan},
+           familyi={E\bibinitperiod\bibinitdelim K\bibinitperiod},
+           given={Farmeena\bibnamedelima Khan},
+           giveni={F\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+      }
+      \strng{namehash}{b8b97e34b0be58190fea73a7ea5385c8}
+      \strng{fullhash}{b8b97e34b0be58190fea73a7ea5385c8}
+      \strng{authornamehash}{b8b97e34b0be58190fea73a7ea5385c8}
+      \strng{authorfullhash}{b8b97e34b0be58190fea73a7ea5385c8}
+      \field{sortinit}{E}
+      \field{sortinithash}{07bbd5a529b5beaa311df5be05b874bc}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A Comparative Study of White Box, Black Box and Grey Box Testing Techniques}
+      \field{year}{2012}
+    \endentry
     \entry{NelsonOpen}{book}{}
       \name{author}{2}{}{%
         {{hash=800e03a3a47526fd4223d6de647dd875}{%
@@ -227,6 +246,39 @@
       \field{howpublished}{\url{https://z3prover.github.io/api/html/group__cppapi.html}}
       \field{title}{{Automatically generated documentation for the Z3 C++ API}}
       \field{year}{2016}
+    \endentry
+    \entry{TestingProcess}{book}{}
+      \name{author}{3}{}{%
+        {{hash=0dbad3a420063440b208b9f15830eed5}{%
+           family={Testing\bibnamedelimb Process:\bibnamedelimb Practical\bibnamedelima Tools},
+           familyi={T\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim T\bibinitperiod},
+           given={Managing},
+           giveni={M\bibinitperiod},
+           prefix={the},
+           prefixi={t\bibinitperiod}}}%
+        {{hash=f84fdc6f4bea4f6fe80c3d6acd67d220}{%
+           family={Managing\bibnamedelima Hardware},
+           familyi={M\bibinitperiod\bibinitdelim H\bibinitperiod},
+           given={Techniques},
+           giveni={T\bibinitperiod},
+           prefix={for},
+           prefixi={f\bibinitperiod}}}%
+        {{hash=6b140049d3cf643d86e84a76bc4b7daf}{%
+           family={Testing},
+           familyi={T\bibinitperiod},
+           given={Software},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{0d3e07e24ea94a427e9a000e9641a747}
+      \strng{fullhash}{0d3e07e24ea94a427e9a000e9641a747}
+      \strng{authornamehash}{0d3e07e24ea94a427e9a000e9641a747}
+      \strng{authorfullhash}{0d3e07e24ea94a427e9a000e9641a747}
+      \field{sortinit}{T}
+      \field{sortinithash}{2e5c2f51f7fa2d957f3206819bf86dc3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Rex Black}
+      \field{year}{2009}
     \endentry
   \endsortlist
 \endrefsection

@@ -2143,16 +2143,18 @@
     <bcf:datasource type="file" datatype="bibtex">literatura.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">Barrett</bcf:citekey>
-    <bcf:citekey order="2">EfficientSMTSolver</bcf:citekey>
-    <bcf:citekey order="3">api</bcf:citekey>
-    <bcf:citekey order="4">Handbook</bcf:citekey>
-    <bcf:citekey order="5">EfficientSMTSolver</bcf:citekey>
-    <bcf:citekey order="6">NelsonOpen</bcf:citekey>
-    <bcf:citekey order="7">FastLinearArithmetic</bcf:citekey>
-    <bcf:citekey order="8">DPBitvector</bcf:citekey>
-    <bcf:citekey order="9">SMTLIB</bcf:citekey>
-    <bcf:citekey order="10">cppapi</bcf:citekey>
+    <bcf:citekey order="1">TestingProcess</bcf:citekey>
+    <bcf:citekey order="2">Strategies</bcf:citekey>
+    <bcf:citekey order="3">Barrett</bcf:citekey>
+    <bcf:citekey order="4">EfficientSMTSolver</bcf:citekey>
+    <bcf:citekey order="5">api</bcf:citekey>
+    <bcf:citekey order="6">Handbook</bcf:citekey>
+    <bcf:citekey order="7">EfficientSMTSolver</bcf:citekey>
+    <bcf:citekey order="8">NelsonOpen</bcf:citekey>
+    <bcf:citekey order="9">FastLinearArithmetic</bcf:citekey>
+    <bcf:citekey order="10">DPBitvector</bcf:citekey>
+    <bcf:citekey order="11">SMTLIB</bcf:citekey>
+    <bcf:citekey order="12">cppapi</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="nty/global/" type="entry" sortscheme="nty" sortnamekeyscheme="global" labelprefix="">
   <bcf:sorting>
