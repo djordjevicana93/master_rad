@@ -174,7 +174,7 @@ Tokom istraživačkog testiranja (eng. \textit{Exploratory testing}) testeri pro
 Opisani načini testiranja ilustrovani su piramidom testiranja na slici \ref{fig:piramida}. Piramidom testiranja ilustruje se redosled izvršavanja testova. Testiranje softvera počinje izvršavanjem testova jedinica koda, zatim slede testovi prihvatljivosti, sistemski i istraživački testovi. Najveći broj testova piše se za testiranje jedinica koda pri čemu svaki deo koda softverskog sistema mora biti pokriven bar jednim testom. Broj testova na svim nivoima zavisi od konkretnog projekta i prilagođava se potrebama klijenata.
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.9\textwidth]{piramida.jpg}
+  \includegraphics[width=0.9\textwidth]{piramida.png}
   \caption{Piramida testiranja softvera}
   \label{fig:piramida}
 \end{figure}
@@ -240,34 +240,33 @@ Testiranje obrazaca podrazumeva primenu testova obrazaca pri dizajnu softverskih
 Ukoliko se sistem implementira prema nekom obrazcu projektovanja, testovima obrazaca proverava se da li je arhitektura sistema u skladu arhitekturom izabrarnog obrasca.
 
 \section{Načini izvršavanja testova} \label{broj4}
-U opštem slučaju, test se smatra uspešnim ukoliko je ponašanje sistema pri njegovom izvršavanju u skladu korisničkim zahtevima. Međutim, kod sve popularnije metodologije destruktivnog testiranja, test se smatra uspešnim ako se njegovim izvršavanjem otkriva postojanje greške u softveru.
+U opštem slučaju, test se smatra uspešnim ukoliko je ponašanje sistema pri njegovom izvršavanju u skladu sa korisničkim zahtevima. Međutim, kod sve popularnije metodologije destruktivnog testiranja, test se smatra uspešnim ako se njegovim izvršavanjem otkriva postojanje greške u softveru.
 \par
 Izvršavanje testova sprovodi se na dva načina, automatizovano i manuelno. Manuelno  testiranje predstavlja ručno izvršavanje test slučajeva izabranim alatima. 
 U većini slučajeva, tester prati niz koraka da bi verifikao neki segment softverskog sistema. Nakon toga, formira se izveštaj dobijenih rezultata.
 \par
-Automatizovano testiranje zahteva postojanje određenog koda koji je napisan da bi se automatizovali koraci pri izvršavanju test skripta. 
-Datoteke koje sadrže logiku za testiranje nazivaju se test skripte i mogu biti pisane u svim programskim jezicima.
+Automatizovano testiranje podrazumeva postojanje određenog koda napisanog kako bi se automatizovali koraci pri izvršavanju test slučaja. 
+Datoteke koje sadrže logiku za testiranje nazivaju se test skripte i mogu biti pisane u svim programskim jezicima. \par
+Tokom manuelnog i automatizovanog izvršavanja testova prate se iste faze procesa testiranja koje se mogu primeniti na različite nivoe i tipove testiranja. Manuelno i automatsko izvršavanje testova ima svoje prednosti i mane. U nastavku će biti navedene neke od njih. 
 
-Automatsko testiranje se često koristi da bi se test slučajevi u okviru određenog test paketa koji su izvršeni manuleno mogu brzo izvršavati automatski. To je jako bitno kod regresionog testiranja s obzirom da 
-regresiono testiranje sadrži sve test slučajeve koji su prethodno bili izvršeni nad sistemom ali I najnovije koji testiraju dodatu funkcionalnost.
-Regression test često može uključivati I više hiljada test slučajeva tako da potreba za automatizacijom jasna. 
-Motivi naravno su ušteda vremena a samim tim I novca.
-
-Manuelno i automatizovano testiranje prate iste faze procesa testiranja
-i mogu se primeniti na različitim novima i tipovima testiranja.
-Manuelno i automatsko testiranje ima svoje prednosti i mane. U nastavku će biti navedene neke od njih. Automatizovano testiranje je brže, čime se ostvaruje velika ušteda vremena. Ušteda vremena je veoma značajna kod regresionih testova koji se često ponavljaju za velike sisteme. Automatizovano izvršavanje testova ne zahteva prisustvo testera pa je moguće njihovo stalno izvršavanje.
-Automatizovano testiranje je sigurnije od manuelnog jer se kod manuelnog testiranja mogući propusti usled prekomernog rada ili umora testera. Prilikom testiranja, obično su na raspolaganju ograničeni resursi, čime se često onemogućuje efikasno izvršavanje manuelnog testiranja. Automatizovano testiranje je skuplje i zahteva obučeno osoblje. U slučaju čestog menjanja korisničkog interfejsa, manuelno testiranje je bolja opcija od automatizovanog. Svaka promena korisničkog interfejsa zahteva pisanje novih automatskih testova.
+Automatizovano testiranje je brže i pouzdanije jer su kod manuelnog testiranja mogući propusti usled prekomernog rada ili umora testera. Kako automatizovano izvršavanje ne zahteva prisustvo testera, oni se mogu neprekidno izvršavati.
+Sa druge strane, automatizovano testiranje je skuplje i zahteva posebno kvalifikovane testere. Ušteda vremena je jako važna za velike sisteme nad kojima se između ostalog izvršavaju i regresioni testovi. Kada se sistem proširuje novom komponentom, pored već izvršenih testova, dodaju se testovi koji proveravaju funkcionalnost nove komponente. Odavde zaključujemo da je automatizacija regresionih testova neophodna zbog uštede vremena. \par
+Prilikom testiranja, obično su na raspolaganju ograničeni resursi, čime se onemogućuje efikasno izvršavanje manuelnih testova. U slučaju čestog menjanja korisničkog interfejsa, manuelno izvršavanje testova je bolja opcija od automatizovanog.
+\par
+Izvršavanje jediničnih testova i testova prihvatljivosti je uvek automatizovano. Sistemski testovi se mogu izvršavati i automatizovano i manuelno. Istraživački testovi se uvek izvršavaju manuelno. Načini izvršavanja testova u okviru piramide testiranja ilustrovani su slikom \ref{fig:piramida}.
 
 
-DFJDSF SDF SDF SDF SDFKDKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKk
 \section{Načini generisanja testova} \label{broj5}
 
-AUTOMATSKO I MANUELNO 
-Manuelno generisanje test primera podrazumeva da tester ručno piše testove za koje ce softver biti pokrenut. Ovakan način generisanja test primera može zahtevati veliki napor s obzirom da se vezuje za samu aplikaciju. Kod automatskog generisanja test primera korišćenjem drugih alata (programa) dobijaju se test primeri za koje se pokreće softver. 
-Test primeri kod automatskog pristupa obično se vezuju za sam programski jezik u kojem je softver napisan. U ZAVISNOTI OD SLABOSTI JEZIKA
+Izvršavanje testova u modernim razvojnim okruženjima je uglavnom automatizovano, ali je generisanje test slučajeva i dalje većinom manuelno. Pod manuelnim generisanjem testova podrazumevamo da tester ručno piše testove za koje će softver biti pokrenut. Ovakav način generisanja test primera može zahtevati veliki napor s obzirom da postoji veliki broj slučajeva koje je potrebno pokriti. Iz tog razloga teži se automatizaciji procesa generisanja test primera. Kod automatskog generisanja testova se korišćenjem drugih alata dobijaju test primeri za koje se pokreće softver i proverava njegovo ponašanje. \par
+Jedna od tehnika automatskog generisanja test primera svodi se na formiranje testova koji pronalaze potencijalne slabosti jezika u kojem je sistem implementiran.
+Na primer, za programski jezik C, te slabosti mogu biti prekoračenje bafera i oslobađanje već oslobođene memorije. 
 
-\subsection{Primeri automatskog generisanja test primera}
+
+%Testiranjem se postiže verifikacija softvera. Dana, principi verifikacije u cilju %testiranja softvera koriste različite tehnologije i alate kao što je proveravanje %modela, SAT rešavači i provera ispunjenosti raznih ograničenja. Sve ovo se radi sa %ciljem automatizacije generisanje test slučajeva. Mnogi od automatskih načina %testiranja se zasnivaju na teorijskim vezama između verifikacije i testiranja. 
+%Svakako glavna primena automatskog generisanja test slučajeve je u polju verifikacije %softvera.
+%Da bi se ispitala ispravnost softvera, najpre je potrebno precizno definisati njegovo %željeno ponašanje. Željeno ponašanje softvera zadaje se specifikacijom. Specifikacija %daje opis šta softver treba da radi. Verifikacija je postupak dokazivanja da je %program ispravan, odnosno da zadovoljava specifikaciju. 
+\subsection{Primeri automatskog generisanja testova}
 Rasplinuto testiranje (primer strategije crne kutije za generisanje test primera)
 Fuzz testiranje je jedan od pristupa otkrivanja slabosti softvera zasno-
 vano na tehnikama testiranja crne ili sive kutije. Definiše se kao analiza
