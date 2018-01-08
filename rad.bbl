@@ -247,6 +247,43 @@
       \field{title}{{Automatically generated documentation for the Z3 C++ API}}
       \field{year}{2016}
     \endentry
+    \entry{StateOfArt}{book}{}
+      \name{author}{1}{}{%
+        {{hash=8e68227dac6e6568c562ec0ab7bd3fb4}{%
+           family={Richard\bibnamedelima McNally},
+           familyi={R\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Ken\bibnamedelima Yiu},
+           giveni={K\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{8e68227dac6e6568c562ec0ab7bd3fb4}
+      \strng{fullhash}{8e68227dac6e6568c562ec0ab7bd3fb4}
+      \strng{authornamehash}{8e68227dac6e6568c562ec0ab7bd3fb4}
+      \strng{authorfullhash}{8e68227dac6e6568c562ec0ab7bd3fb4}
+      \field{sortinit}{R}
+      \field{sortinithash}{c15bc8eb6936bc6b3c8baa9e8575af53}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Fuzzing - The State of Art}
+      \field{year}{2012}
+    \endentry
+    \entry{AutomatedTestGeneration}{book}{}
+      \name{author}{1}{}{%
+        {{hash=3e221eeb3fa79449fb4e0e4292b3bef0}{%
+           family={Rushby},
+           familyi={R\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{3e221eeb3fa79449fb4e0e4292b3bef0}
+      \strng{fullhash}{3e221eeb3fa79449fb4e0e4292b3bef0}
+      \strng{authornamehash}{3e221eeb3fa79449fb4e0e4292b3bef0}
+      \strng{authorfullhash}{3e221eeb3fa79449fb4e0e4292b3bef0}
+      \field{sortinit}{R}
+      \field{sortinithash}{c15bc8eb6936bc6b3c8baa9e8575af53}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Automated Test Generation and Verified Software}
+    \endentry
     \entry{TestingProcess}{book}{}
       \name{author}{3}{}{%
         {{hash=0dbad3a420063440b208b9f15830eed5}{%

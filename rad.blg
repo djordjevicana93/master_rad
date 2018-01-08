@@ -1,14 +1,14 @@
 [0] Config.pm:354> INFO - This is Biber 2.7 (beta)
 [0] Config.pm:357> INFO - Logfile is 'rad.blg'
-[27] biber:303> INFO - === Sun Jan  7, 2018, 15:37:53
-[41] Biber.pm:360> INFO - Reading 'rad.bcf'
-[115] Biber.pm:836> INFO - Found 11 citekeys in bib section 0
-[128] Biber.pm:3671> INFO - Processing section 0
-[142] Biber.pm:3841> INFO - Looking for bibtex format file 'literatura.bib' for section 0
-[143] bibtex.pm:1424> INFO - Decoding LaTeX character macros into UTF-8
-[148] bibtex.pm:1281> INFO - Found BibTeX data source 'literatura.bib'
-[175] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'variable = shifted' with 'variable = non-ignorable'
-[175] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[175] Biber.pm:3500> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'sr-Latn'
-[188] bbl.pm:608> INFO - Writing 'rad.bbl' with encoding 'UTF-8'
-[190] bbl.pm:712> INFO - Output to rad.bbl
+[45] biber:303> INFO - === Mon Jan  8, 2018, 23:28:07
+[105] Biber.pm:360> INFO - Reading 'rad.bcf'
+[175] Biber.pm:836> INFO - Found 13 citekeys in bib section 0
+[207] Biber.pm:3671> INFO - Processing section 0
+[245] Biber.pm:3841> INFO - Looking for bibtex format file 'literatura.bib' for section 0
+[246] bibtex.pm:1424> INFO - Decoding LaTeX character macros into UTF-8
+[267] bibtex.pm:1281> INFO - Found BibTeX data source 'literatura.bib'
+[296] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[296] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'variable = shifted' with 'variable = non-ignorable'
+[297] Biber.pm:3500> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'sr-Latn'
+[310] bbl.pm:608> INFO - Writing 'rad.bbl' with encoding 'UTF-8'
+[312] bbl.pm:712> INFO - Output to rad.bbl

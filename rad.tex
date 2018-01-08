@@ -258,74 +258,26 @@ Izvršavanje jediničnih testova i testova prihvatljivosti je uvek automatizovan
 
 \section{Načini generisanja testova} \label{broj5}
 
-Izvršavanje testova u modernim razvojnim okruženjima je uglavnom automatizovano, ali je generisanje test slučajeva i dalje većinom manuelno. Pod manuelnim generisanjem testova podrazumevamo da tester ručno piše testove za koje će softver biti pokrenut. Ovakav način generisanja test primera može zahtevati veliki napor s obzirom da postoji veliki broj slučajeva koje je potrebno pokriti. Iz tog razloga teži se automatizaciji procesa generisanja test primera. Kod automatskog generisanja testova se korišćenjem drugih alata dobijaju test primeri za koje se pokreće softver i proverava njegovo ponašanje. \par
+Izvršavanje testova u modernim razvojnim okruženjima je uglavnom automatizovano, ali je generisanje test slučajeva i dalje većinom manuelno. Pod manuelnim generisanjem testova podrazumevamo da tester ručno piše testove za koje će softver biti pokrenut. Ovakav način generisanja test primera može zahtevati veliki napor s obzirom da postoji veliki broj slučajeva koje je potrebno pokriti. Iz tog razloga teži se automatizaciji procesa generisanja test primera. Kod automatskog generisanja testova se korišćenjem drugih alata dobijaju test primeri za koje se pokreće softver i proverava njegovo ponašanje \cite{AutomatedTestGeneration}. \par
 Jedna od tehnika automatskog generisanja test primera svodi se na formiranje testova koji pronalaze potencijalne slabosti jezika u kojem je sistem implementiran.
-Na primer, za programski jezik C, te slabosti mogu biti prekoračenje bafera i oslobađanje već oslobođene memorije. 
+Na primer, za programske jezike C i C++ slabosti su prekoračenje bafera, neispravno oslobađanje memorije, dvostruko oslobađanje memorije, deljenje nulom kao i prekoračenje i potkoračenje u aritmetičkim izrazima.
 
 
 %Testiranjem se postiže verifikacija softvera. Dana, principi verifikacije u cilju %testiranja softvera koriste različite tehnologije i alate kao što je proveravanje %modela, SAT rešavači i provera ispunjenosti raznih ograničenja. Sve ovo se radi sa %ciljem automatizacije generisanje test slučajeva. Mnogi od automatskih načina %testiranja se zasnivaju na teorijskim vezama između verifikacije i testiranja. 
 %Svakako glavna primena automatskog generisanja test slučajeve je u polju verifikacije %softvera.
 %Da bi se ispitala ispravnost softvera, najpre je potrebno precizno definisati njegovo %željeno ponašanje. Željeno ponašanje softvera zadaje se specifikacijom. Specifikacija %daje opis šta softver treba da radi. Verifikacija je postupak dokazivanja da je %program ispravan, odnosno da zadovoljava specifikaciju. 
 \subsection{Primeri automatskog generisanja testova}
-Rasplinuto testiranje (primer strategije crne kutije za generisanje test primera)
-Fuzz testiranje je jedan od pristupa otkrivanja slabosti softvera zasno-
-vano na tehnikama testiranja crne ili sive kutije. Definiše se kao analiza
-graničnih vredosti gde se odreduje opseg dozvoljenih vrednosti konkretnog
-ulaza i kreiraju se test vrednosti izvan granica. Fuzz testiranje se ne fo-
-kusira samo na granične vrednosti već i na bilo koju ulaznu vrednost koja
-može izazvati nedefinisano ili nebezbedno ponašanje. Može se definisati i kao metod otkrivanja grešaka softvera kreiranjem neočekivanih ulaza i
-upravljanjem izuzecima. \par
-Kako bi računalne aplikacije bile sigurne potrebno je testirati njihovu sigurnost. Jedna od metoda je nazvana testiranje Fuzz metodom. Tehniku je uspostavio Prof. Barton Miller sa sveučilišta u Wisconsinu 1988. kao studentski zadatak nazvan: “Operating System Utility Program 
-Reliabilitiy –The Fuzz Generator“. Osnovna ideja testiranja Fuzz metodom jedavanje slučajnih ili pseudo-slučajnih podataka kao ulaz u testirani sustav. Ukoliko sustav prestane funkcionirati 
-nakon nekog ulaza onda se taj niz podataka zabilježi za daljnju analizu. Danas se testiranje Fuzz 
-metodom najviše koristi u velikim sustavima gdje se vrši testiranje na principu crne-kutije, zato 
-što se pokazalo da Fuzz metoda daje jako dobar odnos cijene i vremena naspram kvalitete testiranja. Mogućnosti primjene su jako velike tako da se može testirati vrlo široki spektar različitih sustava od web-
-aplikacija, protokola, funkcija u kodu i sl. 
+Automatizacija procesa generisanja test primera posebno je važna jer ubrzava proces testiranja. U nastavku će biti navedene neke od tehnika i alata kojima se ostvaruje automatsko generisanje test primera. 
+
+
+Rasplinuto testiranje (eng. \textit{Fuzz testing}) je primer tehnike koju je moguće potpuno automatizovati i zasniva se na primeni strategije crne kutije. Ovom tehnikom se generišu neispravni i neočekivani ulazi za koje se prati tok izvršavanja programa sa ciljem detektovanja nebezbednog ponašanja. Test primer sa kojim se započinje testiranje može biti slučajno generisan ili ulaz definisan od strane programera. Svaki naredni test primer generiše se na osnovu prethodno generisanih test primera, praćenja toka izvršavanja programa i promena vrednosti promenljivih. Rasplinuto testiranje može se fokusirati na granične vrednosti ulaza ali i na bilo koje ulazne vrednosti koje mogu izazvati nedefinisano ili nebezbedno ponašanje. Može se definisati i kao metod otkrivanja grešaka softvera kreiranjem neočekivanih ulaza i upravljanjem izuzecima. Danas se rasplinuto testiranje najviše koristi u velikim sistemima jer se pokazalo da ova metoda daje jako dobar odnos cene i vremena naspram kvaliteta testiranja. 
 \par
-Za potrebe tes
-tiranja stvaraju se fuzzing alati koji mogu biti različitih tipova i namijenjeni 
-različitim 
-profilima korisnika. Budući da je fuzzing alat efikasniji ukoliko je prilagođeniji 
-testnom slučaju, neki
-proizvođači prodaju biblioteke za razvoj fuzzing testova, n
-o tada krajnji 
-korisnici moraju sami implementirati konkretne testove što zahtjeva znanje i vrijeme. Prednost 
-takvih testova što će su specijalizirani i samim time mogu podrobnije testirati sigurnosne 
-propuste na testiranom objektu. Sa druge strane se nala
-ze gotovi potpuni alati koji uz 
-namještanje određeni parametara omogućuju korisniku da vrši testiranje. Prednost ovakvog 
-pristupa je jednostavnost, dok mana je manje kvalitetno testiranje u odnosu na testove koji se 
-rade specifično za objekt koji se testir
-a.
-Druga podjela alata se vrši na temelju toga da li mogu pamtiti stanje ili ne. Alati koje ne pamte 
-stanje su statički i ne mogu simulirati protokol. Kompleksniji alati su bazirani na modelu 
-komunikacije i mogu vršiti komunikaciju sa poslužiteljem te po p
-otrebi varirati parametre 
-komunikacije, mijenjati pakete u komunikaciji i sl. Fuzzing alati koji su bazirani na modelu su se 
-pokazali puno boljim u pronalaženju sigurnosnih propusta. Ovakvi napredniji testovi mogu doći 
-do dubljih pogrešaka u sustavu.
-%METODE FUZZ TESTIRANJA \par
-%Rasplinuto testiranje definise uopsteni pristup otkrivanja slabosti. Ako
-%blize razmotrimo ovu metodologiju testiranja uoči ́cemo različite individu-
-%alne metode koje se koriste za njenu primenu. Sledi pregled tih metoda.
-%Random metoda
-%Ova metoda je najmanje efikasna.  Podrazumeva ge-
-%nerisanje slučajne vrednosti za testiranje nadaju ́ci se najboljem is-
-%hodu.  Iznenađujuce je da su slabosti kriticnih delova softvera iden-
-%tifikovani  upravo  ovom  metodom.   Može  biti  otežano  pronalazenje
-%test primera koji je izazvao prekidanje programa u slučaju velikog
-%broja slučajnih test vrednosti.
-%Metoda izučavanja ulaznih vrednosti
-%Razvoj test slučajeva počinje
-%izučavanjem  svih  podržanih  struktura  podataka  i  prihvatljivih  op-
-%sega vrednosti za svaki od njih.  Generišu se granični test uslovi na
-%osnovu kojih se može proceniti preciznost ciljnog sistema.  Prednost
-%je mogu ́cnost ponovne upotrebe test slučajeva na drugim implemen-
-%tacijama koje koriste isti protokol ili format fajla.
-%Rasplinuto testiranje grubom silom
-%Rasplinuti  tester  započinje  testiranje ispravnim ulazom, a zatim u svakom %slede ́cem koraku menja  svaki  individualni  bajt  ili  karakter  niske  u  %zavisnosti  od  tipa
-%fajla.  Složeniji ulazi zahtevaju ogroman broj varijacija ulaznih test
-%vrednosti pa u tim slučajevima ne postoji dobra pokrivenost
+
+Uopšteno, postoje dve vrste alata za generisanje testova primenom tehnike rasplinutog testiranja. Jedna grupa alata zahteva posebno kvalifikovane testera koji unose detalje o implementaciji sistema. Druga grupa alata omogućava generisanje testova samo konfigurisanjem parametara o očekivanom ulazu i definisanjem programskog jezika. Prednost ovog pristupa je jednostavnost, dok je mana niži kvalitet testiranja u odnosu na testove koji se formiraju za specifični sistem. 
+\par
+Pored navedenih osobina, postoji veliki broj metoda rasplinutog testiranja. Jedna od njih je random metoda koja je najmanje efikasna i podrazumeva generisanje slučajnog test slučaja. Zanimljiva činjenica je da su slabosti kritičnih delova softvera identifikovane upravo ovo metodom. Pored ove metode, koristi se i metoda izučavanja ulaznih vrednosti koja analizira sve podržane strukture podataka i opsege ulaznih vrednosti. Takođe, primenjuje se i rasplinuto testiranje grubom silom u kojem testiranje počinje ispravnim ulazom, a zatim se u svakom sledećem koraku menja svaki bajt ili karakter niske u zavisnosti od tipa ulazne vrednosti. Složeniji ulazi zahtevaju ogroman broj varijacija pa u tom slučaju ne postoji dobra pokrivenost testovima.
+
+
 \par
 SAGE - primer strategije sive kutije za generisanje test primera\\
 Alat SAGE[1](Scalable,Automated,GuidedExecution) namenjen je za
@@ -1061,11 +1013,6 @@ void primer_sa_bitvektorima() {
 \backmatter
 % ==============================================================================
 
-% ------------------------------------------------------------------------------
-% Biografija kandidata
-\begin{biografija}
-  
-\end{biografija}
-% ------------------------------------------------------------------------------
+% ------------------------------------------------------------------------------ ------------------------------------------------------------------------------
 
 \end{document}
