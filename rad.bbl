@@ -179,6 +179,13 @@
       \field{labeltitlesource}{title}
       \field{title}{A Generalization of Nelson-Open's Algorithm for Obtaining Prime Implicants}
     \endentry
+    \entry{IEEEStandard}{misc}{}
+      \field{sortinit}{I}
+      \field{sortinithash}{a3dcedd53b04d1adfd5ac303ecd5e6fa}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://ieeexplore.ieee.org/document/27763/}}
+      \field{title}{{IEEE Standard for Software Unit Testing}}
+    \endentry
     \entry{LAVTool}{book}{}
       \name{author}{1}{}{%
         {{hash=753f6f099a245e6a2bc476a95d356b2a}{%
