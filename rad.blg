@@ -1,14 +1,16 @@
 [0] Config.pm:354> INFO - This is Biber 2.7 (beta)
 [0] Config.pm:357> INFO - Logfile is 'rad.blg'
-[45] biber:303> INFO - === Tue Jan  9, 2018, 12:47:58
-[119] Biber.pm:360> INFO - Reading 'rad.bcf'
-[201] Biber.pm:836> INFO - Found 13 citekeys in bib section 0
-[249] Biber.pm:3671> INFO - Processing section 0
-[475] Biber.pm:3841> INFO - Looking for bibtex format file 'literatura.bib' for section 0
-[476] bibtex.pm:1424> INFO - Decoding LaTeX character macros into UTF-8
-[499] bibtex.pm:1281> INFO - Found BibTeX data source 'literatura.bib'
-[532] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[532] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'variable = shifted' with 'variable = non-ignorable'
-[533] Biber.pm:3500> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'sr-Latn'
-[549] bbl.pm:608> INFO - Writing 'rad.bbl' with encoding 'UTF-8'
-[552] bbl.pm:712> INFO - Output to rad.bbl
+[27] biber:303> INFO - === Tue Jan  9, 2018, 15:49:32
+[42] Biber.pm:360> INFO - Reading 'rad.bcf'
+[112] Biber.pm:836> INFO - Found 16 citekeys in bib section 0
+[125] Biber.pm:3671> INFO - Processing section 0
+[137] Biber.pm:3841> INFO - Looking for bibtex format file 'literatura.bib' for section 0
+[176] bibtex.pm:1424> INFO - Decoding LaTeX character macros into UTF-8
+[181] bibtex.pm:1281> INFO - Found BibTeX data source 'literatura.bib'
+[229] Utils.pm:164> WARN - I didn't find a database entry for 'api' (section 0)
+[248] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[249] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'variable = shifted' with 'variable = non-ignorable'
+[249] Biber.pm:3500> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'sr-Latn'
+[262] bbl.pm:608> INFO - Writing 'rad.bbl' with encoding 'UTF-8'
+[265] bbl.pm:712> INFO - Output to rad.bbl
+[266] Biber.pm:110> INFO - WARNINGS: 1

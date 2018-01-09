@@ -179,6 +179,35 @@
       \field{labeltitlesource}{title}
       \field{title}{A Generalization of Nelson-Open's Algorithm for Obtaining Prime Implicants}
     \endentry
+    \entry{LAVTool}{book}{}
+      \name{author}{1}{}{%
+        {{hash=753f6f099a245e6a2bc476a95d356b2a}{%
+           family={Janičič},
+           familyi={J\bibinitperiod},
+           given={Milena\bibnamedelima Vujošević},
+           giveni={M\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {PhD Thesis, Matematički fakultet, Univerzitet u Beogradu}%
+      }
+      \strng{namehash}{753f6f099a245e6a2bc476a95d356b2a}
+      \strng{fullhash}{753f6f099a245e6a2bc476a95d356b2a}
+      \strng{authornamehash}{753f6f099a245e6a2bc476a95d356b2a}
+      \strng{authorfullhash}{753f6f099a245e6a2bc476a95d356b2a}
+      \field{sortinit}{J}
+      \field{sortinithash}{c86bd6cced82a15683b396c2169909ef}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Automatsko generisanje i proveravanje uslova ispravnosti programa}
+      \field{year}{2013}
+    \endentry
+    \entry{ToolKLEE}{misc}{}
+      \field{sortinit}{K}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://klee.github.io/}}
+      \field{title}{{KLEE project}}
+    \endentry
     \entry{EfficientSMTSolver}{book}{}
       \name{author}{2}{}{%
         {{hash=04ffe79f369bf9f16e299fcf4f98e780}{%
@@ -226,26 +255,6 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Automated Whitebox Fuzz Testing}
-    \endentry
-    \entry{api}{misc}{}
-      \name{author}{1}{}{%
-        {{hash=2766b3f2d6ad1844b368d1a847d0d24e}{%
-           family={Research},
-           familyi={R\bibinitperiod},
-           given={Microsoft},
-           giveni={M\bibinitperiod}}}%
-      }
-      \strng{namehash}{2766b3f2d6ad1844b368d1a847d0d24e}
-      \strng{fullhash}{2766b3f2d6ad1844b368d1a847d0d24e}
-      \strng{authornamehash}{2766b3f2d6ad1844b368d1a847d0d24e}
-      \strng{authorfullhash}{2766b3f2d6ad1844b368d1a847d0d24e}
-      \field{sortinit}{R}
-      \field{sortinithash}{c15bc8eb6936bc6b3c8baa9e8575af53}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{howpublished}{\url{http://z3prover.github.io/api/html/index.html}}
-      \field{title}{{Automatically generated documentation for the Z3 APIs}}
-      \field{year}{2016}
     \endentry
     \entry{cppapi}{misc}{}
       \name{author}{1}{}{%
@@ -318,7 +327,27 @@
       \field{title}{Rex Black}
       \field{year}{2009}
     \endentry
+    \entry{SymbolicExecution}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=000987f69546f11a2ea40dccbbcad717}{%
+           family={Thomas\bibnamedelimb J.\bibnamedelimi Watson},
+           familyi={T\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim W\bibinitperiod},
+           given={James\bibnamedelimb C.\bibnamedelimi King},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+      }
+      \strng{namehash}{000987f69546f11a2ea40dccbbcad717}
+      \strng{fullhash}{000987f69546f11a2ea40dccbbcad717}
+      \strng{authornamehash}{000987f69546f11a2ea40dccbbcad717}
+      \strng{authorfullhash}{000987f69546f11a2ea40dccbbcad717}
+      \field{sortinit}{T}
+      \field{sortinithash}{2e5c2f51f7fa2d957f3206819bf86dc3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://pdfs.semanticscholar.org/a29f/6bad.pdf/}}
+      \field{title}{Symbolic Execution and Program Testing}
+    \endentry
   \endsortlist
+  \missing{api}
 \endrefsection
 \endinput
 
