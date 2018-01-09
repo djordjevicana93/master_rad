@@ -207,6 +207,26 @@
       \field{pages}{337\bibrangedash 340}
       \range{pages}{4}
     \endentry
+    \entry{ToolSAGE}{book}{}
+      \name{author}{1}{}{%
+        {{hash=21412b6e65c860d3420f6cd44b9d7963}{%
+           family={Patrice\bibnamedelima Godefroid},
+           familyi={P\bibinitperiod\bibinitdelim G\bibinitperiod},
+           given={David\bibnamedelima Molnar},
+           giveni={D\bibinitperiod\bibinitdelim M\bibinitperiod},
+           suffix={Michael\bibnamedelimb Y.\bibnamedelimi Levin},
+           suffixi={M\bibinitperiod\bibinitdelim Y\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{21412b6e65c860d3420f6cd44b9d7963}
+      \strng{fullhash}{21412b6e65c860d3420f6cd44b9d7963}
+      \strng{authornamehash}{21412b6e65c860d3420f6cd44b9d7963}
+      \strng{authorfullhash}{21412b6e65c860d3420f6cd44b9d7963}
+      \field{sortinit}{P}
+      \field{sortinithash}{24100cef455d7974167575052c29146e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Automated Whitebox Fuzz Testing}
+    \endentry
     \entry{api}{misc}{}
       \name{author}{1}{}{%
         {{hash=2766b3f2d6ad1844b368d1a847d0d24e}{%
@@ -246,25 +266,6 @@
       \field{howpublished}{\url{https://z3prover.github.io/api/html/group__cppapi.html}}
       \field{title}{{Automatically generated documentation for the Z3 C++ API}}
       \field{year}{2016}
-    \endentry
-    \entry{StateOfArt}{book}{}
-      \name{author}{1}{}{%
-        {{hash=8e68227dac6e6568c562ec0ab7bd3fb4}{%
-           family={Richard\bibnamedelima McNally},
-           familyi={R\bibinitperiod\bibinitdelim M\bibinitperiod},
-           given={Ken\bibnamedelima Yiu},
-           giveni={K\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
-      }
-      \strng{namehash}{8e68227dac6e6568c562ec0ab7bd3fb4}
-      \strng{fullhash}{8e68227dac6e6568c562ec0ab7bd3fb4}
-      \strng{authornamehash}{8e68227dac6e6568c562ec0ab7bd3fb4}
-      \strng{authorfullhash}{8e68227dac6e6568c562ec0ab7bd3fb4}
-      \field{sortinit}{R}
-      \field{sortinithash}{c15bc8eb6936bc6b3c8baa9e8575af53}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Fuzzing - The State of Art}
-      \field{year}{2012}
     \endentry
     \entry{AutomatedTestGeneration}{book}{}
       \name{author}{1}{}{%
