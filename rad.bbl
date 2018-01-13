@@ -19,6 +19,63 @@
 
 \refsection{0}
   \sortlist[entry]{nty/global/}
+    \entry{BlackBoxTesting}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=1f262b8db98b1f765534b157e103f21a}{%
+           family={Ali},
+           familyi={A\bibinitperiod},
+           given={Irfan},
+           giveni={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{1f262b8db98b1f765534b157e103f21a}
+      \strng{fullhash}{1f262b8db98b1f765534b157e103f21a}
+      \strng{authornamehash}{1f262b8db98b1f765534b157e103f21a}
+      \strng{authorfullhash}{1f262b8db98b1f765534b157e103f21a}
+      \field{sortinit}{A}
+      \field{sortinithash}{3248043b5fe8d0a34dab5ab6b8d4309b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://www.idt.mdh.se/kurser/ct3340/ht09/ADMINISTRATION/IRCSE09-submissions/ircse09_submission_29-1.pdf}}
+      \field{title}{What is Black Box Testing?}
+    \endentry
+    \entry{FuzzTestingForDummies}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=4108eb1b4a517399c05ad2726c21096d}{%
+           family={Art\bibnamedelima Manion},
+           familyi={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Michael\bibnamedelima Orlando},
+           giveni={M\bibinitperiod\bibinitdelim O\bibinitperiod}}}%
+      }
+      \strng{namehash}{4108eb1b4a517399c05ad2726c21096d}
+      \strng{fullhash}{4108eb1b4a517399c05ad2726c21096d}
+      \strng{authornamehash}{4108eb1b4a517399c05ad2726c21096d}
+      \strng{authorfullhash}{4108eb1b4a517399c05ad2726c21096d}
+      \field{sortinit}{A}
+      \field{sortinithash}{3248043b5fe8d0a34dab5ab6b8d4309b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://fuzzinginfo.files.wordpress.com/2012/05/ag_16b_icsjwg_spring_2011_conf_manion_orlando.pdf}}
+      \field{title}{Fuzz Testing for Dummies}
+    \endentry
+    \entry{ExploratoryTesting}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=c5c583fdbeb3d6fbcfb018cc7889f740}{%
+           family={Bach},
+           familyi={B\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{c5c583fdbeb3d6fbcfb018cc7889f740}
+      \strng{fullhash}{c5c583fdbeb3d6fbcfb018cc7889f740}
+      \strng{authornamehash}{c5c583fdbeb3d6fbcfb018cc7889f740}
+      \strng{authorfullhash}{c5c583fdbeb3d6fbcfb018cc7889f740}
+      \field{sortinit}{B}
+      \field{sortinithash}{5f6fa000f686ee5b41be67ba6ff7962d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://www.satisfice.com/articles/et-article.pdf}}
+      \field{title}{Exploratory Testing}
+    \endentry
     \entry{Barrett}{book}{}
       \name{author}{2}{}{%
         {{hash=a6540c79db660bc41e6094caa55711d2}{%
@@ -69,6 +126,13 @@
       \field{title}{Handbook of Satisfiability, volume 185 of Frontiers in Artificial Intelligence and Applications}
       \field{year}{2009}
     \endentry
+    \entry{PartitioningBoundary}{misc}{}
+      \field{sortinit}{B}
+      \field{sortinithash}{5f6fa000f686ee5b41be67ba6ff7962d}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://staff.cs.psu.ac.th/Apirada/344-454/12_Defect_Testing_handout.pdf}}
+      \field{title}{Black Box Test Data Generation Techniques}
+    \endentry
     \entry{DPBitvector}{book}{}
       \name{author}{1}{}{%
         {{hash=83fc588d159fa4e179c8dcd1ec3c9f17}{%
@@ -110,6 +174,26 @@
       \field{labeltitlesource}{title}
       \field{title}{The SMT-LIB Standard - version 2.0}
       \field{year}{2013}
+    \endentry
+    \entry{ImportanceOfTesting}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=a93585bdbe5ed75b7facd2ccbc367bcd}{%
+           family={Devl},
+           familyi={D\bibinitperiod},
+           given={T.\bibnamedelimi Rajanl},
+           giveni={T\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{a93585bdbe5ed75b7facd2ccbc367bcd}
+      \strng{fullhash}{a93585bdbe5ed75b7facd2ccbc367bcd}
+      \strng{authornamehash}{a93585bdbe5ed75b7facd2ccbc367bcd}
+      \strng{authorfullhash}{a93585bdbe5ed75b7facd2ccbc367bcd}
+      \field{sortinit}{D}
+      \field{sortinithash}{d10b5413de1f3d197b20897dd0d565bb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.ijser.org/researchpaper/Importance-of-Testing-in-Software-Development-Life-Cycle.pdf}}
+      \field{title}{Importance of Testing in Software Development Life Cycle}
+      \field{year}{2012}
     \endentry
     \entry{FastLinearArithmetic}{book}{}
       \name{author}{2}{}{%
@@ -156,6 +240,32 @@
       \field{title}{A Comparative Study of White Box, Black Box and Grey Box Testing Techniques}
       \field{year}{2012}
     \endentry
+    \entry{GrayBoxTesting}{misc}{}
+      \field{sortinit}{G}
+      \field{sortinithash}{618d986594b7198ba52cf8b00d348f3f}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://www.idc-online.com/technical_references/pdfs/information_technology/Gray_Box_Testing.pdf}}
+      \field{title}{Gray Box Testing}
+    \endentry
+    \entry{ComponentTesting}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=27e6b5ecbc9bced557c30fbe16d7f54a}{%
+           family={Horst\bibnamedelima Brinkmeyer},
+           familyi={H\bibinitperiod\bibinitdelim B\bibinitperiod},
+           prefix={dr.},
+           prefixi={d\bibinitperiod}}}%
+      }
+      \strng{namehash}{27e6b5ecbc9bced557c30fbe16d7f54a}
+      \strng{fullhash}{27e6b5ecbc9bced557c30fbe16d7f54a}
+      \strng{authornamehash}{27e6b5ecbc9bced557c30fbe16d7f54a}
+      \strng{authorfullhash}{27e6b5ecbc9bced557c30fbe16d7f54a}
+      \field{sortinit}{H}
+      \field{sortinithash}{2f664b453ec75da1fe3804ca92633405}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://arxiv.org/pdf/0710.4740.pdf}}
+      \field{title}{A New Approach to Component Testing}
+    \endentry
     \entry{NelsonOpen}{book}{}
       \name{author}{2}{}{%
         {{hash=800e03a3a47526fd4223d6de647dd875}{%
@@ -186,27 +296,34 @@
       \field{howpublished}{\url{http://ieeexplore.ieee.org/document/27763/}}
       \field{title}{{IEEE Standard for Software Unit Testing}}
     \endentry
-    \entry{LAVTool}{book}{}
+    \entry{AutomatedManualExecution}{misc}{}
+      \field{sortinit}{I}
+      \field{sortinithash}{a3dcedd53b04d1adfd5ac303ecd5e6fa}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.stickyminds.com/sites/default/files/article/file/2012/XDD3583filelistfilename1_0.pdf}}
+      \field{title}{Investing in Software Testing: Manual or Automated?}
+    \endentry
+    \entry{AgileDevelopment}{misc}{}
       \name{author}{1}{}{%
-        {{hash=753f6f099a245e6a2bc476a95d356b2a}{%
-           family={Janičič},
-           familyi={J\bibinitperiod},
-           given={Milena\bibnamedelima Vujošević},
-           giveni={M\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=93725a91e66d6c57edbf2fbb422022a5}{%
+           family={John\bibnamedelima Erickson},
+           familyi={J\bibinitperiod\bibinitdelim E\bibinitperiod},
+           given={Keng\bibnamedelima Siau},
+           giveni={K\bibinitperiod\bibinitdelim S\bibinitperiod},
+           suffix={Kalle\bibnamedelima Lyytinen},
+           suffixi={K\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {PhD Thesis, Matematički fakultet, Univerzitet u Beogradu}%
-      }
-      \strng{namehash}{753f6f099a245e6a2bc476a95d356b2a}
-      \strng{fullhash}{753f6f099a245e6a2bc476a95d356b2a}
-      \strng{authornamehash}{753f6f099a245e6a2bc476a95d356b2a}
-      \strng{authorfullhash}{753f6f099a245e6a2bc476a95d356b2a}
+      \strng{namehash}{93725a91e66d6c57edbf2fbb422022a5}
+      \strng{fullhash}{93725a91e66d6c57edbf2fbb422022a5}
+      \strng{authornamehash}{93725a91e66d6c57edbf2fbb422022a5}
+      \strng{authorfullhash}{93725a91e66d6c57edbf2fbb422022a5}
       \field{sortinit}{J}
       \field{sortinithash}{c86bd6cced82a15683b396c2169909ef}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Automatsko generisanje i proveravanje uslova ispravnosti programa}
-      \field{year}{2013}
+      \field{howpublished}{\url{https://search.proquest.com/openview//1?pq-origsite=gscholar&cbl=3752}}
+      \field{title}{Agile Modeling, Agile Software Development and Extreme Programming}
+      \field{year}{2005}
     \endentry
     \entry{ToolKLEE}{misc}{}
       \field{sortinit}{K}
@@ -214,6 +331,25 @@
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{https://klee.github.io/}}
       \field{title}{{KLEE project}}
+    \endentry
+    \entry{SystemTesting}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=3f27bc0239a36ba8b67dcf093cec8755}{%
+           family={M.\bibnamedelimi Young},
+           familyi={M\bibinitperiod\bibinitdelim Y\bibinitperiod},
+           given={M.\bibnamedelimi Pezze},
+           giveni={M\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \strng{namehash}{3f27bc0239a36ba8b67dcf093cec8755}
+      \strng{fullhash}{3f27bc0239a36ba8b67dcf093cec8755}
+      \strng{authornamehash}{3f27bc0239a36ba8b67dcf093cec8755}
+      \strng{authorfullhash}{3f27bc0239a36ba8b67dcf093cec8755}
+      \field{sortinit}{M}
+      \field{sortinithash}{c26a05ef03e4429073ed5c825140fac3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://ix.cs.uoregon.edu/~michal/Classes/W98/LecNotes/10-Testing-system.pdf}}
+      \field{title}{Integration and System Testing}
     \endentry
     \entry{EfficientSMTSolver}{book}{}
       \name{author}{2}{}{%
@@ -242,6 +378,44 @@
       \field{year}{2008}
       \field{pages}{337\bibrangedash 340}
       \range{pages}{4}
+    \endentry
+    \entry{IntegrationTesting}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=edbd89c6f09d392eb2d0df156b86b9ce}{%
+           family={Nielsen},
+           familyi={N\bibinitperiod},
+           given={Brian},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{edbd89c6f09d392eb2d0df156b86b9ce}
+      \strng{fullhash}{edbd89c6f09d392eb2d0df156b86b9ce}
+      \strng{authornamehash}{edbd89c6f09d392eb2d0df156b86b9ce}
+      \strng{authorfullhash}{edbd89c6f09d392eb2d0df156b86b9ce}
+      \field{sortinit}{N}
+      \field{sortinithash}{1163c28585427c673ad5a010cbf82f52}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://people.cs.aau.dk/~bnielsen/TOV07/lektioner/strategies-07.pdf}}
+      \field{title}{Test Integration Strategies}
+    \endentry
+    \entry{SoftwareUnitTesting}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=0eebcbf62d624d328f4c98ae6f6fcd3e}{%
+           family={Parkin},
+           familyi={P\bibinitperiod},
+           given={Rodney},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{0eebcbf62d624d328f4c98ae6f6fcd3e}
+      \strng{fullhash}{0eebcbf62d624d328f4c98ae6f6fcd3e}
+      \strng{authornamehash}{0eebcbf62d624d328f4c98ae6f6fcd3e}
+      \strng{authorfullhash}{0eebcbf62d624d328f4c98ae6f6fcd3e}
+      \field{sortinit}{P}
+      \field{sortinithash}{24100cef455d7974167575052c29146e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://condor.depaul.edu/sjost/hci430/documents/testing/UnitTesting.pdf}}
+      \field{title}{Software Unit Testing}
     \endentry
     \entry{ToolSAGE}{book}{}
       \name{author}{1}{}{%
@@ -282,6 +456,25 @@
       \field{howpublished}{\url{https://z3prover.github.io/api/html/group__cppapi.html}}
       \field{title}{{Automatically generated documentation for the Z3 C++ API}}
       \field{year}{2016}
+    \endentry
+    \entry{AcceptanceTesting}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=a9d056db2d90a8eddbec6121c457606c}{%
+           family={Roy\bibnamedelimb W.\bibnamedelimi Miller},
+           familyi={R\bibinitperiod\bibinitdelim W\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Christopher\bibnamedelimb T.\bibnamedelimi Collins},
+           giveni={C\bibinitperiod\bibinitdelim T\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{a9d056db2d90a8eddbec6121c457606c}
+      \strng{fullhash}{a9d056db2d90a8eddbec6121c457606c}
+      \strng{authornamehash}{a9d056db2d90a8eddbec6121c457606c}
+      \strng{authorfullhash}{a9d056db2d90a8eddbec6121c457606c}
+      \field{sortinit}{R}
+      \field{sortinithash}{c15bc8eb6936bc6b3c8baa9e8575af53}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.18.5040&rep=rep1&type=pdf}}
+      \field{title}{Acceptance Testing}
     \endentry
     \entry{AutomatedTestGeneration}{book}{}
       \name{author}{1}{}{%
@@ -352,6 +545,13 @@
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{https://pdfs.semanticscholar.org/a29f/6bad.pdf/}}
       \field{title}{Symbolic Execution and Program Testing}
+    \endentry
+    \entry{WhiteBoxTesting}{misc}{}
+      \field{sortinit}{W}
+      \field{sortinithash}{6d25b3eefe5aa2147d1f339686808918}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://students.cs.byu.edu/~cs340ta/fall2017/readings/WhiteBox.pdf}}
+      \field{title}{WhiteBoxTesting}
     \endentry
   \endsortlist
   \missing{api}

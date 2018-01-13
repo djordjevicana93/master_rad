@@ -107,41 +107,47 @@
 \chapter{Testiranje}
 
 Testiranje predstavlja važan deo životnog ciklusa razvoja softvera. 
-Softver se implementira prema zahtevima korisnika sa ciljem rešavanja realnog problema ili kreiranja potrebne funkcionalnosti. Nakon implementacije, softver može u manjoj ili većoj meri odgovarati zahtevima. Svako ponašanje softvera koje se ne slaže sa zahtevima predstavlja grešku koju je potrebno detektovati i eliminisati. Testiranje predstavlja proveru da li je softver u potpunosti implementiran u skladu sa korisničkim zahtevima. Pored proveravanja samog softvera, testiranje uključuje proveravanje svih pratećih komponenti i karakteristika. Takođe, testiranje predstavlja jedan od načina specifikacije problema.
+Softver se implementira prema zahtevima korisnika sa ciljem rešavanja realnog problema ili kreiranja potrebne funkcionalnosti. Nakon implementacije, softver može u manjoj ili većoj meri odgovarati zahtevima. Svako ponašanje softvera koje se ne slaže sa zahtevima predstavlja grešku koju je potrebno detektovati i eliminisati. 
 \par
-Kako i najmanji problem može uništiti uloženi trud, u slučaju obimnih projekata nikada nije dovoljno testiranja. Sa porastom složenosti projekta, raste i značaj testiranja i provera celokupnog softverskog sistema kako bi se izbegli ishodi koji mogu da unište ceo projekat. 
-S obzirom da se greške ne mogu izbeći, potrebno ih je što je moguće ranije otkriti kako bi njihovo otklanjanje bilo brže i jeftinije. Zbog prednosti koje se ostvaruju, najzastupljenije i trenutno najpopularnije metodologije razvoja softvera promovišu paralelnu implementaciju i pisanje testova za svaku od celina koja se razvija u okviru softverskog sistema. Pre isporučivanja softvera, neophodno je da uspešno prođu testovi za svaku od celina sistema.
+Testiranje predstavlja proveru da li je softver implementiran u skladu sa korisničkim zahtevima. Pored proveravanja samog softvera, testiranje uključuje proveravanje svih pratećih komponenti i karakteristika. 
 \par 
-U ovoj glavi opisan je proces testiranja po fazama u delu \ref{broj1}. U delu \ref{broj2} opisane su vrste testiranja softverskog sistema. U delu \ref{broj3} opisane su strategije testiranja uključujući strategiju crne, bele i sive kutije. Načini izvršavanja testova opisani su u delu \ref{broj4}. Načini generisanja testova opisani su u delu \ref{broj5}. U ovom delu opisani su i neke od tehnika i alata za automatskog generisanje test primera korišćenjem strategija crne, bele i sive kutije. 
+Sa porastom složenosti projekta, raste i značaj testiranja i provera celokupnog softverskog sistema kako bi se izbegli ishodi koji mogu da unište ceo projekat. 
+S obzirom da se greške ne mogu izbeći, potrebno ih je što je moguće ranije otkriti kako bi njihovo otklanjanje bilo brže i jeftinije. Zbog prednosti koje se ostvaruju, najzastupljenije i trenutno najpopularnije metodologije razvoja softvera promovišu paralelnu implementaciju i pisanje testova za svaku od celina koja se razvija u okviru softverskog sistema \cite{AgileDevelopment}. Pre isporučivanja softvera, neophodno je da uspešno prođu testovi za svaku od celina sistema.
+\par 
+
+U delu \ref{broj1} opisane su faze i aktivnosti koje se primenjuju tokom procesa testiranja. U delu \ref{broj2} opisane su vrste testiranja softverskog sistema. U delu \ref{broj3} opisane su strategije testiranja uključujući strategiju crne, bele i sive kutije. Načini izvršavanja testova opisani su u delu \ref{broj4}. Načini generisanja testova opisani su u delu \ref{broj5}. U delu \ref{broj5} opisane su i neke od tehnika i alata za automatsko generisanje test primera korišćenjem strategija crne, bele i sive kutije. 
 \section{Testiranje u procesu razvoja softvera} \label{broj1}
 \par 
-Testiranje softvera se u opštem slučaju sastoji od četiri faze pri čemu svaka faza obuhvata veliki broj aktivnosti. Proces testiranja sastoji se od faza planiranja, dizajniranja, izvršavanja i evaluacije testova.
+Testiranje softvera se u opštem slučaju sastoji od četiri faze pri čemu svaka faza obuhvata veliki broj aktivnosti. Proces testiranja sastoji se od faza planiranja, dizajniranja, izvršavanja i evaluacije testova \cite{ImportanceOfTesting}.
 \par
-Planiranje predstavlja pripremu za ceo proces testiranja i uključuje definisanje zadataka koje je potrebno sprovesti kao i način njihovog izvršavanja. Tokom ove faze, definišu se vrste testova koje će biti sprovedene, metode testiranja, strategije kao i kriterijum završetka. Rezultat planiranja predstavlja skup dokumenata koji sadrže opštiji pogled na sistem koji će se testirati, aktivnosti koje će biti izvršene kao i alate koji će biti korišćeni.
+Planiranje (eng. \textit{Test planning}) predstavlja pripremu za ceo proces testiranja i uključuje definisanje zadataka koje je potrebno sprovesti kao i način njihovog izvršavanja. Tokom ove faze, definišu se vrste testova koje će biti sprovedene, metode testiranja, strategije kao i kriterijum završetka. Rezultat planiranja predstavlja skup dokumenata koji sadrže opštiji pogled na sistem koji će se testirati, aktivnosti koje će biti izvršene kao i alate koji će biti korišćeni.
 \par 
-Tokom faze dizajniranja testova, vrši se detaljna specifikacija načina na koje će se aktivnosti predviđene planom izvršiti. Pored toga, kreiraju se i precizna uputstva kako će se vršiti testiranje sistema. Tokom ove faze, analizira se sistem koji će biti testiran. Rezultat faze dizajniranja je skup test slučajeva i test procedura koja će biti korišćene u fazi izvršavanja testova.
+Tokom faze dizajniranja testova (eng. \textit{Test design}), vrši se detaljna specifikacija načina na koje će se aktivnosti predviđene planom izvršiti. Pored toga, kreiraju se i precizna uputstva kako će se vršiti testiranje sistema. Tokom ove faze, analizira se sistem koji će biti testiran. Rezultat faze dizajniranja je skup test slučajeva i test procedura koja će biti korišćene u fazi izvršavanja testova.
 \par
-Izvršavanje testova se vrši radi provere funkcionalnosti sistema.
+Izvršavanje testova (eng. \textit{Test execution}) se vrši radi provere funkcionalnosti sistema.
 To je proces konkretne primene test slučajeva i test procedura formiranih na osnovu plana i dizajna. Izvršavanje testova obuhvata i dodatnu aktivnost praćenja statusa problema. Ova aktivnost podrazumeva eliminaciju prijavljenih problema kao i potvrđivanje da je problem rešen.
 \par
-Evaluacija testova predstavlja kreiranje izveštaja kojim se opisuje šta je testirano i potvrđivanje da je implementirani sistem spreman za korišćenje u skladu sa korisničkim zahtevima. Proces evaluacija uključuje i pregled rezultata dobijenih analizom izlaza test slučajeva.   
+Evaluacija testova (eng. \textit{Test evaluation}) predstavlja kreiranje izveštaja kojim se opisuje šta je testirano i potvrđivanje da je implementirani sistem spreman za korišćenje u skladu sa korisničkim zahtevima. Proces evaluacija uključuje i pregled rezultata dobijenih analizom izlaza test slučajeva.   
 
 \section{Vrste testiranja} \label{broj2}
 
 U literaturi se sreću različite podele testiranja softvera. Svaka je nastala kao posledica posmatranja različitih aspekata i pristupa provere softverskog sistema.
 Jedan od pristupa odnosi se na testiranje različitih nivoa sistema. Nivoi testiranja mogu biti pojedinačni moduli, grupe modula (vezanih namenom, upotrebom, ponašanjem ili strukturom) ili ceo sistem.
-U skladu sa pomenutom podelom, prema nivou testiranja, razlikujemo testove jedinice koda, testove prihvatljivosti, sistemske i istraživačke testove.
+U skladu sa pomenutom podelom, prema nivou testiranja, razlikujemo testove jedinice koda, komponentne, integracione i sistemske testove.
 \par
-Testiranjem jedinice koda (eng. \textit{Unit testing}) proverava se funkcionisanje delova sistema koji se nezavisno mogu testirati. U zavisnosti od konteksta i programske paradigme, to mogu se biti podprogrami ili veće komponente formirane od tesno povezanih jedinica. Ovom vrstom testiranja prolazi se svaki i najmanji deo sistema, pa upravo iz tog razloga ima važnu ulogu prilikom osiguravanja kvaliteta razvijenog softvera. Jedinični testovi definisani su standardom \textit{IEEE Standard for Software Unit Testing}. Cilj jediničnih testova je dokazivanje da komponenta ima predviđenu funkcionalnost. Ukoliko postoje greške u komponenti, one bi trebalo da budu otkrivene u fazi testiranja te komponente. Treba koristiti specijalne slučajeve ulaza, probati granice domena kao i nekorektan ulaz kako bi obezbedili da ne dolazi do pada softverskog sistema pri ovakvim situacijama.
+U kasnijim fazama razvoja softvera, kada je testiranje sistema po svim nivoima uspešno završeno, pristupa se izvršavanju istraživačkih testova i testova prihvatljivosti.
 \par
-Testovi prihvatljivosti (eng. \textit{Acceptance testing}) 
-treba da omoguće klijentima i korisnicima da se sami uvere da je napravljeni softver u skladu sa njihovim potrebama i očekivanjima.
-Ovu vrstu testiranja izvode i procenjuju korisnici, a razvojni tim im pruža pomoć oko tehničkih pitanja, ukoliko za tim ima potrebe.
-Klijent može da proceni sistem na tri načina: referentnim testiranjem, pilot testiranjem i paralelnim testiranjem. Kod referentnog testiranja, klijent generiše test slučajeve koji predstavljaju uobičajne uslove u kojima sistem treba da radi. Ove testove izvode korisnici kako bi procenili da li je softver implementiran u skladu sa očekivanjima. Pilot testiranje podrazumeva instalaciju sistema na privremenoj lokaciji i njegovu upotrebu. U ovom slučaju, testiranje se vrši simulacijom svakodnevnog rada na sistemu.
-Paralelno testiranje se koristi tokom razvoja, kada jedna verzija softvera zamenjuje drugu ili kada novi sistem treba da zameni stari. 
-Ideja je paralelno funkcionisanje oba sistema (starog i novog) čime se korisnici postepeno privikavaju i prelaze na korišćenje novog sistema.
-\par 
-Sistemsko testiranje (eng. \textit{System testing}) obuhvata proveravanje sistema kao celine. Ispituje se da li je ponašanje sistema u skladu sa specifikacijom zadatom od strane klijenta.
+
+Testiranjem jedinice koda (eng. \textit{Unit testing}) proverava se funkcionisanje delova sistema koji se nezavisno mogu testirati \cite{SoftwareUnitTesting}. U zavisnosti od konteksta i programske paradigme, to mogu biti podprogrami ili veće komponente formirane od tesno povezanih jedinica. Ovom vrstom testiranja prolazi se svaki i najmanji deo sistema, pa upravo iz tog razloga ima važnu ulogu prilikom osiguravanja kvaliteta razvijenog softvera. Jedinični testovi definisani su standardom \textit{IEEE Standard for Software Unit Testing} \cite{IEEEStandard}. Cilj jediničnih testova je dokazivanje da komponenta ima predviđenu funkcionalnost. Ukoliko postoje greške u komponenti, one bi trebalo da budu otkrivene u fazi testiranja te komponente. Treba koristiti specijalne slučajeve ulaza, probati granice domena kao i nekorektan ulaz kako bi obezbedili da ne dolazi do pada softverskog sistema pri ovakvim situacijama.
+\par
+Komponentnim testiranjem (eng. \textit{Component testing}) proveravaju se moduli sastavljeni od više komponenti \cite{ComponentTesting}. Neformalno, komponenta je skup povezanih jedinica koda koje imaju zajednički interfejs prema ostalim komponentama.  Moduli se proveravaju odmah po njihovom kreiranju pri čemu se testiranje može vršiti izolovano od ostatka sistema, u zavisnosti od izabranog modela razvoja. Važno je napomenuti da testiranje jedinica koda obavlja razvojni tim, a testiranje komponenti tim testera. Pored toga, preporuka je da se komponentno testiranje izvrši pre testova integracije koji će biti opisani u nastavku.
+\par
+
+Pošto su pojedinačni moduli u sistemu ispravno implementirani, integracionim testiranjem (eng. \textit{Integration testing}) proverava se saradnja između modula koji predstavljaju jednu celinu sistema \cite{IntegrationTesting}. Ispituje se da li su veze između ovih modula dobro definisane i realizovane, tj. da li moduli komuniciraju na način opisan u specifikaciji projekta. 
+Integracionim testovima pokazuje se da različiti moduli sistema rade ispravno zajedno. Za izvršavanje integracionih testova, obično se zahteva pristup bazi i hardverskim delovima sistema. Ukoliko je testiranje komponenti uspešno završeno, tokom integracionog testiranja mogu se naći manji propusti u komunikaciji između modula, pri čemu možemo biti sigurni da su funkcionalnosti samih modula ispravno implementirane.
+\par
+ 
+Sistemsko testiranje (eng. \textit{System testing}) obuhvata proveravanje sistema kao celine \cite{SystemTesting}. Ispituje se da li je ponašanje sistema u skladu sa specifikacijom zadatom od strane klijenta.
 Ova vrsta testiranja stavlja naglasak na nefunkcionalne zahteve sistema kao što su brzina, efikasnost, otpornost na otkaze, uklapanje u okruženje u kojem će se sistem koristiti. 
 Testiranje sistema obavlja se u drugačijim uslovima u odnosu na testiranje jedinica koda i testiranje prihvatljivosti. 
 U proces testiranja sistema uključuje se ceo razvojni tim pod nadzorom rukovodioca projekta.
@@ -169,15 +175,27 @@ Instalacioni testovi se izvršavaju u saradnji sa korisnicima. Ispituje se da li
 Kada rezultati testiranja zadovoljavaju potrebe klijenta, testiranje se prekida i sistem se formalno isporučuje.
 \par
 
-Tokom istraživačkog testiranja (eng. \textit{Exploratory testing}) testeri pronalaze i proveravaju druge eventualne pravce korišćenja softverskog sistema. Na taj način podstiče se povećanje kreativnosti testera. Ova vrsta testiranja obuhvata aktivnosti prepoznavanja, kreiranja i izvršavanja novih test slučajeva. Istraživačko testiranje uglavnom ima smisla kada je aplikacija u svom finalnom obliku, kada tester može videti i druge alternativne pravce korišćenja sistema koji ranije nisu mogli biti predmet testiranja. Ukoliko se ova faza testiranja preskoči, postoji opasnost da neke funkcionalnosti sistema ne budu pokrivene testovima.
+
+Tokom istraživačkog testiranja (eng. \textit{Exploratory testing}) testeri pronalaze i proveravaju druge eventualne pravce korišćenja softverskog sistema \cite{ExploratoryTesting}. Na taj način podstiče se povećanje kreativnosti testera. Ova vrsta testiranja obuhvata aktivnosti prepoznavanja, kreiranja i izvršavanja novih test slučajeva. Istraživačko testiranje uglavnom ima smisla kada je aplikacija u svom finalnom obliku, kada tester može videti i druge alternativne pravce korišćenja sistema koji ranije nisu mogli biti predmet testiranja. Ukoliko se ova faza testiranja preskoči, postoji opasnost da neke funkcionalnosti sistema ne budu pokrivene testovima.
 \par 
-Opisani načini testiranja ilustrovani su piramidom testiranja na slici \ref{fig:piramida}. Piramidom testiranja ilustruje se redosled izvršavanja testova. Testiranje softvera počinje izvršavanjem testova jedinica koda, zatim slede testovi prihvatljivosti, sistemski i istraživački testovi. Najveći broj testova piše se za testiranje jedinica koda pri čemu svaki deo koda softverskog sistema mora biti pokriven bar jednim testom. Broj testova na svim nivoima zavisi od konkretnog projekta i prilagođava se potrebama klijenata.
+
+
+Testovi prihvatljivosti (eng. \textit{Acceptance testing}) 
+treba da omoguće klijentima i korisnicima da se sami uvere da je napravljeni softver u skladu sa njihovim potrebama i očekivanjima \cite{AcceptanceTesting}.
+Ovu vrstu testiranja izvode i procenjuju korisnici, a razvojni tim im pruža pomoć oko tehničkih pitanja, ukoliko za tim ima potrebe.
+Klijent može da proceni sistem na tri načina: referentnim testiranjem, pilot testiranjem i paralelnim testiranjem. Kod referentnog testiranja, klijent generiše test slučajeve koji predstavljaju uobičajne uslove u kojima sistem treba da radi. Ove testove izvode korisnici kako bi procenili da li je softver implementiran u skladu sa očekivanjima. Pilot testiranje podrazumeva instalaciju sistema na privremenoj lokaciji i njegovu upotrebu. U ovom slučaju, testiranje se vrši simulacijom svakodnevnog rada na sistemu.
+Paralelno testiranje se koristi tokom razvoja, kada jedna verzija softvera zamenjuje drugu ili kada novi sistem treba da zameni stari. 
+Ideja je paralelno funkcionisanje oba sistema (starog i novog) čime se korisnici postepeno privikavaju i prelaze na korišćenje novog sistema.
+\par 
+
+Opisani načini testiranja ilustrovani su piramidom testiranja na slici \ref{fig:piramida}. Piramidom testiranja ilustruje se redosled izvršavanja testova. Testiranje softvera počinje izvršavanjem testova jedinica koda, zatim slede komponentni, integracioni, sistemski, istraživački i testovi prihvatljivosti. Najveći broj testova piše se za testiranje jedinica koda pri čemu svaki deo koda softverskog sistema mora biti pokriven bar jednim testom. Broj testova na svim nivoima zavisi od konkretnog projekta i prilagođava se potrebama klijenata.
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.9\textwidth]{piramida.png}
   \caption{Piramida testiranja softvera}
   \label{fig:piramida}
 \end{figure}
+
 
 Pored opisane podele i vrsta testova koji se izvršavaju, postoje i druge podele prema različitim kriterijumima testiranja. Više o podelama i podržanim načinima testiranja može se naći u literaturi \cite{TestingProcess}.
 
@@ -187,15 +205,15 @@ strategija crne kutije, strategija bele kutije i strategija sive kutije \cite{St
  
 \subsection{Strategija crne kutije}
 Testiranje crnom kutijom (eng. \textit{Black Box Testing}) je strategija koja posmatra program kao zatvoreni sistem kako bi se uvrdilo ponašanje programa na
-osnovu odgovarajućih ulaznih podataka. Ova strategija ne zahteva poznavanje strukture i analizu izvornog
+osnovu odgovarajućih ulaznih podataka \cite{BlackBoxTesting}. Ova strategija ne zahteva poznavanje strukture i analizu izvornog
 koda, već samo osobine definisane specifikacijom softverskog sistema. Sprovodi se tako što se sistemu prosleđuju odgovarajući ulazni podaci a zatim se proverava da li je izlaz u skladu sa očekivanim. 
-Ova strategija se između ostalog primenjuje prilikom testiranja web aplikacija ili servisa, gde se razmatra strana koju je generisao server na osnovu unetih podataka. Strategija testiranja crne kutije obično nije najbolji pristup, ali je uvek opcija. Prednost primene ove strategije je jednostavnost, pošto testiranje može biti vođeno bez poznavanja unutrašnje
+Ova strategija se između ostalog primenjuje prilikom testiranja veb aplikacija ili servisa, gde se razmatra strana koju je generisao server na osnovu unetih podataka. Strategija testiranja crne kutije obično nije najbolji pristup, ali je uvek opcija. Prednost primene ove strategije je jednostavnost, pošto testiranje može biti vođeno bez poznavanja unutrašnje
 strukture softverskog sistema. Ulazni podaci za testiranje sistema definišu se tako
 da povećaju verovatnoću nalaženja greške i da smanje veličinu skupa testova. Ova strategija je potpuno fokusirana na funkcionalnosti rada aplikacije. \par
 U nastavku će biti opisane dve metode koje primenjuju strategiju crne kutije. To su metoda klasa ekvivalencije i metoda graničnih vrednosti.
 \par 
 \subsubsection{Metoda klasa ekvivalencije}
-Ideja metode deljenja na klase ekvivalencije (eng. \textit{Equivalence Partitioning}) je formiranje podskupova (klasa) podataka na osnovu ulaznih podataka. Jedna klasa sadrži ulazne podatke koji proizvode slične rezultate (izlazne vrednosti) pri testiranju. Na primer, jednu klasu podataka mogu činiti ulazni podaci koji otkrivaju istu grešku. U idealnom slučaju, podskupovi su međusobno disjunktni i ceo ulazni skup je pokriven. 
+Ideja metode deljenja na klase ekvivalencije (eng. \textit{Equivalence Partitioning}) je formiranje podskupova (klasa) podataka na osnovu ulaznih podataka \cite{PartitioningBoundary}. Jedna klasa sadrži ulazne podatke koji proizvode slične rezultate (izlazne vrednosti) pri testiranju. Na primer, jednu klasu podataka mogu činiti ulazni podaci koji otkrivaju istu grešku. U idealnom slučaju, podskupovi su međusobno disjunktni i ceo ulazni skup je pokriven. 
 \par 
 Da bismo identifikovali klase, posmatramo specifikaciju klijentskih uslova.
 Za svaki uslov kreiramo po dve klase u zavisnosti da li je uslov ispunjen ili nije. Formiramo legalne klase koje obuhvataju ispravne i očekivane ulazne podatke kao i nelegalne klase koje obuhvataja sve ostale slučajeve ulaznih podataka.
@@ -205,8 +223,8 @@ Prednost metode deljenja na klase ekvivalencije je manji utrošak vremena pri te
 \subsubsection{Metoda graničnih vrednosti}
 Kod metode graničnih  vrednosti (eng. \textit{Boundary Value  Analysis}) test slučajevi su
 napravljeni  tako  da  reprezentuju  granice  odgovarajućih 
-klasa (ulaznih podataka). Osnovu čini princip prethodno objašnjene 
-metode klasa ekvivalencija.
+klasa (ulaznih podataka) . Osnovu čini princip prethodno objašnjene 
+metode klasa ekvivalencija \cite{PartitioningBoundary}.
 Za svaki skup ulaznih podataka formiraju se tri klase, jedna validna i dve nevalidne. Validna klasa ima ispravne ulazne vrednosti, a nevalidne klase sadrže ulazne vrednosti koje ne pripadaju ispravnim opsezima. Vrednosti na granicama između validne i nevalidnih klasa nazivaju se test vektorima klasa.
 Razlog  za korišćenje upravo ovih vrednosti za test vektore jesu česte softverske greške baš na
 granicama opsega važenja. 
@@ -214,7 +232,7 @@ granicama opsega važenja.
 Za primenu ove metode, potrebno je više vremena za određivanje test slučajeva u poređenju sa drugim metodama strategije crne kutije zbog određivanja granica između validne i nevalidnih klasa.
 
 \subsection{Strategija bele kutije}
-Testiranje strategijom bele kutije (eng. \textit{White Box Testing}) zahteva pristup izvornom kodu, dobro poznavanje programskog jezika u kojem je sistem implementiran kao i dizajn konkrentog softverskog proizvoda. Plan testiranja izvodi se proučavanjem celokupnog programskog koda. Za svaku liniju koda može se proveriti da li se ona izvršava u zavisnosti od podataka na ulazu. Takođe, može se vršiti provera izvršavanja pojedinačnih funkcija. Specifičnim testovima proverava se postojanje beskonačnih petlji ili detektovanje delova koda koji se nikad ne izvrši. 
+Testiranje strategijom bele kutije (eng. \textit{White Box Testing}) zahteva pristup izvornom kodu, dobro poznavanje programskog jezika u kojem je sistem implementiran kao i dizajn konkrentog softverskog proizvoda \cite{WhiteBoxTesting}. Plan testiranja izvodi se proučavanjem celokupnog programskog koda. Za svaku liniju koda može se proveriti da li se ona izvršava u zavisnosti od podataka na ulazu. Takođe, može se vršiti provera izvršavanja pojedinačnih funkcija. Specifičnim testovima proverava se postojanje beskonačnih petlji ili detektovanje delova koda koji se nikad ne izvrši. 
 \par
 Da bi se obezbedila primena strategije bele kutije, neophodno je i poznavanje interne logike i strukture koda kako bi se dizajnirali test slučajevi koji proveravaju kontrolne strukture programskog jezika. Kontrolne strukture obuhvataju naredbe grananja, uslovne naredbe, način menjanja tokova podataka i petlje.
 
@@ -228,32 +246,31 @@ mnoge putanje u sistemu mogu ostati netestirane pa se na taj način mogu sakriti
 
 \subsection{Strategija sive kutije}
 
-Strategija testiranja sivom kutijom (eng. \textit{Gray Box Testing}) predstavlja kombinaciju prethodne dve strategije. Kod ove strategije postoji pristup nekom segmentu softvera, ali ne i kompletnom softverskom sistemu. Na osnovu analize poznatih delova koda koja odgovara testiranju bele kutije, formiraju se test slučajevi koji se zatim primenjuju na delove sistema o čijoj internoj strukturi nemamo informacija (odgovara testiranju crne kutije). Tehnika sive kutije koristi se u slučajevima testiranja integracije različitih delova koda. Ova strategija povećava pokrivenost koda test primerima kombinovanjem dve strategije. 
+Strategija testiranja sivom kutijom (eng. \textit{Gray Box Testing}) predstavlja kombinaciju prethodne dve strategije. Kod ove strategije postoji pristup nekom segmentu softvera, ali ne i kompletnom softverskom sistemu \cite{GrayBoxTesting}. Na osnovu analize poznatih delova koda koja odgovara testiranju bele kutije, formiraju se test slučajevi koji se zatim primenjuju na delove sistema o čijoj internoj strukturi nemamo informacija (odgovara testiranju crne kutije). Tehnika sive kutije koristi se u slučajevima testiranja integracije različitih delova koda. Ova strategija povećava pokrivenost koda test primerima kombinovanjem dve strategije. 
 \par
 Kada se primenjuje testiranje sivom kutijom, razlikujemo dve vrste testera. Prvu grupu čine kvalifikovani testeri koji na osnovu delimičnog pristupa izvornom kodu formiraju test slučajeve. Drugu grupu čine testeri čiji je zadatak samo izvršavanje dobijenih test slučajeva bez poznavanja interne strukture sistema. 
 U zavisnosti od procenta celokupnog izvornog koda kome se može pristupiti, pokrivenost koda testovima može biti ograničena. 
 \par
 Metode testiranja sive kutije su ortogonalno testiranje, regresiono testiranje i testiranje obrazaca.
 Ortogonalno testiranje koristi podskup svih kombinacija test slučajeva  dobijenih analizom dostupnih delova izvornog koda.
-Regresioni testovi predstavljaju ponavljanje istih testova više puta u slučaju izmena pri razvoju sistema. Ovi testovi se sprovode kako bi se utvrdilo da promene u implementaciji nisu dovele do neželjenog ponašanja. 
-Testiranje obrazaca podrazumeva primenu testova obrazaca pri dizajnu softverskih sistema.
-Ukoliko se sistem implementira prema nekom obrazcu projektovanja, testovima obrazaca proverava se da li je arhitektura sistema u skladu arhitekturom izabrarnog obrasca.
+Regresioni testovi opisani su u delu \ref{broj2}. Testiranje obrazaca podrazumeva primenu testova obrazaca pri dizajnu softverskih sistema.
+Ukoliko se sistem implementira prema nekom obrazcu projektovanja, testovima obrazaca proverava se da li je arhitektura sistema u skladu arhitekturom izabranog obrasca.
 
 \section{Načini izvršavanja testova} \label{broj4}
 U opštem slučaju, test se smatra uspešnim ukoliko je ponašanje sistema pri njegovom izvršavanju u skladu sa korisničkim zahtevima. Međutim, kod sve popularnije metodologije destruktivnog testiranja, test se smatra uspešnim ako se njegovim izvršavanjem otkriva postojanje greške u softveru.
 \par
-Izvršavanje testova sprovodi se na dva načina, automatizovano i manuelno. Manuelno  testiranje predstavlja ručno izvršavanje test slučajeva izabranim alatima. 
+Izvršavanje testova sprovodi se na dva načina, automatizovano i manuelno \cite{AutomatedManualExecution}. Manuelno  testiranje predstavlja ručno izvršavanje test slučajeva izabranim alatima. 
 U većini slučajeva, tester prati niz koraka da bi verifikao neki segment softverskog sistema. Nakon toga, formira se izveštaj dobijenih rezultata.
 \par
 Automatizovano testiranje podrazumeva postojanje određenog koda napisanog kako bi se automatizovali koraci pri izvršavanju test slučaja. 
 Datoteke koje sadrže logiku za testiranje nazivaju se test skripte i mogu biti pisane u svim programskim jezicima. \par
 Tokom manuelnog i automatizovanog izvršavanja testova prate se iste faze procesa testiranja koje se mogu primeniti na različite nivoe i tipove testiranja. Manuelno i automatsko izvršavanje testova ima svoje prednosti i mane. U nastavku će biti navedene neke od njih. 
 
-Automatizovano testiranje je brže i pouzdanije jer su kod manuelnog testiranja mogući propusti usled prekomernog rada ili umora testera. Kako automatizovano izvršavanje ne zahteva prisustvo testera, oni se mogu neprekidno izvršavati.
-Sa druge strane, automatizovano testiranje je skuplje i zahteva posebno kvalifikovane testere. Ušteda vremena je jako važna za velike sisteme nad kojima se između ostalog izvršavaju i regresioni testovi. Kada se sistem proširuje novom komponentom, pored već izvršenih testova, dodaju se testovi koji proveravaju funkcionalnost nove komponente. Odavde zaključujemo da je automatizacija regresionih testova neophodna zbog uštede vremena. \par
-Prilikom testiranja, obično su na raspolaganju ograničeni resursi, čime se onemogućuje efikasno izvršavanje manuelnih testova. U slučaju čestog menjanja korisničkog interfejsa, manuelno izvršavanje testova je bolja opcija od automatizovanog.
+Prilikom testiranja, obično su na raspolaganju ograničeni resursi, čime se onemogućuje efikasno izvršavanje manuelnih testova. Automatizovano testiranje je brže i pouzdanije jer su kod manuelnog testiranja mogući propusti usled prekomernog rada ili umora testera. Kako automatizovano izvršavanje ne zahteva prisustvo testera, oni se mogu neprekidno izvršavati.
+Sa druge strane, automatizovano testiranje je skuplje i zahteva posebno kvalifikovane testere. Ušteda vremena je jako važna za velike sisteme nad kojima se između ostalog izvršavaju i regresioni testovi. Kada se sistem proširuje novom komponentom, pored već izvršenih testova, dodaju se testovi koji proveravaju funkcionalnost nove komponente. Odavde zaključujemo da je automatizacija regresionih testova neophodna zbog uštede vremena.
+
 \par
-Izvršavanje jediničnih testova i testova prihvatljivosti je uvek automatizovano. Sistemski testovi se mogu izvršavati i automatizovano i manuelno. Istraživački testovi se uvek izvršavaju manuelno. Načini izvršavanja testova u okviru piramide testiranja ilustrovani su slikom \ref{fig:piramida}.
+Izvršavanje jediničnih testova i testova komponenti je uvek automatizovano. Integracioni i sistemski testovi se mogu izvršavati i automatizovano i manuelno. Istraživački i testovi prihvatljivosti se uvek izvršavaju manuelno. Načini izvršavanja testova u okviru piramide testiranja ilustrovani su slikom \ref{fig:piramida}.
 
 
 \section{Načini generisanja testova} \label{broj5}
@@ -270,7 +287,7 @@ Na primer, za programske jezike C i C++ slabosti su prekoračenje bafera, neispr
 Automatizacija procesa generisanja test primera posebno je važna jer ubrzava proces testiranja. U nastavku će biti navedene neke od tehnika i alata koje imaju za cilj automatsko generisanje test primera. 
 
 
-Rasplinuto testiranje (eng. \textit{Fuzz testing}) je primer tehnike koju je moguće potpuno automatizovati i zasniva se na primeni strategije crne kutije. Ovom tehnikom se generišu neispravni i neočekivani ulazi za koje se prati tok izvršavanja programa sa ciljem detektovanja nebezbednog ponašanja. Test primer sa kojim se započinje testiranje može biti slučajno generisan ili ulaz definisan od strane programera. Svaki naredni test primer generiše se na osnovu prethodno generisanih test primera, praćenja toka izvršavanja programa i promena vrednosti promenljivih. Rasplinuto testiranje može se fokusirati na granične vrednosti ulaza ali i na bilo koje ulazne vrednosti koje mogu izazvati nedefinisano ili nebezbedno ponašanje. Može se definisati i kao metod otkrivanja grešaka softvera kreiranjem neočekivanih ulaza i upravljanjem izuzecima. Danas se rasplinuto testiranje najviše koristi u velikim sistemima jer se pokazalo da ova metoda daje jako dobar odnos cene i vremena naspram kvaliteta testiranja. 
+Rasplinuto testiranje (eng. \textit{Fuzz testing}) je primer tehnike koju je moguće potpuno automatizovati i zasniva se na primeni strategije crne kutije \cite{FuzzTestingForDummies}. Ovom tehnikom se generišu neispravni i neočekivani ulazi za koje se prati tok izvršavanja programa sa ciljem detektovanja nebezbednog ponašanja. Test primer sa kojim se započinje testiranje može biti slučajno generisan ili ulaz definisan od strane programera. Svaki naredni test primer generiše se na osnovu prethodno generisanih test primera, praćenja toka izvršavanja programa i promena vrednosti promenljivih. Rasplinuto testiranje može se fokusirati na granične vrednosti ulaza ali i na bilo koje ulazne vrednosti koje mogu izazvati nedefinisano ili nebezbedno ponašanje. Može se definisati i kao metod otkrivanja grešaka softvera kreiranjem neočekivanih ulaza i upravljanjem izuzecima. Danas se rasplinuto testiranje najviše koristi u velikim sistemima jer se pokazalo da ova metoda daje jako dobar odnos cene i vremena naspram kvaliteta testiranja. 
 \par
 
 Uopšteno, postoje dve vrste alata za generisanje testova primenom tehnike rasplinutog testiranja. Jedna grupa alata zahteva posebno kvalifikovane testera koji unose detalje o implementaciji sistema. Druga grupa alata omogućava generisanje testova samo konfigurisanjem parametara o očekivanom ulazu i definisanjem programskog jezika. Prednost ovog pristupa je jednostavnost, dok je mana niži kvalitet testiranja u odnosu na testove koji se formiraju za specifični sistem. 
@@ -284,12 +301,14 @@ U prvoj fazi program se izvršava koristeći početni skup ulaznih podataka. Uko
 \par
 KLEE \cite{ToolKLEE} je alat za simboličko izvršavanje \cite{SymbolicExecution} koji primenjuje strategiju bele kutije za automatsko generisanje test primera. 
 Nastao je na univerzitetu Ilinois i javno je dostupan.
-Alat proverava greške u radu sa pokazivačima, greške prekoračenja bafera i greške deljenja nulom za programe napisane u programskog jeziku C. Ovim alatom postiže se velika pokrivenost kompleksnih programa testovima. KLEE koristi razne optimizacije i heuristike za poboljšanje pokrivenosti koda prilikom simboličkog izvršavanja. Alat ima dva cilja: pokrivanje svake linije izvršnog koda u programu i detektovanje svake nebezbedne operacije ukoliko takva postoji. \par
-Kod normalnog izvršavanja programa, operacije nad operandima proizvode konkretne vrednosti. Problem složenih programa je eksplozija stanja sistema koju je potrebno proveriti kako bi se generisali test primeri. Iz tog razloga, koristi se pristup simboličkog izvršavanja programa koji opisuje skup vrednosti koji je moguć na datoj putanji u programu. Kada KLEE detektuje grešku, vrši se rešavanje ograničenja trenutne putanje kako bi se proizveo test primer koji će pratiti istu putanju kada se izvršavanje programa pokrene ponovo normalno upotrebom kompajlera. KLEE koristi jednostavan pristup za sinhronizaciju sa okruženjem. Naime, veliki deo koda je kontrolisan vrednostima koje se dobijaju iz okruženja kao što su argumenti komandne linije i fajl sistem. 
-\par
-Cilj rada je nadogradnja sistema LAV modulom za automatsko generisanje test primera \cite{LAVTool}. LAV je sistem za automatsko generisanje i proveravanje uslova ispravnosti programa. Implementiran je u programskom jeziku C++ i javno je dostupan. Sistem je namenjen prvenstveno analizi programa napisanih u programskog jeziku C, ali pošto koristi LLVM međujezik, može se primeniti i za analizu programa napisanih u drugim proceduralnim jezicima. 
-\par
-Nadogradnja treba da obuhvati prepoznavanje ulaznih vrednosti programa, a zatim izdvajanje odgovarajućih vrednosti iz modela generisanih od strane LAV-a i rešavača Z3. Na osnovu vrednosti izdvojenih iz modela koje generiše Z3 rešavač, cilj je formirati test primer za koji je potrebno pokrenuti izvršavanje programa i proveriti da li generisani test primer zaista dovodi do greške u softveru. 
+Alat proverava greške u radu sa pokazivačima, greške prekoračenja bafera i greške deljenja nulom za programe napisane u programskom jeziku C. Ovim alatom postiže se velika pokrivenost kompleksnih programa testovima. KLEE koristi razne optimizacije i heuristike za poboljšanje pokrivenosti koda prilikom simboličkog izvršavanja. Alat ima dva cilja, pokrivanje svake linije izvršnog koda u programu i detektovanje svake nebezbedne operacije ukoliko takva postoji. \par
+Kod normalnog izvršavanja programa, operacije nad operandima proizvode konkretne vrednosti. Problem složenih programa je eksplozija stanja sistema koju je potrebno proveriti kako bi se generisali test primeri. Iz tog razloga, koristi se pristup simboličkog izvršavanja programa koji opisuje skup vrednosti koji je moguć na datoj putanji u programu. Kada KLEE detektuje grešku, vrši se rešavanje ograničenja trenutne putanje kako bi se proizveo test primer za koji je potrebno izvršiti program upotrebom kompajlera. 
+\par 
+KLEE koristi jednostavan pristup za sinhronizaciju sa okruženjem. Naime, veliki deo koda je kontrolisan vrednostima koje se dobijaju iz okruženja kao što su argumenti komandne linije i fajl sistem. 
+%\par
+%Cilj rada je nadogradnja sistema LAV modulom za automatsko %generisanje test primera \cite{LAVTool}. LAV je sistem za %automatsko generisanje i proveravanje uslova ispravnosti %programa. Implementiran je u programskom jeziku C++ i javno %je dostupan. Sistem je namenjen prvenstveno analizi %programa napisanih u programskog jeziku C, ali pošto %koristi LLVM međujezik, može se primeniti i za analizu %programa napisanih u drugim proceduralnim jezicima. 
+%\par
+%Nadogradnja treba da obuhvati prepoznavanje ulaznih %vrednosti programa, a zatim izdvajanje odgovarajućih %vrednosti iz modela generisanih od strane LAV-a i rešavača %Z3. Na osnovu vrednosti izdvojenih iz modela koje generiše %Z3 rešavač, cilj je formirati test primer za koji je %potrebno pokrenuti izvršavanje programa i proveriti da li %generisani test primer zaista dovodi do greške u softveru. 
  
 \chapter{Rešavač Z3}
 \label{chp:razrada}
