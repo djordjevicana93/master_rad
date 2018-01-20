@@ -129,15 +129,24 @@ Veliko ograničenje automatizovanog pristupa je nemogućnost konstrukcije algori
 
 %Razvoj i primena novih tehnologija počinju sve više da utiču na %društvo. Računari su prisutni svuda oko nas i pružaju nam mnoge %pogodnosti i olakšice kako u neobaveznim tako i u poslovnim %aktivnostima. Institucije poput banaka, zdravstva, prosvete i drugih %teže da automatizuju svoje procese korišćenjem različitih softverskih %alata.
 \subsection{Motivacija}
-AUTOMATIZOVANO STATICKO PROVERAVANJE ISPRAVNOSTI SOFTVERA pomenuti staticku analizu
+%AUTOMATIZOVANO STATICKO PROVERAVANJE ISPRAVNOSTI SOFTVERA pomenuti %staticku analizu
+%Automatizovano statičko utvrđivanje ispravnosti softvera
 
-automatsko generisanje test primera kojima se proverava ispravnost programa bitno da se taj proces automatizuje bla bla 
+%automatsko generisanje test primera kojima se proverava ispravnost %programa bitno da se taj proces automatizuje bla bla 
 
-Cilj rada je nadogradnja sistema LAV modulom za automatsko generisanje test primera \cite{LAVTool}. LAV je sistem za automatsko generisanje i proveravanje uslova ispravnosti programa. Implementiran je u programskom jeziku C++ i javno je dostupan. Sistem je namenjen prvenstveno analizi programa napisanih u programskog jeziku C, ali pošto koristi LLVM međujezik, može se primeniti i za analizu programa napisanih u drugim proceduralnim jezicima. 
+
+%Statičke tehnike verifikacije softvera mogu da koriste različite %teorije za modelovanje ponašanja programa.
+
+U okviru automatizovane provere ispravnosti softvera, ponašanje programa može se modelovati matematičkim tvrđenjima definisanim formalnim jezikom izabrane matematičke teorije.
+
+U okviru automatizovane provere ispravnosti izdvajaju se formalne metode verifikacije u kojima se uslovi ispravnosti softvera iskazuju u terminima matematičkih tvrđenja na striktno definisanom formalnom jeziku izabrane matematičke teorije. 
+
+
+U okviru ovog rada nadograđen je sistem za automatizovanu verifikaciju softvera LAV modulom za automatsko generisanje test primera. Ponašanje sistema modeluje se formulama izabrane teorije. Nadogradnja obuhvata prepoznavanje ulaznih vrednosti programa, a zatim izdvajanje odgovarajućih vrednosti iz modela generisanih od strane alata LAV i rešavača Z3. Na osnovu vrednosti izdvojenih iz modela, cilj je formirati test primer za koji je potrebno pokrenuti izvršavanje programa i proveriti da li generisani test primer zaista dovodi do greške u softveru.
+%Cilj rada je nadogradnja sistema LAV modulom za automatsko generisanje %test primera \cite{LAVTool}. LAV je sistem za automatsko generisanje i %proveravanje uslova ispravnosti programa. Implementiran je u %programskom jeziku C++ i javno je dostupan. Sistem je namenjen %prvenstveno analizi programa napisanih u programskog jeziku C, ali %pošto koristi LLVM međujezik, može se primeniti i za analizu programa %napisanih u drugim proceduralnim jezicima. 
 \par
-Nadogradnja treba da obuhvati prepoznavanje ulaznih vrednosti programa, a zatim izdvajanje odgovarajućih vrednosti iz modela generisanih od strane LAV-a i rešavača Z3. Na osnovu vrednosti izdvojenih iz modela koje generiše Z3 rešavač, cilj je formirati test primer za koji je potrebno pokrenuti izvršavanje programa i proveriti da li generisani test primer zaista dovodi do greške u softveru. 
-
 \subsection{Pregled rada}
+Nastavak rada organizovan je na sledeći način.
 % ------------------------------------------------------------------------------
 
 
