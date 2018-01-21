@@ -162,12 +162,13 @@ U okviru ovog rada nadograđen je sistem za statičku proveru ispravnosti  softv
 %Cilj rada je nadogradnja sistema LAV modulom za automatsko generisanje %test primera \cite{LAVTool}. LAV je sistem za automatsko generisanje i %proveravanje uslova ispravnosti programa. Implementiran je u %programskom jeziku C++ i javno je dostupan. Sistem je namenjen %prvenstveno analizi programa napisanih u programskog jeziku C, ali %pošto koristi LLVM međujezik, može se primeniti i za analizu programa %napisanih u drugim proceduralnim jezicima. 
 \par
 \subsection{Pregled rada}
-Nastavak rada organizovan je na sledeći način.
+Nastavak rada organizovan je na sledeći način. U glavi \ref{testiranje} opisan je proces testiranja kao važan deo životnog ciklusa razvoja softvera. Navedene su vrste i strategije testiranja uključujući strategiju crne, bele i sive kutije. Opisani su načini izvršavanja i generisanja test primera. Navedeni su neki od alata za automatsko generisanje test primera. Glava \ref{resavac} daje motivaciju za korišćenje rešavača tokom statičke provere ispravnosti softvera. Opisuju se osnove rešavača Z3 navođenjem podržanih teorija. Dat je pregled najvažnijih tipova i struktura podataka. Opisana su dva formata za komunikaciju sa Z3 rešavačem korišćenjem SMT-LIB standarda i C++ interfejsa i njihova upotreba kroz primere. Implementacija će biti naknadno dodata. U glavi \ref{zakljucak} izneti su osnovni zaključci ovog rada.
+
 % ------------------------------------------------------------------------------
 
 
 % ------------------------------------------------------------------------------
-\chapter{Testiranje}
+\chapter{Testiranje} \label{testiranje}
 
 Testiranje predstavlja važan deo životnog ciklusa razvoja softvera. 
 Softver se implementira prema zahtevima korisnika sa ciljem rešavanja realnog problema ili kreiranja potrebne funkcionalnosti. Nakon implementacije, softver može u manjoj ili većoj meri odgovarati zahtevima. Svako ponašanje softvera koje se ne slaže sa zahtevima predstavlja grešku koju je potrebno detektovati i eliminisati. 
@@ -369,7 +370,7 @@ Kod normalnog izvršavanja programa, operacije nad operandima proizvode konkretn
 \par 
 KLEE koristi jednostavan pristup za sinhronizaciju sa okruženjem. Naime, veliki deo koda je kontrolisan vrednostima koje se dobijaju iz okruženja kao što su argumenti komandne linije i fajl sistem. 
  
-\chapter{Rešavač Z3}
+\chapter{Rešavač Z3} \label{resavac}
 \label{chp:razrada}
 
 Sistemi za analizu i verifikaciju softvera su veoma kompleksni. Njihovu osnovu predstavlja komponenta koja koristi logičke formule za opisivanja stanja i transformacija između stanja sistema. Opisivanje stanja sistema često se svodi na proveravanje zadovoljivosti formula logike prvog reda. 
@@ -1078,9 +1079,11 @@ void primer_sa_bitvektorima() {
 
 
 ------------------------------------------------------------------------------
+\chapter{Implementacija}
+
 
 % ------------------------------------------------------------------------------
-\chapter{Zaključak}
+\chapter{Zaključak} \label{zakljucak}
 % ------------------------------------------------------------------------------
 
 
