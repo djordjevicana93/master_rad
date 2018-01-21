@@ -1,16 +1,17 @@
 [0] Config.pm:354> INFO - This is Biber 2.7 (beta)
 [0] Config.pm:357> INFO - Logfile is 'rad.blg'
-[32] biber:303> INFO - === Sat Jan 13, 2018, 13:32:48
-[47] Biber.pm:360> INFO - Reading 'rad.bcf'
-[121] Biber.pm:836> INFO - Found 30 citekeys in bib section 0
-[135] Biber.pm:3671> INFO - Processing section 0
-[149] Biber.pm:3841> INFO - Looking for bibtex format file 'literatura.bib' for section 0
-[151] bibtex.pm:1424> INFO - Decoding LaTeX character macros into UTF-8
-[156] bibtex.pm:1281> INFO - Found BibTeX data source 'literatura.bib'
-[179] Utils.pm:164> WARN - I didn't find a database entry for 'api' (section 0)
-[209] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'variable = shifted' with 'variable = non-ignorable'
-[209] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[27] biber:303> INFO - === Sun Jan 21, 2018, 15:10:42
+[41] Biber.pm:360> INFO - Reading 'rad.bcf'
+[115] Biber.pm:836> INFO - Found 33 citekeys in bib section 0
+[128] Biber.pm:3671> INFO - Processing section 0
+[141] Biber.pm:3841> INFO - Looking for bibtex format file 'literatura.bib' for section 0
+[143] bibtex.pm:1424> INFO - Decoding LaTeX character macros into UTF-8
+[149] bibtex.pm:1281> INFO - Found BibTeX data source 'literatura.bib'
+[175] Utils.pm:164> WARN - I didn't find a database entry for 'TestingProcess' (section 0)
+[176] Utils.pm:164> WARN - I didn't find a database entry for 'api' (section 0)
+[210] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[210] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'variable = shifted' with 'variable = non-ignorable'
 [210] Biber.pm:3500> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'sr-Latn'
-[236] bbl.pm:608> INFO - Writing 'rad.bbl' with encoding 'UTF-8'
+[235] bbl.pm:608> INFO - Writing 'rad.bbl' with encoding 'UTF-8'
 [240] bbl.pm:712> INFO - Output to rad.bbl
-[240] Biber.pm:110> INFO - WARNINGS: 1
+[240] Biber.pm:110> INFO - WARNINGS: 2

@@ -126,6 +126,45 @@
       \field{title}{Handbook of Satisfiability, volume 185 of Frontiers in Artificial Intelligence and Applications}
       \field{year}{2009}
     \endentry
+    \entry{ModelCheck}{book}{}
+      \name{author}{5}{}{%
+        {{hash=2cb4876c512bab82e07e4a63d8a137d4}{%
+           family={Bierre},
+           familyi={B\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=d5f36fa68f74d68198062a1e975dcbba}{%
+           family={Cimatti},
+           familyi={C\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=873140b003f0b24643f8a5969b063499}{%
+           family={Clarke},
+           familyi={C\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod}}}%
+        {{hash=a7b0cda795e5ca3315a5dbdfd6b17c56}{%
+           family={Strichman},
+           familyi={S\bibinitperiod},
+           given={O.},
+           giveni={O\bibinitperiod}}}%
+        {{hash=1cbab912a9f08532ca40f9e033b20807}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Y.},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{6adf7df482a0177e9f05cb902d9cb95c}
+      \strng{fullhash}{53e885ab591db0363ff4cc33eed49d9a}
+      \strng{authornamehash}{6adf7df482a0177e9f05cb902d9cb95c}
+      \strng{authorfullhash}{53e885ab591db0363ff4cc33eed49d9a}
+      \field{sortinit}{B}
+      \field{sortinithash}{5f6fa000f686ee5b41be67ba6ff7962d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Bounded Model Checking}
+      \field{year}{2003}
+    \endentry
     \entry{PartitioningBoundary}{misc}{}
       \field{sortinit}{B}
       \field{sortinithash}{5f6fa000f686ee5b41be67ba6ff7962d}
@@ -302,6 +341,47 @@
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{https://www.stickyminds.com/sites/default/files/article/file/2012/XDD3583filelistfilename1_0.pdf}}
       \field{title}{Investing in Software Testing: Manual or Automated?}
+    \endentry
+    \entry{RigorousSD}{book}{}
+      \name{author}{1}{}{%
+        {{hash=970958bc0ef486de9bb63d9f652827f6}{%
+           family={J.\bibnamedelimi B.\bibnamedelimi Almeida},
+           familyi={J\bibinitperiod\bibinitdelim B\bibinitperiod\bibinitdelim A\bibinitperiod},
+           given={M.\bibnamedelimi J.\bibnamedelimi Frade},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{970958bc0ef486de9bb63d9f652827f6}
+      \strng{fullhash}{970958bc0ef486de9bb63d9f652827f6}
+      \strng{authornamehash}{970958bc0ef486de9bb63d9f652827f6}
+      \strng{authorfullhash}{970958bc0ef486de9bb63d9f652827f6}
+      \field{sortinit}{J}
+      \field{sortinithash}{c86bd6cced82a15683b396c2169909ef}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Rigorous Software Development - An Introduction To Program Verification}
+      \field{year}{2011}
+    \endentry
+    \entry{LAVTool}{book}{}
+      \name{author}{1}{}{%
+        {{hash=753f6f099a245e6a2bc476a95d356b2a}{%
+           family={Janičič},
+           familyi={J\bibinitperiod},
+           given={Milena\bibnamedelima Vujošević},
+           giveni={M\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {PhD Thesis, Matematički fakultet, Univerzitet u Beogradu}%
+      }
+      \strng{namehash}{753f6f099a245e6a2bc476a95d356b2a}
+      \strng{fullhash}{753f6f099a245e6a2bc476a95d356b2a}
+      \strng{authornamehash}{753f6f099a245e6a2bc476a95d356b2a}
+      \strng{authorfullhash}{753f6f099a245e6a2bc476a95d356b2a}
+      \field{sortinit}{J}
+      \field{sortinithash}{c86bd6cced82a15683b396c2169909ef}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Automatsko generisanje i proveravanje uslova ispravnosti programa}
+      \field{year}{2013}
     \endentry
     \entry{AgileDevelopment}{misc}{}
       \name{author}{1}{}{%
@@ -494,39 +574,6 @@
       \field{labeltitlesource}{title}
       \field{title}{Automated Test Generation and Verified Software}
     \endentry
-    \entry{TestingProcess}{book}{}
-      \name{author}{3}{}{%
-        {{hash=0dbad3a420063440b208b9f15830eed5}{%
-           family={Testing\bibnamedelimb Process:\bibnamedelimb Practical\bibnamedelima Tools},
-           familyi={T\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim T\bibinitperiod},
-           given={Managing},
-           giveni={M\bibinitperiod},
-           prefix={the},
-           prefixi={t\bibinitperiod}}}%
-        {{hash=f84fdc6f4bea4f6fe80c3d6acd67d220}{%
-           family={Managing\bibnamedelima Hardware},
-           familyi={M\bibinitperiod\bibinitdelim H\bibinitperiod},
-           given={Techniques},
-           giveni={T\bibinitperiod},
-           prefix={for},
-           prefixi={f\bibinitperiod}}}%
-        {{hash=6b140049d3cf643d86e84a76bc4b7daf}{%
-           family={Testing},
-           familyi={T\bibinitperiod},
-           given={Software},
-           giveni={S\bibinitperiod}}}%
-      }
-      \strng{namehash}{0d3e07e24ea94a427e9a000e9641a747}
-      \strng{fullhash}{0d3e07e24ea94a427e9a000e9641a747}
-      \strng{authornamehash}{0d3e07e24ea94a427e9a000e9641a747}
-      \strng{authorfullhash}{0d3e07e24ea94a427e9a000e9641a747}
-      \field{sortinit}{T}
-      \field{sortinithash}{2e5c2f51f7fa2d957f3206819bf86dc3}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Rex Black}
-      \field{year}{2009}
-    \endentry
     \entry{SymbolicExecution}{misc}{}
       \name{author}{1}{}{%
         {{hash=000987f69546f11a2ea40dccbbcad717}{%
@@ -554,6 +601,7 @@
       \field{title}{WhiteBoxTesting}
     \endentry
   \endsortlist
+  \missing{TestingProcess}
   \missing{api}
 \endrefsection
 \endinput

@@ -100,66 +100,22 @@
 
 % ------------------------------------------------------------------------------
 \chapter{Uvod}
-%Intenzivan razvoj informatike i racunarstva u poslednjim 		%decenijama uveo je softver u sve oblasti zivota. 			Razvijeni %su brojni softverski proizvodi sa vrlo razlicitim 	namenama.  Softver %je postao neophodan u svim 			oblastima drustva:  privredi, %obrazovanju, zdrastvu, 			medijima i komunikacijama, %poslovanju, politici, itd.
+
 
 Značajan razvoj računarstva i informatike poslednjih decenija uveo je softver u sve segmente života. Razvijeni su brojni softverski sistemi raznovrsnih namena koji se koriste kako za neobavezne tako i za poslovne aktivnosti. Softver je postao neophodan u svim oblastima društva uključujući, između ostalog, privredu, obrazovanje, zdravstvo i medije. 
 
 Složenost softverskih sistema neizbežno stvara veći prostor za pravljenje grešaka. U zavisnosti od namene sistema, greške mogu izazvati neprijatnosti ali i katastrofalne posledice po živote ljudi. Kako bismo izbegli ovakve situacije, neophodno je precizno utvrditi ispravnost razvijenog softvera. 
 
 Ispravnost softvera je moguće proveravati i bez njegovog izvršavanja, samo na osnovu analize izvornog koda, korišćenjem tehnika statičke analize. Statička analiza koda može biti manuelna, i podrazumeva ručne provere i preglede koda, ili može biti automatizovana.  \par
-U okviru automatizovane provere ispravnosti softvera formiraju se uslovi ispravnosti iskazani formulama u terminima matematičkih teorija. Formirani uslovi ispravnosti definišu model kojim se opisuje ponašanje programa. Proveravanjem modela, primenom različitih tehnika testiranja pronalaze se greške u sistemu.
+U okviru statičke automatizovane provere ispravnosti softvera formiraju se uslovi ispravnosti iskazani formulama u terminima matematičkih teorija \cite{RigorousSD}. Formirani uslovi ispravnosti definišu model kojim se opisuje ponašanje programa \cite{ModelCheck}. Proveravanjem modela, primenom različitih tehnika testiranja pronalaze se greške u sistemu.
 
-%U kontekstu softvera, zbog velikog prostora stanja koji je potrebno %sistematski pretražiti, proveravanje modela se najčešće koristi za %pronalaženje grešaka u sistemu, kao dopuna testiranju programa, a ne %kao metod potpune verifikacije programa.
-
-%U okviru automatizovane provere ispravnosti izdvajaju se formalne %metode verifikacije u kojima se uslovi ispravnosti softvera iskazuju u %terminima matematičkih tvrđenja na striktno definisanom formalnom %jeziku izabrane matematičke teorije.
-%Veliko ograničenje automatizovanog pristupa je nemogućnost %konstrukcije algoritma koji u konačnom vremenu utvrđuje ispravnost %proizvoljnog programa potpuno precizno. Pored toga, za analizu %programa koji imaju konačan prostor mogućih stanja, usled %ograničenosti resursa, ovaj prostor može biti preveliki čime teorijsko %rešenje problema nije praktično upotrebljivo.
-
-
-%Pored ovog fundamentalog ograničenja, postoje i praktična ograničenja %koja se odnose na postojanje konačnih resursa: konačne memorije i %ograničenog vremena za analizu ispravnosti. To znači da, čak i za %programe koji imaju konačan prostor mogućih stanja i za koje je %problem ispitivanja ispravnosti teorijski odlučiv, ovaj prostor može %da bude prevelik i da, usled ograničenosti resursa, teorijsko rešenje %problema 
-%nije praktično upotrebljivo.
-
-
-
-%Analiza se može izvršiti pregledom koda od strane programera, može %biti poluautomatizovana (programer uz pomoć specijalizovanih alata %proverava ispravnost softvera) ili može biti potpuno automatizovana. %Pregledanje koda najčešće nije dovoljno pouzdan način otkrivanja %grešaka. Poluautomatski pristupi mogu biti vremenski zahtevni i %iscpljujući po programera. Za automatske pristupe postoji važno %teorijsko ograničenje: neodlučivost. To znači da nije moguće %konstruisati algoritam koji u konačnom vremenu automatski utvrđuje %ispravnost proizvoljnog programa potpuno precizno. Pored ovog %fundamentalnog ograničenja, postoje i praktična ograničenja koja se %odnose na postojanje konačnih resursa: konačne memorije i ograničenog %vremena za analizu ispravnosti. To znači da, čak i za programe koji %imaju konačan prostor mogućih stanja i za koje je problem ispitivanja %ispravnosti teorijski odlučiv, ovaj prostor može da bude prevelik i %da, usled ograničenosti resursa, teorijsko rešenje problema nije %praktično upotrebljivo. Statičke tehnike proveravanja ispravnosti %softvera mogu da koriste različite teorije za modelovanje ponašanja %programa.  
-%Zbog toga se u procesu razvoja softvera posebna pažnja poklanja %verifikaciji softvera, tj. ispitivanju ispravnosti softvera.
-
-
-%Neispravan softer kosta svetsku ekonomiju milijarde 		dolara %godisnje. Medjutim, sustinska vaznost ispravnosti 		softvera ne %meri se novcem jer neispravan softver moze da 	uzrokuje materijalno %nesagledive posledice. To cini pitanje 	ispitivanja ispravnosti %softvera,  odnosno verifikacije softvera 	posebno vaznim. Paralelno %sa razvojom novih tehnologija, a 	u cilju pruzanja novih kvaliteta i %udobnosti u radu, programi 	koji pruzaju korisnicima, razlicite %usluge, kao i programi koji 	kontrolisu uredjaje prisutne svuda oko %nas, postaju sve 		slozeniji. Slozenost programa neminovno povlaci %i veci 		prostor za pravljenje gresaka. Ove greske, u zavisnosti %od 	namene samog programa,  mogu da budu neprijatne po 		%pojedinca, ali mogu da imaju i fatalne posledice po zivote i 	%zdravlje ljudi.  Zbog toga se u procesu razvoja softvera, 		posebna %paznja poklanja verifikaciji softvera.
-
-%Složenost softverskih sistema neminovno povlači i veći prostor za %pravljenje grešaka. U zavisnosti od namene, greške mogu dovesti do %neprijatnosti ali i izazvati katastrofalne posledice po živote ljudi.
-%Kako bismo izbegli ovakve situacije, neophodno je detaljno i precizno %utvrditi ispravnost razvijenog softvera.
-%Greske u softveru mogu imati katastrofalne posledice, na primer %otkazivanje medicinskog uredjaja u toku operacije ili otkazivanje %automatskog pilota u toku leta. Kako bismo preduhitrili ovakve %situacije, potrebno je detaljno i precizno utvrditi ispravnost %razvijenog softvera.
-
-%Prisutan svuda oko nas, softver predstavlja važan deo svakodnevnog %života. Softver nam pruža mogućnost udobnog rukovanja različitim %uređajima, olakšava nam i pojednostavljuje različite životne %situacije.
-
-%Razvoj i primena novih tehnologija počinju sve više da utiču na %društvo. Računari su prisutni svuda oko nas i pružaju nam mnoge %pogodnosti i olakšice kako u neobaveznim tako i u poslovnim %aktivnostima. Institucije poput banaka, zdravstva, prosvete i drugih %teže da automatizuju svoje procese korišćenjem različitih softverskih %alata.
 \subsection{Motivacija}
-%U prethodne dve decenije se dosta toga promenilo u pogledu performansi računara. Današnji računari su sve češće višeprocesorski i višejezgarni. Ovaj porast performansi omogućio je, između ostalog, brže i iscrpnije testiranje.  \par
-%UOPSTENO O TESTIRANJU, MOJE TESTIRANJE, 
-%O kvalitetu softvera mora se voditi računa tokom celokupnog procesa razvoja. 
-%Kvalitet softvera u velikoj meri zavisi od dobrog testiranja. Analiza koda je jedna od metoda testiranja koja se primenjuje prva. OVDE TREBA DA JE NAJPOUZDANIJA ALI DA IMA NEDOSTATAK. 
-
-
-%AUTOMATIZOVANO STATICKO PROVERAVANJE ISPRAVNOSTI SOFTVERA pomenuti %staticku analizu
-%Automatizovano statičko utvrđivanje ispravnosti softvera
-
-%automatsko generisanje test primera kojima se proverava ispravnost %programa bitno da se taj proces automatizuje bla bla 
-
-
-%Statičke tehnike verifikacije softvera mogu da koriste različite %teorije za modelovanje ponašanja programa.
 Prostor mogućih ulaza programa obično je prevelik pa nije moguće pokretanje i provera programa svim mogućim ulazima. Poželjno bi bilo sprovesti testiranje sistema koristeći samo reprezentativni skup ulaznih podataka. Automatizacija procesa generisanja test primera i provera rezultata testiranja posebno je važna jer olakšava i ubrzava proces testiranja.
 
-Automatizovano statičko ispitivanje ispravnosti softvera predstavlja najpouzdaniji način ispitivanja ispravnosti programa. Formirani uslovi ispravnosti se proveravaju odgovarajućim rešavačem na osnovu čijih rezultata se generišu test primeri.
-%U okviru automatizovane provere ispravnosti softvera, ponašanje programa može se modelovati matematičkim tvrđenjima definisanim formalnim jezikom izabrane matematičke teorije.
-
-%U okviru automatizovane provere ispravnosti izdvajaju se formalne metode verifikacije u kojima se uslovi ispravnosti softvera iskazuju u terminima matematičkih tvrđenja na striktno definisanom formalnom jeziku izabrane matematičke teorije. 
-%Da bi proverio da li neka naredba može da dovede do greške u programu, sistem gradi formule koje predstavljaju uslove ispravnosti naredbi i koje pripadaju izabranoj kombinaciji predloženih teorija.
-%Uslovi ispravnosti se proveravaju odgovarajućim rešavačem na osnovu čijih rezultata se generiše izveštaj o statusu naredbi u programu.
+Automatizovano statičko utvrđivanje ispravnosti softvera predstavlja najpouzdaniji način ispitivanja ispravnosti programa. Formirani uslovi ispravnosti se proveravaju odgovarajućim rešavačem na osnovu čijih rezultata se generišu test primeri.
 
 
-
-U okviru ovog rada nadograđen je sistem za statičku proveru ispravnosti  softvera LAV modulom za automatsko generisanje test primera. U okviru sistema LAV, ponašanje programa modeluje se formulama izabrane teorije. Nadogradnja obuhvata prepoznavanje ulaznih vrednosti programa, a zatim izdvajanje odgovarajućih vrednosti iz modela generisanih od strane alata LAV i rešavača Z3. Na osnovu vrednosti izdvojenih iz modela, formira se test primer za koji je potrebno pokrenuti izvršavanje programa i proveriti da li generisani test primer zaista dovodi do greške u softveru.
-%Cilj rada je nadogradnja sistema LAV modulom za automatsko generisanje %test primera \cite{LAVTool}. LAV je sistem za automatsko generisanje i %proveravanje uslova ispravnosti programa. Implementiran je u %programskom jeziku C++ i javno je dostupan. Sistem je namenjen %prvenstveno analizi programa napisanih u programskog jeziku C, ali %pošto koristi LLVM međujezik, može se primeniti i za analizu programa %napisanih u drugim proceduralnim jezicima. 
+U okviru ovog rada nadograđen je sistem za statičku proveru ispravnosti  softvera LAV modulom za automatsko generisanje test primera \cite{LAVTool}. U okviru sistema LAV, ponašanje programa modeluje se formulama izabrane teorije. Nadogradnja obuhvata prepoznavanje ulaznih vrednosti programa, a zatim izdvajanje odgovarajućih vrednosti iz modela generisanih od strane alata LAV i rešavača Z3. Na osnovu vrednosti izdvojenih iz modela, formira se test primer za koji je potrebno pokrenuti izvršavanje programa i proveriti da li generisani test primer zaista dovodi do greške u softveru.
 \par
 \subsection{Pregled rada}
 Nastavak rada organizovan je na sledeći način. U glavi \ref{testiranje} opisan je proces testiranja kao važan deo životnog ciklusa razvoja softvera. Navedene su vrste i strategije testiranja uključujući strategiju crne, bele i sive kutije. Opisani su načini izvršavanja i generisanja test primera. Navedeni su neki od alata za automatsko generisanje test primera. Glava \ref{resavac} daje motivaciju za korišćenje rešavača tokom statičke provere ispravnosti softvera. Opisuju se osnove rešavača Z3 navođenjem podržanih teorija. Dat je pregled najvažnijih tipova i struktura podataka. Opisana su dva formata za komunikaciju sa Z3 rešavačem korišćenjem SMT-LIB standarda i C++ interfejsa i njihova upotreba kroz primere. Implementacija će biti naknadno dodata. U glavi \ref{zakljucak} izneti su osnovni zaključci ovog rada.
