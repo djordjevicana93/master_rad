@@ -101,22 +101,27 @@
 % ------------------------------------------------------------------------------
 \chapter{Uvod}
 
+Značajan razvoj računarstva i informatike poslednjih decenija uveo je softver u sve segmente života. Razvijeni su brojni softverski sistemi raznovrsnih namena koji se koriste kako za neobavezne tako i za poslovne aktivnosti. Softver je postao neophodan u svim oblastima društva uključujući, između ostalog, privredu, obrazovanje, zdravstvo i medije.
 
-Značajan razvoj računarstva i informatike poslednjih decenija uveo je softver u sve segmente života. Razvijeni su brojni softverski sistemi raznovrsnih namena koji se koriste kako za neobavezne tako i za poslovne aktivnosti. Softver je postao neophodan u svim oblastima društva uključujući, između ostalog, privredu, obrazovanje, zdravstvo i medije. 
+Složenost softverskih sistema neizbežno stvara veći prostor za pravljenje grešaka. U zavisnosti od namene sistema, greške mogu izazvati neprijatnosti ali i katastrofalne
+posledice po živote ljudi. Kako bismo izbegli ovakve situacije, neophodno je precizno utvrditi ispravnost razvijenog softvera.
 
-Složenost softverskih sistema neizbežno stvara veći prostor za pravljenje grešaka. U zavisnosti od namene sistema, greške mogu izazvati neprijatnosti ali i katastrofalne posledice po živote ljudi. Kako bismo izbegli ovakve situacije, neophodno je precizno utvrditi ispravnost razvijenog softvera. 
+Ispravnost softvera najčešće se utvrđuje njegovim izvršavanjem, tj testiranjem. Prostor mogućih ulaza programa obično je prevelik pa nije moguće pokretanje i provera programa svim mogućim ulazima. Poželjno je sprovesti testiranje sistema koristeći samo reprezentativni skup ulaznih podataka. Automatizacija procesa generisanja test primera i provera rezultata testiranja posebno je važna jer
+olakšava i ubrzava proces testiranja.
 
-Ispravnost softvera je moguće proveravati i bez njegovog izvršavanja, samo na osnovu analize izvornog koda, korišćenjem tehnika statičke analize. Statička analiza koda može biti manuelna, i podrazumeva ručne provere i preglede koda, ili može biti automatizovana.  \par
-U okviru statičke automatizovane provere ispravnosti softvera formiraju se uslovi ispravnosti iskazani formulama u terminima matematičkih teorija \cite{RigorousSD}. Formirani uslovi ispravnosti definišu model kojim se opisuje ponašanje programa \cite{ModelCheck}. Proveravanjem modela, primenom različitih tehnika testiranja pronalaze se greške u sistemu.
+Ispravnost softvera je moguće proveravati i bez njegovog izvršavanja, samo na osnovu analize izvornog koda, korišćenjem tehnika statičke analize. Statička analiza
+koda može biti manuelna, i podrazumeva ručne provere i preglede koda, ili može biti automatizovana.
 
-\subsection{Motivacija}
-Prostor mogućih ulaza programa obično je prevelik pa nije moguće pokretanje i provera programa svim mogućim ulazima. Poželjno bi bilo sprovesti testiranje sistema koristeći samo reprezentativni skup ulaznih podataka. Automatizacija procesa generisanja test primera i provera rezultata testiranja posebno je važna jer olakšava i ubrzava proces testiranja.
+U okviru statičke automatizovane provere ispravnosti softvera formiraju se uslovi ispravnosti iskazani formulama u terminima matematičkih teorija  \cite{RigorousSD}. Formirani
+uslovi ispravnosti definišu model kojim se opisuje ponašanje programa\cite{ModelCheck}. Proveravanjem modela, primenom različitih tehnika testiranja pronalaze se greške u
+sistemu. Sistemi za statičku analizu koda mogu se koristiti i za automatsko
+generisanje test primera.
 
-Automatizovano statičko utvrđivanje ispravnosti softvera predstavlja najpouzdaniji način ispitivanja ispravnosti programa. Formirani uslovi ispravnosti se proveravaju odgovarajućim rešavačem na osnovu čijih rezultata se generišu test primeri.
+\subsection{Doprinos rada}
 
+U okviru ovog rada nadograđen je sistem za statičku proveru ispravnosti softvera LAV modulom za automatsko generisanje test primera \cite{LAVTool}. U okviru sistema
+LAV, ponašanje programa modeluje se formulama izabrane teorije. Nadogradnja obuhvata prepoznavanje ulaznih vrednosti programa, a zatim izdvajanje odgovarajućih vrednosti iz modela generisanih od strane alata LAV i rešavača Z3. Na osnovu vrednosti izdvojenih iz modela, formira se test primer za koji je potrebno pokrenuti izvršavanje programa i proveriti da li generisani test primer zaista dovodi do greške u softveru.
 
-U okviru ovog rada nadograđen je sistem za statičku proveru ispravnosti  softvera LAV modulom za automatsko generisanje test primera \cite{LAVTool}. U okviru sistema LAV, ponašanje programa modeluje se formulama izabrane teorije. Nadogradnja obuhvata prepoznavanje ulaznih vrednosti programa, a zatim izdvajanje odgovarajućih vrednosti iz modela generisanih od strane alata LAV i rešavača Z3. Na osnovu vrednosti izdvojenih iz modela, formira se test primer za koji je potrebno pokrenuti izvršavanje programa i proveriti da li generisani test primer zaista dovodi do greške u softveru.
-\par
 \subsection{Pregled rada}
 Nastavak rada organizovan je na sledeći način. U glavi \ref{testiranje} opisan je proces testiranja kao važan deo životnog ciklusa razvoja softvera. Navedene su vrste i strategije testiranja uključujući strategiju crne, bele i sive kutije. Opisani su načini izvršavanja i generisanja test primera. Navedeni su neki od alata za automatsko generisanje test primera. Glava \ref{resavac} daje motivaciju za korišćenje rešavača tokom statičke provere ispravnosti softvera. Opisuju se osnove rešavača Z3 navođenjem podržanih teorija. Dat je pregled najvažnijih tipova i struktura podataka. Opisana su dva formata za komunikaciju sa Z3 rešavačem korišćenjem SMT-LIB standarda i C++ interfejsa i njihova upotreba kroz primere. Implementacija će biti naknadno dodata. U glavi \ref{zakljucak} izneti su osnovni zaključci ovog rada.
 
