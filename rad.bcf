@@ -2178,6 +2178,7 @@
     <bcf:citekey order="33">DPBitvector</bcf:citekey>
     <bcf:citekey order="34">SMTLIB</bcf:citekey>
     <bcf:citekey order="35">cppapi</bcf:citekey>
+    <bcf:citekey order="36">z3improvements</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="nty/global/" type="entry" sortscheme="nty" sortnamekeyscheme="global" labelprefix="">
   <bcf:sorting>

@@ -1048,18 +1048,22 @@ void primer_sa_bitvektorima() {
 U ovom radu razmatran je problem ispitivanja ispravnosti softvera korišćenjem tehnika statičke automatizovane analize. 
 Uslovi ispravnosti programa definisani su formulama u terminima matematičkih teorija. Dobijene formule reprezentuju model koji se koristi za automatsko generisanje test primera za koje se proverava da li zaista dovode do greške u softveru.
 \par
-Alatu LAV dodata je podrška za rad sa Z3 rešavačem koji pokriva odgovarajuću kombinaciju teorija. Podržane teorije, kojima je moguće modelovati uslove ispravnosti programa, su teorija neinterpretiranih funkcija, teorija linearne aritmetike, teorija bitvektora i teorija nizova. Alat LAV proširen je modulom za automatsko generisanje test primera na osnovu vrednosti iz modela rešavača Z3 za izabranu teoriju.
 
-Prilikom pravljenja modela ponašanja programa, korišćenjem izabrane teorije, primenjuju se razne aproksimacije. Ove aproksimacije mogu prijavljivati postojanje greške u programu koja zapravo ne postoji. 
-Iz tog razloga neophodno je pokretanjem programa proveriti da li generisani test primer stvarno dovodi do nebezbednog i neočekivanog ponašanja.
+Alatu LAV dodata je podrška za preciznije izdvajanje modela u radu sa Z3 rešavačem
+koji pokriva različite kombinacije teorija. Podržane teorije, kojima je moguće modelovati uslove ispravnosti programa, su teorija neinterpretiranih funkcija, teorija linearne aritmetike,
+teorija bitvektora i teorija nizova.
 
+Prilikom pravljenja modela ponašanja programa, korišćenjem izabrane teorije,
+primenjuju se razne aproksimacije. Ove aproksimacije mogu prijavljivati postojanje
+greške u programu koja zapravo ne postoji. Iz tog razloga neophodno je pokretanjem
+programa proveriti da li generisani test primer stvarno dovodi do nebezbednog i
+neočekivanog ponašanja. Alat LAV proširen je modulom za automatsko
+generisanje test primera na osnovu vrednosti iz modela rešavača Z3 za izabranu
+teoriju.
+ 
+Eksperimentalni rezultati koji ukazuju na poboljšanje performansi pri korišćenju rešavača Z3 u poređenju sa drugim SMT rešavačima dostupni su u literaturi. \cite{z3improvements}
 
-Buduća istraživanja na temu unapređenja alata za proveru ispravnosti softvera mogla bi da obuhvate uopštavanje modela ponašanja programa povećanjem preciznosti čime bi se izbegla pojava lažnih upozorenja.
-Povećanje preciznosti može se ostvariti korišćenjem invarijanti petlji.
-Takođe, u procesu ispitivanja ispravnosti programa, najviše vremena troši rešavač Z3. Drugo unapređenje bi moglo da obuhvati smanjenje broja formula za opisivanje programa. Ovim pojednostavljivanjem redukovalo bi se vreme potrebno za ispitivanje zadovoljivosti formula rešavačem čime smanjujemo ukupno trajanje procesa ispitivanja ispravnosti programa. 
-
-
-
+Buduća istraživanja na temu unapređenja rada mogla bi da obuhvate automatsko određivanje ulaznih promenljivih, čime bi se izbeglo dodatno anotiranje promenljivih u samom kodu. Drugo unapređenje moglo bi da obuhvati preciznije izdvajanje modela za druge SMT rešavače, kao što su Boolector, Yices i Mathsat pokrivanjem različitih kombinacija teorija. Pored toga, format ispisa vrednosti modela kao i vrednosti test primera za sve rešavače mogao bi se standardizovati. 
 % ------------------------------------------------------------------------------
 
 

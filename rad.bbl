@@ -383,6 +383,25 @@
       \field{title}{Automatsko generisanje i proveravanje uslova ispravnosti programa}
       \field{year}{2013}
     \endentry
+    \entry{TestingProcess}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=e6b843320ec6800d2538d34e1f33c0a3}{%
+           family={John\bibnamedelimb E.\bibnamedelimi Bently},
+           familyi={J\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim B\bibinitperiod},
+           given={Wachovia\bibnamedelima Bank},
+           giveni={W\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \strng{namehash}{e6b843320ec6800d2538d34e1f33c0a3}
+      \strng{fullhash}{e6b843320ec6800d2538d34e1f33c0a3}
+      \strng{authornamehash}{e6b843320ec6800d2538d34e1f33c0a3}
+      \strng{authorfullhash}{e6b843320ec6800d2538d34e1f33c0a3}
+      \field{sortinit}{J}
+      \field{sortinithash}{c86bd6cced82a15683b396c2169909ef}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://www2.sas.com/proceedings/sugi30/141-30.pdf}}
+      \field{title}{Software Testing Fundamentals - Concepts, Roles and Terminology}
+    \endentry
     \entry{AgileDevelopment}{misc}{}
       \name{author}{1}{}{%
         {{hash=93725a91e66d6c57edbf2fbb422022a5}{%
@@ -411,6 +430,28 @@
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{https://klee.github.io/}}
       \field{title}{{KLEE project}}
+    \endentry
+    \entry{z3improvements}{book}{}
+      \name{author}{1}{}{%
+        {{hash=2d5b15b84f22bae98c45e793b5ad40b6}{%
+           family={Leonardo\bibnamedelimb De\bibnamedelima Moura},
+           familyi={L\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Nicolas\bibnamedelima Bjorner},
+           giveni={N\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer-Verlag}%
+      }
+      \strng{namehash}{2d5b15b84f22bae98c45e793b5ad40b6}
+      \strng{fullhash}{2d5b15b84f22bae98c45e793b5ad40b6}
+      \strng{authornamehash}{2d5b15b84f22bae98c45e793b5ad40b6}
+      \strng{authorfullhash}{2d5b15b84f22bae98c45e793b5ad40b6}
+      \field{sortinit}{L}
+      \field{sortinithash}{7bba64db83423e3c29ad597f3b682cf3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Efficient E-matching for SMT solvers}
+      \field{year}{2007}
     \endentry
     \entry{SystemTesting}{misc}{}
       \name{author}{1}{}{%
@@ -517,6 +558,26 @@
       \field{labeltitlesource}{title}
       \field{title}{Automated Whitebox Fuzz Testing}
     \endentry
+    \entry{api}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=2766b3f2d6ad1844b368d1a847d0d24e}{%
+           family={Research},
+           familyi={R\bibinitperiod},
+           given={Microsoft},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{2766b3f2d6ad1844b368d1a847d0d24e}
+      \strng{fullhash}{2766b3f2d6ad1844b368d1a847d0d24e}
+      \strng{authornamehash}{2766b3f2d6ad1844b368d1a847d0d24e}
+      \strng{authorfullhash}{2766b3f2d6ad1844b368d1a847d0d24e}
+      \field{sortinit}{R}
+      \field{sortinithash}{c15bc8eb6936bc6b3c8baa9e8575af53}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://z3prover.github.io/api/html/}}
+      \field{title}{{Automatically generated documentation for the Z3 API}}
+      \field{year}{2016}
+    \endentry
     \entry{cppapi}{misc}{}
       \name{author}{1}{}{%
         {{hash=2766b3f2d6ad1844b368d1a847d0d24e}{%
@@ -601,8 +662,6 @@
       \field{title}{WhiteBoxTesting}
     \endentry
   \endsortlist
-  \missing{TestingProcess}
-  \missing{api}
 \endrefsection
 \endinput
 

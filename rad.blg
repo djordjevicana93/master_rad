@@ -1,17 +1,14 @@
 [0] Config.pm:354> INFO - This is Biber 2.7 (beta)
 [0] Config.pm:357> INFO - Logfile is 'rad.blg'
-[48] biber:303> INFO - === Tue Jan 23, 2018, 21:47:15
-[102] Biber.pm:360> INFO - Reading 'rad.bcf'
-[191] Biber.pm:836> INFO - Found 33 citekeys in bib section 0
-[224] Biber.pm:3671> INFO - Processing section 0
-[258] Biber.pm:3841> INFO - Looking for bibtex format file 'literatura.bib' for section 0
-[266] bibtex.pm:1424> INFO - Decoding LaTeX character macros into UTF-8
-[289] bibtex.pm:1281> INFO - Found BibTeX data source 'literatura.bib'
-[320] Utils.pm:164> WARN - I didn't find a database entry for 'TestingProcess' (section 0)
-[321] Utils.pm:164> WARN - I didn't find a database entry for 'api' (section 0)
-[357] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[357] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'variable = shifted' with 'variable = non-ignorable'
-[357] Biber.pm:3500> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'sr-Latn'
-[387] bbl.pm:608> INFO - Writing 'rad.bbl' with encoding 'UTF-8'
-[392] bbl.pm:712> INFO - Output to rad.bbl
-[392] Biber.pm:110> INFO - WARNINGS: 2
+[28] biber:303> INFO - === Sun Feb  4, 2018, 21:13:28
+[42] Biber.pm:360> INFO - Reading 'rad.bcf'
+[116] Biber.pm:836> INFO - Found 34 citekeys in bib section 0
+[134] Biber.pm:3671> INFO - Processing section 0
+[147] Biber.pm:3841> INFO - Looking for bibtex format file 'literatura.bib' for section 0
+[149] bibtex.pm:1424> INFO - Decoding LaTeX character macros into UTF-8
+[155] bibtex.pm:1281> INFO - Found BibTeX data source 'literatura.bib'
+[228] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'variable = shifted' with 'variable = non-ignorable'
+[228] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[229] Biber.pm:3500> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'sr-Latn'
+[260] bbl.pm:608> INFO - Writing 'rad.bbl' with encoding 'UTF-8'
+[265] bbl.pm:712> INFO - Output to rad.bbl
