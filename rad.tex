@@ -1046,9 +1046,8 @@ void primer_sa_bitvektorima() {
 % ------------------------------------------------------------------------------
 \chapter{Zaključak} \label{zakljucak}
 U ovom radu razmatran je problem ispitivanja ispravnosti softvera korišćenjem tehnika statičke automatizovane analize. 
-Uslovi ispravnosti programa definisani su formulama u terminima matematičkih teorija. Dobijene formule reprezentuju model koji se koristi za automatsko generisanje test primera za koje se proverava da li zaista dovode do greške u softveru.
+Uslovi neispravnosti programa definisani su formulama u terminima matematičkih teorija. Modeli ovih formula se mogu koristiti za automatsko generisanje test primera za koje se proverava da li zaista dovode do greške u softveru.
 \par
-
 Alatu LAV dodata je podrška za preciznije izdvajanje modela u radu sa Z3 rešavačem
 koji pokriva različite kombinacije teorija. Podržane teorije, kojima je moguće modelovati uslove ispravnosti programa, su teorija neinterpretiranih funkcija, teorija linearne aritmetike,
 teorija bitvektora i teorija nizova.
@@ -1061,7 +1060,7 @@ neočekivanog ponašanja. Alat LAV proširen je modulom za automatsko
 generisanje test primera na osnovu vrednosti iz modela rešavača Z3 za izabranu
 teoriju.
  
-Eksperimentalni rezultati koji ukazuju na poboljšanje performansi pri korišćenju rešavača Z3 u poređenju sa drugim SMT rešavačima dostupni su u literaturi. \cite{z3improvements}
+Eksperimentalni rezultati koji ukazuju na poboljšanje performansi pri korišćenju rešavača Z3 u poređenju sa drugim SMT rešavačima dostupni su u literaturi \cite{z3improvements}. U radu je detaljno opisana upotreba rešavača korišćenjem SMT-LIB standarda i C++ interfejsa.
 
 Buduća istraživanja na temu unapređenja rada mogla bi da obuhvate automatsko određivanje ulaznih promenljivih, čime bi se izbeglo dodatno anotiranje promenljivih u samom kodu. Drugo unapređenje moglo bi da obuhvati preciznije izdvajanje modela za druge SMT rešavače, kao što su Boolector, Yices i Mathsat pokrivanjem različitih kombinacija teorija. Pored toga, format ispisa vrednosti modela kao i vrednosti test primera za sve rešavače mogao bi se standardizovati. 
 % ------------------------------------------------------------------------------
