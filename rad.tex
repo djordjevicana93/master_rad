@@ -334,7 +334,7 @@ KLEE koristi jednostavan pristup za sinhronizaciju sa okruženjem. Naime, veliki
 \chapter{Rešavač Z3} \label{resavac}
 \label{chp:razrada}
 
-Sistemi za analizu i verifikaciju softvera su veoma kompleksni. Njihovu osnovu predstavlja komponenta koja koristi logičke formule za opisivanja stanja i transformacija između stanja sistema. Opisivanje stanja sistema često se svodi na proveravanje zadovoljivosti formula logike prvog reda. 
+Sistemi za analizu i proveru ispravnosti softvera su veoma kompleksni. Njihovu osnovu predstavlja komponenta koja koristi logičke formule za opisivanja stanja i transformacija između stanja sistema. Opisivanje stanja sistema često se svodi na proveravanje zadovoljivosti formula logike prvog reda. 
 Proveravanje zadovoljivosti formula vrši se procedurama odlučivanja u odnosu na definisanu teoriju. Formalno, zadovoljivost u odnosu na teoriju (eng. \textit{Satisfiability Modulo Theory}, skraćeno SMT) problem je odlučivanja zadovoljivosti u odnosu na osnovnu teoriju T opisanu u klasičnoj logici prvog reda sa jednakošću \cite{Barrett}. Alati koji se koriste za rešavanje ovog problema nazivaju se SMT rešavači. 
 \par
 
@@ -1040,8 +1040,54 @@ void primer_sa_bitvektorima() {
 
 
 ------------------------------------------------------------------------------
-\chapter{Implementacija}
+\chapter{Modul za automatsko generisanje test primera}
+Uporedo sa nastajanjem novih tehnologija povećava se obim posla koji je potrebno obaviti pri razvoju softverskog rešenja. Pored povećanog obima, sve se više teži delimičnoj ili potpunoj automatizaciji poslova koji su se ranije morali  izvršavati manuelno. Posledica ove dve činjenice je težnja za većim kvalitetom softverskog rešenja koje neminovno dovodi do porasta složenosti.
+Sa porastom složenosti sistema, povećava se mogućnost pojave greške u softveru.
+Iz tog razloga se u procesu razvoja posebna pažnja posvećuje ispitivanju ispravnosti softvera \cite{Verification}.
+\par
+Kao što je opisano u glavi \ref{testiranje}, postoje različite vrste testiranja. U većini slučajeva se generisanje testova vrši manuelno. Ukoliko bi se ovaj proces automatizovao, značajno bi se skratilo vreme potrebno za testiranje kao i broj testera uključenih u proces razvoja. 
+Na osnovu navedenih činjenica, poželjno je da se ispravnost softverskog sistema ispituje automatski generisanim testovima \cite{AutomatedTestGeneration}.
 
+U ovoj glavi opisana je statička analiza softvera, kao jedan od načina ispitivanja ispravnosti programa, u delu \ref{sec:deo1}. U delu \ref{sec:deo2} opisan je sistem za statičko utvrđivanje ispravnosti softvera LAV. U delu \ref{sec:deo3} navedena je motivacija i značaj automatskog generisanja test primera. U delovima \ref{sec:deo4}, \ref{sec:deo5} i \ref{sec:deo6} opisana je implementacija modula za automatsko generisanje test primera integrisanog u sistem LAV.
+
+\section{Statička provera ispravnosti softvera} \label{sec:deo1}
+Statičko ispitivanje ispravnosti programa predstavlja analizu programskog koda, bez njegovog izvršavanja \cite{StaticVerification}. Prema načinu utvrđivanja ispravnosti softvera statičkom analizom, razlikujemo manuelni pristup, koji obuhvata ručne provere koda, kao i automatizovani pristup. Kod automatizovanog pristupa, zbog neodlučnosti halting problema, ne postoji opšti algoritam kojim se utvrđuje da li je neka naredba programa ispravna, a samim tim i da li je sam program ispravan. Iz tog razloga primenjuju se različite aproksimacije u kojima se uslovi ispravnosti programa iskazuju formulama formalno definisanih matematičkih teorija . Automatizovani pristupi statičke analize programa su \textit{proveravanje modela}, \textit{apstraktna interpretacija} i \textit{simboličko izvršavanje}.
+\par
+\textbf{Proveravanje modela} je tehnika statičke analize koda u kojem se sistem, čiju je ispravnost potrebno utvrditi, opisuje konačnim automatom, a željeno ponašanje softvera se opisuje u terminima temporalne logike \cite{TemporalLogic}. Dostupna stanja automata se sistematski obilaze radi provere ponašanja sistema. U slučaju neuspešne provere, generiše se kontraprimer koji narušava željeno ponašanje sistema. Proces ispitivanja ispravnosti može biti kompleksan ukoliko je broj mogućih stanja automata veliki. Potencijalni problem ovog pristupa je kombinatorna eksplozija stanja koji podrazumeva eksponencijalni porast broja stanja sa povećanjem broja promenljivih.
+U tom slučaju koristi se metod \textit{proveravanja konačnih modela} u kojem se ograničava dužina putanje stanja automata \cite{Verification}. Za utvrđivanje ispravnosti uslova programa, metod \textit{proveravanja modela} obično koristi dijagrame binarnih odluka, dok metod \textit{proveravanja ograničenih modela} najčešče koristi SAT ili SMT rešavače \cite{ModelCheck}.
+\par
+\textbf{Apstraktna interpretacija} predstavlja metodu statičke analize u kojoj se semantika programa opisuje matematičkim modelom mogućih ponašanja programa \cite{AbstractInterpretation}. Ponašanje programa modeluje se konkretnim domenom i relacijama nad njim. Potencijalni problem ovog pristupa javlja se u slučajevima jako velikih domena i tada se vrši aproksimacija konačnog domena apstraktnim. Aproksimacijom domena mogu se izgubiti važne informacije. Iz tog razloga, posebna pažnja posvećuje se biranju adekvatne aproksimacije \cite{AbstractInterpretation2}. Sa druge strane, apstrahovanjem domena povećava se skalabilnost metode. Ova tehnika ima široku primenu, ali se najčešče koristi za analizu kompilatora sa ciljem pronalaženja klasa grešaka u programu kao što su deljenje nulom, prekoračenje bafere i dereferenciranje NULL pokazivača.
+\par
+\textbf{Simboličko izvršavanje} je tehnika statičke analize koda u kojoj se ponašanje programa analizira praćenjem simboličkih izraza \cite{SymbolicExecution}. Umesto konkretnih vrednosti promenljivih upotrebljavaju se simboličke vrednosti, dok se putanje izvršavanja programa modeluju simboličkim izrazima. Ukoliko se simboličkim izvršavanjem neke putanje u programu pokaže da je ona ispravna, time se potvrđuje ispravnost svih mogućih ulaza koji prate tu putanju. Broj putanja programa često je prevelik, čime se onemogućava sistematsko pretraživanje svih mogućih putanja. Iz tog razloga, ova metoda se obično koristi za pronalaženje grešaka umesto dokazivanja ispravnosti. U zavisnosti od redosleda kojem se putanje programa proveravaju, vreme potrebno za pronalaženje greške može značajno da varira \cite{LAVDevelopment}. Šta više, postoji rizik da se greška ne detektuje ukoliko istekne vreme predviđenu za analizu.
+\section{Sistem LAV}  \label{sec:deo2}
+LAV (akronim \textit{\textbf{L}LVM \textbf{A}utomated \textbf{V}erifier}) je alat otvorenog koda za statičku proveru ispravnosti softvera \cite{LAVTool}. Implementiran je u programskom jeziku C++ \cite{LAVCode}. Svrha sistema LAV je statička analiza, generisanje i proveravanje uslova ispravnosti imperativnih programa koristeći tehnike opisane u delu \ref{sec:deo1}. Sistem koristi LLVM međujezik, radi transformisanja programa u oblik koji je pogodniji za analizu \cite{LLVMTool}. Osnovna namena alata je analiza programa napisanih u programskom jeziku C, ali se zbog univerzalnosti LLVM reprezentacije koda može koristiti za analizu drugih imperativnih jezika za koje postoje pristupne komponente. \par
+
+Sistem modeluje ponašanje programa, konstruiše uslove ispravnosti programa, vrši transformaciju formiranih uslova u formule odgovarajućih teorija logike prvog reda. Podržane teorije su teorija neinterpretiranih funkcija, teorija linearne aritmetike, teorija bitvektora i teorija nizova \cite{Barrett}. Formule kojima se definišu uslovi ispravnosti programa šalju se na proveru SMT rešavaču. Sistem LAV ima podršku za rad sa nekoliko SMT rešavača (Boolector, Z3, MathSAT i Yices). Na osnovu rezultata rešavača, LAV generiše izveštaj o ispravnosti naredbi programa.
+\par
+
+Ispitivanje ispravnosti programa se u sistemu LAV, svodi na proveravanje da li u nekoj liniji programa postoji izraz koji može da ima neku nedozvoljenu vrednost ili da adresa pokazuje na mesto u memoriji koje nije rezervisano za dati program. Ovakvim načinom ispitivanja detektuju se, između ostalog, greške deljenja nulom, prekoraćenja bafera i dereferenciranja NULL pokazivača.
+
+\par
+Izvršavanje programa se u okviru sistema LAV opisuje modelom na osnovu kojeg se generišu uslovi ispravnosti \cite{LAVDevelopment}. Interpretacija modela zavisi od teorije jezika višesortne logike prvog reda koja odgovara semantici programskog jezika. Teorija u koju se transformiše izgrađena formula se može odrediti na osnovu analiziranog koda ili zadavanjem kriterijuma efikasnosti i preciznosti rezultata.
+\par
+
+Sistem LAV uvodi dve pretpostavke. Prva pretpostavka podrazumeva da se ulazni program sastoji od bloka instrukcija. Izvršavanje bloka može početi samo u ulaznoj tački bloka i mora se završiti nakon izvršavanja poslednje instrukcije bloka. Druga pretpostavka podrazumeva da nijedna instrukcija ne može koristiti više operatora ili poziva funkcije, izuzev operatora dodele. Takođe, poslednja instrukcija bloka definiše kojim blokovima u programu je moguće nastaviti izvršavanje.
+\par
+U okviru sistema LAV, vrši se ispitivanje ispravnosti svake naredbe u programu. U tom procesu konstruišu se dve formule, jedna odgovara uslovu ispravnosti naredbe a druga odgovara uslovu neispravnosti naredbe. Na taj način se ispitivanje da li naredba dovodi do greške svodi na ispitivanje valjanosti konstruisanih formula u izabranoj teoriji upotrebom SMT rešavača. U zavisnosti od rezultata ispitivanja, naredba može biti bezbedna, neispravna, nebezbedna i nedostižna. \par 
+Naredba je bezbedna	ukoliko prilikom njenog izvršavanja nikada ne dolazi do greške. Naredba se smatra neispravnom ukoliko prilikom njenog izvršavanja uvek dolazi do greške. Nebezbedna naredba je naredba čije izvršavanje može dovesti do greške ali i ne mora. Nedostižna je ona naredba koja nikada neće biti izvršena.
+
+\par
+Primenom sistema LAV za ispitivanje ispravnosti C programa pokazano je da je korišćeni pristup uporediv sa drugim alatima slične namene. Dodatno, eksperimentalni rezultati pokazuju prednost alata LAV u odnosu na alate koji koriste tehniku simboličkog izvršavanja u programima u kojima postoji veliki broj mogućih putanja. 
+
+\section{Opis problema} \label{sec:deo3}
+
+
+\section{Opis arhitekture} \label{sec:deo4}
+
+
+\section{Implementacija modula} \label{sec:deo5}
+
+\section{Integracija modula u sistem LAV} \label{sec:deo6}
 
 % ------------------------------------------------------------------------------
 \chapter{Zaključak} \label{zakljucak}

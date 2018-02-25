@@ -57,6 +57,28 @@
       \field{howpublished}{\url{https://fuzzinginfo.files.wordpress.com/2012/05/ag_16b_icsjwg_spring_2011_conf_manion_orlando.pdf}}
       \field{title}{Fuzz Testing for Dummies}
     \endentry
+    \entry{Verification}{book}{}
+      \name{author}{1}{}{%
+        {{hash=47f82daea2c46eab6afd721a3d6d599a}{%
+           family={B.\bibnamedelimi Beckert},
+           familyi={B\bibinitperiod\bibinitdelim B\bibinitperiod},
+           given={T.\bibnamedelimi Bormer},
+           giveni={T\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer-Verlag}%
+      }
+      \strng{namehash}{47f82daea2c46eab6afd721a3d6d599a}
+      \strng{fullhash}{47f82daea2c46eab6afd721a3d6d599a}
+      \strng{authornamehash}{47f82daea2c46eab6afd721a3d6d599a}
+      \strng{authorfullhash}{47f82daea2c46eab6afd721a3d6d599a}
+      \field{sortinit}{B}
+      \field{sortinithash}{5f6fa000f686ee5b41be67ba6ff7962d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{In Verified Software: Theory, Tools and Experiments}
+      \field{year}{2007}
+    \endentry
     \entry{ExploratoryTesting}{misc}{}
       \name{author}{1}{}{%
         {{hash=c5c583fdbeb3d6fbcfb018cc7889f740}{%
@@ -214,6 +236,50 @@
       \field{title}{The SMT-LIB Standard - version 2.0}
       \field{year}{2013}
     \endentry
+    \entry{TemporalLogic}{book}{}
+      \name{author}{1}{}{%
+        {{hash=3467f9f7423cc9ef66721c156d11048b}{%
+           family={Clarke},
+           familyi={C\bibinitperiod},
+           given={E.\bibnamedelimi M.},
+           giveni={E\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Lecture Notes in Computer Science, Springer}%
+      }
+      \strng{namehash}{3467f9f7423cc9ef66721c156d11048b}
+      \strng{fullhash}{3467f9f7423cc9ef66721c156d11048b}
+      \strng{authornamehash}{3467f9f7423cc9ef66721c156d11048b}
+      \strng{authorfullhash}{3467f9f7423cc9ef66721c156d11048b}
+      \field{sortinit}{C}
+      \field{sortinithash}{095692fd22cc3c74d7fe223d02314dbd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{25 Years of Model Checking - The Birth of Model Checking}
+      \field{year}{2008}
+    \endentry
+    \entry{AbstractInterpretation2}{book}{}
+      \name{author}{1}{}{%
+        {{hash=3e25d8d97111295c8ef6290b9df103d1}{%
+           family={Cousot},
+           familyi={C\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {In Informatics - 10 Years Back. 10 Years Ahead, London}%
+      }
+      \strng{namehash}{3e25d8d97111295c8ef6290b9df103d1}
+      \strng{fullhash}{3e25d8d97111295c8ef6290b9df103d1}
+      \strng{authornamehash}{3e25d8d97111295c8ef6290b9df103d1}
+      \strng{authorfullhash}{3e25d8d97111295c8ef6290b9df103d1}
+      \field{sortinit}{C}
+      \field{sortinithash}{095692fd22cc3c74d7fe223d02314dbd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Abstract Interpretation Based Formal Methods and Future Challenges}
+      \field{year}{2001}
+    \endentry
     \entry{ImportanceOfTesting}{misc}{}
       \name{author}{1}{}{%
         {{hash=a93585bdbe5ed75b7facd2ccbc367bcd}{%
@@ -361,6 +427,26 @@
       \field{title}{Rigorous Software Development - An Introduction To Program Verification}
       \field{year}{2011}
     \endentry
+    \entry{LAVCode}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=8803196793b2bfd32c16fa9e2781df72}{%
+           family={Janicic},
+           familyi={J\bibinitperiod},
+           given={Milena\bibnamedelima Vujosevic},
+           giveni={M\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+      }
+      \strng{namehash}{8803196793b2bfd32c16fa9e2781df72}
+      \strng{fullhash}{8803196793b2bfd32c16fa9e2781df72}
+      \strng{authornamehash}{8803196793b2bfd32c16fa9e2781df72}
+      \strng{authorfullhash}{8803196793b2bfd32c16fa9e2781df72}
+      \field{sortinit}{J}
+      \field{sortinithash}{c86bd6cced82a15683b396c2169909ef}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://argo.matf.bg.ac.rs/?content=lav}}
+      \field{title}{{LAV - LLVM Automated Verifier}}
+      \field{year}{2013}
+    \endentry
     \entry{LAVTool}{book}{}
       \name{author}{1}{}{%
         {{hash=753f6f099a245e6a2bc476a95d356b2a}{%
@@ -424,6 +510,28 @@
       \field{title}{Agile Modeling, Agile Software Development and Extreme Programming}
       \field{year}{2005}
     \endentry
+    \entry{StaticVerification}{book}{}
+      \name{author}{1}{}{%
+        {{hash=f46197e1ba81fa50f63c155a64525907}{%
+           family={Jorge\bibnamedelimb Sousa\bibnamedelima Pinto},
+           familyi={J\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim P\bibinitperiod},
+           given={Jose\bibnamedelimb Bacelar\bibnamedelima Almeida},
+           giveni={J\bibinitperiod\bibinitdelim B\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Undergraduate Topics in Computer Science, Springer, London}%
+      }
+      \strng{namehash}{f46197e1ba81fa50f63c155a64525907}
+      \strng{fullhash}{f46197e1ba81fa50f63c155a64525907}
+      \strng{authornamehash}{f46197e1ba81fa50f63c155a64525907}
+      \strng{authorfullhash}{f46197e1ba81fa50f63c155a64525907}
+      \field{sortinit}{J}
+      \field{sortinithash}{c86bd6cced82a15683b396c2169909ef}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Rigorous Software Development}
+      \field{year}{2011}
+    \endentry
     \entry{ToolKLEE}{misc}{}
       \field{sortinit}{K}
       \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
@@ -439,9 +547,6 @@
            given={Nicolas\bibnamedelima Bjorner},
            giveni={N\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {Springer-Verlag}%
-      }
       \strng{namehash}{2d5b15b84f22bae98c45e793b5ad40b6}
       \strng{fullhash}{2d5b15b84f22bae98c45e793b5ad40b6}
       \strng{authornamehash}{2d5b15b84f22bae98c45e793b5ad40b6}
@@ -451,7 +556,14 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Efficient E-matching for SMT solvers}
-      \field{year}{2007}
+      \field{year}{2009}
+    \endentry
+    \entry{LLVMTool}{misc}{}
+      \field{sortinit}{L}
+      \field{sortinithash}{7bba64db83423e3c29ad597f3b682cf3}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://llvm.org/}}
+      \field{title}{{LLVM - Low Level Virtual Machine}}
     \endentry
     \entry{SystemTesting}{misc}{}
       \name{author}{1}{}{%
@@ -471,6 +583,25 @@
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{http://ix.cs.uoregon.edu/~michal/Classes/W98/LecNotes/10-Testing-system.pdf}}
       \field{title}{Integration and System Testing}
+    \endentry
+    \entry{LAVDevelopment}{book}{}
+      \name{author}{1}{}{%
+        {{hash=50cd22763fe49ad6ee336a246e6e5910}{%
+           family={Milena\bibnamedelimb Vujosevic\bibnamedelima Janicic},
+           familyi={M\bibinitperiod\bibinitdelim V\bibinitperiod\bibinitdelim J\bibinitperiod},
+           given={Viktor\bibnamedelima Kuncak},
+           giveni={V\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+      }
+      \strng{namehash}{50cd22763fe49ad6ee336a246e6e5910}
+      \strng{fullhash}{50cd22763fe49ad6ee336a246e6e5910}
+      \strng{authornamehash}{50cd22763fe49ad6ee336a246e6e5910}
+      \strng{authorfullhash}{50cd22763fe49ad6ee336a246e6e5910}
+      \field{sortinit}{M}
+      \field{sortinithash}{c26a05ef03e4429073ed5c825140fac3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Development and evaluation of LAV - an smt-based error finding platform system description}
+      \field{year}{2012}
     \endentry
     \entry{EfficientSMTSolver}{book}{}
       \name{author}{2}{}{%
@@ -518,6 +649,28 @@
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{http://people.cs.aau.dk/~bnielsen/TOV07/lektioner/strategies-07.pdf}}
       \field{title}{Test Integration Strategies}
+    \endentry
+    \entry{AbstractInterpretation}{book}{}
+      \name{author}{1}{}{%
+        {{hash=50ea1e2b1544f122330cc2b6c18dddb1}{%
+           family={P.\bibnamedelimi Cousot},
+           familyi={P\bibinitperiod\bibinitdelim C\bibinitperiod},
+           given={R.\bibnamedelimi Cousot},
+           giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {In Symposium on Principles of Programming Languages}%
+      }
+      \strng{namehash}{50ea1e2b1544f122330cc2b6c18dddb1}
+      \strng{fullhash}{50ea1e2b1544f122330cc2b6c18dddb1}
+      \strng{authornamehash}{50ea1e2b1544f122330cc2b6c18dddb1}
+      \strng{authorfullhash}{50ea1e2b1544f122330cc2b6c18dddb1}
+      \field{sortinit}{P}
+      \field{sortinithash}{24100cef455d7974167575052c29146e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Abstract Interpretation: A Unified Lattice Model for Static Analysis of Programs}
+      \field{year}{1977}
     \endentry
     \entry{SoftwareUnitTesting}{misc}{}
       \name{author}{1}{}{%
