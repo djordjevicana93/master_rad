@@ -2193,7 +2193,8 @@
     <bcf:citekey order="48">LLVMTool</bcf:citekey>
     <bcf:citekey order="49">Barrett</bcf:citekey>
     <bcf:citekey order="50">LAVDevelopment</bcf:citekey>
-    <bcf:citekey order="51">z3improvements</bcf:citekey>
+    <bcf:citekey order="51">Moore</bcf:citekey>
+    <bcf:citekey order="52">z3improvements</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="nty/global/" type="entry" sortscheme="nty" sortnamekeyscheme="global" labelprefix="">
   <bcf:sorting>

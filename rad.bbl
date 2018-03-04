@@ -65,8 +65,9 @@
            given={T.\bibnamedelimi Bormer},
            giveni={T\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {Springer-Verlag}%
+      \list{publisher}{2}{%
+        {In Verified Software: Theory, Tools}%
+        {Experiments, Springer-Verlag}%
       }
       \strng{namehash}{47f82daea2c46eab6afd721a3d6d599a}
       \strng{fullhash}{47f82daea2c46eab6afd721a3d6d599a}
@@ -76,8 +77,8 @@
       \field{sortinithash}{5f6fa000f686ee5b41be67ba6ff7962d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{In Verified Software: Theory, Tools and Experiments}
-      \field{year}{2007}
+      \field{title}{On Essential Program Annotations and Completeness of Verifying Compilers}
+      \field{year}{2009}
     \endentry
     \entry{ExploratoryTesting}{misc}{}
       \name{author}{1}{}{%
@@ -787,6 +788,28 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Automated Test Generation and Verified Software}
+    \endentry
+    \entry{Moore}{book}{}
+      \name{author}{1}{}{%
+        {{hash=a26374d31bc12e7644e085812eca1aff}{%
+           family={Schaller},
+           familyi={S\bibinitperiod},
+           given={Robert\bibnamedelima R.},
+           giveni={R\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE Spectr.,34(6):52–59}%
+      }
+      \strng{namehash}{a26374d31bc12e7644e085812eca1aff}
+      \strng{fullhash}{a26374d31bc12e7644e085812eca1aff}
+      \strng{authornamehash}{a26374d31bc12e7644e085812eca1aff}
+      \strng{authorfullhash}{a26374d31bc12e7644e085812eca1aff}
+      \field{sortinit}{S}
+      \field{sortinithash}{3c1547c63380458f8ca90e40ed14b83e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Moore’s law: Past, present, and future}
+      \field{year}{1997}
     \endentry
     \entry{SymbolicExecution}{misc}{}
       \name{author}{1}{}{%
