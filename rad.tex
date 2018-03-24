@@ -15,6 +15,7 @@
 \usepackage{url}
 \usepackage{hyperref}
 \newtheorem{primer}{Primer}
+\usepackage{enumitem}
 
 \usepackage[latinica]{pangrami}
 \usepackage{listings}
@@ -1085,8 +1086,10 @@ Cilj sistema za ispitivanje ispravnosti softvera je da pokrije što veći broj g
 Sistem LAV implementira algoritam koji uslove ispravnosti programa opisuje formulama izabrane teorije logike prvog reda i ispituje njihovu zadovoljivost korišćenjem SMT rešavača. Ukoliko je negiran uslov ispravnosti naredbe zadovoljiva formula, SMT rešavač vraća model sa vrednostima koje predstavljaju potencijalnu grešku u softveru. Cilj ovog rada je izdvajanje vrednosti iz modela rešavača Z3 radi automatskog generisanja test primera i detektovanja greške. Modul obuhvata izdvajanje modela teorije neinterpretiranih funkcija, teorije linearne aritmetike, teorije bitvektora i teorije nizova.
 \section{Opis arhitekture} \label{sec:deo4}
 Arhitektura modula za automatsko generisanje test primera dizajnirana je tako da ispunjava zahteve sistema LAV. Modul  za automatsko generisanje test primera primenom tehnika statičke analize i rešavača Z3 ima dva osnovna dela. Prvi deo predstavlja modelovanje uslova ispravnosti programa formulama izabrane teorije rešavača (klasa \texttt{z3-instance}). Ponašanje programa upotrebom rešavača Z3 opisuje se formulom teorije linearne aritmetike (klasa \texttt{la-expression-z3}) ili teorije bitvektora (klasa \texttt{bv-expression-z3}).
-U okviru ovih teorija, dodata je podrška za teoriju nizova (klasa \texttt{AbstractArray}). Drugi deo predstavlja izdvajanje vrednosti modela rešavača Z3 na kraju svakog bloka naredbi programa. 
-Za izdvajanje vrednosti modela u teoriji linearne aritmetike i bitvektora koriste se klase \texttt{la-expression-z3} i \texttt{bv-expression-z3}.
+
+%U okviru ovih teorija, dodata je podrška za teoriju nizova (klasa \texttt{AbstractArray}). 
+Drugi deo predstavlja izdvajanje vrednosti modela rešavača Z3 na kraju svakog bloka naredbi programa. 
+Za izdvajanje vrednosti modela u teoriji linearne aritmetike i bitvektora koriste se klase \texttt{la-expression-z3} i \texttt{bv-expression-z3}. Dodata je podrška za izdvajanje vrednosti modela u okviru teorije nizova (klasa \texttt{Abstract Array}).
 Vrednosti modela rešavača nakon izvršavanja prvog bloka naredbi predstavljaju test primere za koje je potrebno proveriti da li dovode do softverske greške.
 Kompozicijom ovih delova implementiran je modul za automatsko generisanje test primera upotrebom rešavača Z3 u okviru sistema LAV. 
 \par
@@ -1106,8 +1109,9 @@ Tokom analize koda, LAV generiše uslove ispravnosti koje proverava putem interf
 U zavisnosti od izbora teorije rešavača navođenjem odgovarajuće opcije pri pokretanju sistema LAV, polimorfno se vrši izdvajanje vrednosti promenljivih modela rešavača upotrebom klasa \texttt{z3-instance-la} i \texttt{z3-instance-bv}. U okviru odgovarajućih metoda ovih klasa vrši se evaluacija prosleđenog izraza. Pri korišćenju teorije bitvektora, navodi se dužina bitvektora za zapis promenljive modela.
 
 
-Modul sadrži podršku za rad sa nizovima u okviru teorije linearne aritmetike, teorije bitvektora i teorije neinterpretiranih funkcija (klasa \texttt{AbstractArray}). 
-Zbog potreba testiranja, razlikuju se dve vrste nizova: regularni i neregularni nizovi, koji su implementirani u okviru klasa \texttt{RegularArray} i \texttt{IrregularArray}. Ove dve klase nasleđuju klasu \texttt{AbstractArray}. Regularni nizovi su nizovi koji sadrže vrednosti na pozicijama koje su u skladu sa dužinom niza. Neregularni nizovi su nizovi koji sadrže vrednosti na negativnim pozicijama.
+%Modul sadrži podršku za rad sa nizovima u okviru teorije linearne aritmetike, teorije bitvektora i teorije neinterpretiranih funkcija . 
+Modul sadrži podršku za izdvajanje vrednosti modela u teoriji nizova. Teorija nizova se može kombinovati sa teorijom neinterpretiranih funkcija, teorijom linearne aritmetike i teorijom bitvektora (klasa \texttt{AbstractArray}).
+Zbog potreba testiranja, razlikuju se dve vrste nizova: regularni i neregularni nizovi, koji su implementirani u okviru klasa \texttt{RegularArray} i \texttt{IrregularArray}. Ove dve klase nasleđuju klasu \texttt{AbstractArray}. Regularni nizovi su nizovi koji sadrže vrednosti na pozicijama koje su u skladu sa dužinom niza. Neregularni nizovi su nizovi koji sadrže vrednosti na negativnim pozicijama ili pozicijama van granica niza. U nekim slučajevima, model rešavača vraća pozicije vrednosti nizova za koje nije moguće utvrditi kom nizu pripadaju. Iz tog razloga, onemogućeno je pravljenje regularnog niza zbog nedostatka informacija. U ovakvim slučajevima se koristi neregularni niz.
 \par
 Interno, rešavač Z3 čuva elemente nizova linearno u memoriji, počevši od zadate pozicije. Elementi odgovarajućih nizova smeštaju se u okviru globalnog niza jedan iza drugog. Iz tog razloga, pri instanciranju objekta klase \texttt{RegularArray} zadaje se ime niza, adresa prvog i poslednjeg elementa niza. Instanciranje objekta klase \texttt{IrregularArray} zahteva navođenje negativne pozicije i vrednosti elementa niza koja toj poziciji odgovara. Ukoliko rešavač nekim elementima niza nije dodelio vrednost, one se mogu interpretirati na proizvoljan način. Pri ispisu vrednosti modela nakon svakog bloka instrukcija, nevažne vrednosti označavaju se sa \texttt{*}. Pri formiranju test primera, nevažne vrednosti interpretiraju se brojem \texttt{1}.
 \par
@@ -1131,13 +1135,82 @@ Automatizacija testiranja programa vrednostima modela u okviru alata LAV vrši s
 Kao argumenti pri pokretanju skripte navode se: 
 \par
 \texttt{./testiranje.sh <ime\_programa> <teorija> <test\_direktorijum>}
-\\
-pri čemu \texttt{<ime\_programa>} predstavlja C program koji se testira. Pored C programa, neophodno je postojanje još jednog C fajla
-čiji naziv mora imati format \texttt{<ime\_programa>\_test}. Sadržaj dopunskog fajla je identičan originalnom sa dodatim anotacijama za izdvajanje naziva i tipova ulaznih promenljivih. Postoje dve vrste anotacija, uz zavisnosti da li je ulazna vrednost programa promenljiva ili niz. Za promenljive se koristi anotacija 
-\texttt{input\_value(ime\_promenljive, pozicija)}, dok se za nizove koristi 
+\\ gde su:
+\begin{itemize}[label={--}]
+  \item \texttt{<ime\_programa>} - C program koji se testira
+  \item \texttt{<teorija>} - odabir teorije u koju se formula za opisivanje ponašanja programa transformiše. Podržane teorije su teorija linearne aritmetike (navođenjem argumenta \texttt{LA}) ili teorija bitvektora (navođenjem argumenta \texttt{BV})
+  \item \texttt{<test\_direktorijum>} - putanja na kojoj će se generisati test primeri u okviru fajl sistema. Ovaj argument je opcioni. Ukoliko se izostavi, podrazumevana vrednost je Output/test direktorijum u okviru sistema LAV.
+\end{itemize}
+ 
+Pored C programa, neophodno je postojanje još jednog C fajla
+čiji naziv mora imati format \texttt{ime\_programa\_test}. Sadržaj dopunskog fajla je identičan originalnom sa dodatim anotacijama za izdvajanje naziva i tipova ulaznih promenljivih. Postoje dve vrste anotacija, uz zavisnosti da li je ulazna vrednost programa promenljiva ili niz. Za promenljive se koristi anotacija 
+\texttt{input\_value(ime\_promenljive, pozici-\\ja)}, dok se za nizove koristi 
 anotacija \texttt{input\_value\_array(ime\_niza, pozicija)}, gde pozicija predstavlja redni broj imena promenljive ili niza pri zadavanju ulaznih vrednosti. 
-Argument \texttt{<teorija>} predstavlja odabir teorije u koju se formula za opisivanje ponašanja programa transformiše. Podržane teorije su teorija linearne aritmetike (navođenjem argumenta \texttt{LA}) ili teorija bitvektora (navođenjem argumenta \texttt{BV}).
-Argument \texttt{<test\_direktorijum>} predstavlja putanju na kojoj će se generisati test primeri u okviru fajl sistema. Ovaj argument je opcioni. Ukoliko se izostavi, podrazumevana vrednost je Output/test direktorijum u okviru sistema LAV.
+\\
+
+\begin{primer} \label{example21} Dokazivanje de Morganovog zakona dualnosti ispitivanjem validnosti formule: $\neg{(a \land b)} \Leftrightarrow (\neg{a} \lor \neg{b}) $ tako što se kao ograničenje dodaje negacija polazne formule. Z3 pronalazi da je negacija formule nezadovoljiva, pa je polazna formula tačna u svim interpretacijama. \\
+
+\hspace{-0.6cm}
+\begin{minipage}[b]{0.5\textwidth}
+\textbf{C program:}\\
+\#include <stdio.h> \\
+int main() \{ \\
+	int a, b=15;\\
+	scanf($"$\%d $"$, $\&$a);\\
+	if(a < b)\\
+	\tab a++;\\
+	if(a == b)\\
+	\tab b = 0;\\
+	\\
+	return a/b;
+\\ \}
+
+\end{minipage}
+\hspace{0.3cm}
+\begin{minipage}[t]{0.4\textwidth}
+\vspace{-7.2cm}
+\textbf{Model:}\\
+function: main\\
+error: division\_by\_zero\\
+16: a = 15, b = 0,\\
+14: a = 15, b = 0,\\
+13: a = 15, b = 15,\\
+12: a = 15, b = 15,\\
+11: a = 14, b = 15,
+\end{minipage}
+\end{primer}
+
+\begin{primer} \label{example22} Dokazivanje de Morganovog zakona dualnosti ispitivanjem validnosti formule: $\neg{(a \land b)} \Leftrightarrow (\neg{a} \lor \neg{b}) $ tako što se kao ograničenje dodaje negacija polazne formule. Z3 pronalazi da je negacija formule nezadovoljiva, pa je polazna formula tačna u svim interpretacijama. \\
+
+\hspace{-0.6cm}
+\begin{minipage}[b]{0.5\textwidth}
+\textbf{C program:}\\
+\#include <stdio.h> \\
+int input\_value(int, int);
+\\ \\
+int main() \{ \\
+	int a, b=15;\\
+	scanf($"$\%d $"$, $\&$a);\\
+	input\_value(a,0);\\
+	\\
+	if(a < b)\\
+	\tab a++;\\
+	if(a == b)\\
+	\tab b = 0;\\
+	\\
+	return a/b;
+\\ \}
+
+\end{minipage}
+\hspace{0.3cm}
+\begin{minipage}[t]{0.4\textwidth}
+\vspace{-9.65cm}
+\textbf{Test:}\\
+14
+\end{minipage}
+\end{primer}
+
+
 
 % ------------------------------------------------------------------------------
 \chapter{Zaključak} \label{zakljucak}
