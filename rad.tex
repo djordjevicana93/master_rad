@@ -1095,7 +1095,7 @@ Kompozicijom ovih delova implementiran je modul za automatsko generisanje test p
 \par
 
 
-\section{Implementacija modula} \label{sec:deo5}
+\section{Nadogradnja sistema LAV} \label{sec:deo5}
 Modul je implementiran u programskom jeziku C++ zbog kompatibilnosti sa sistemom LAV. Komunikacijom alata LAV sa rešavačem Z3 proverava se valjanost uslova ispravnosti naredbe i valjanost uslova izlaska iz bloka. Proveravanje valjanosti formule u okviru teorije rešavača Z3 vrši se ispitivanjem zadovoljivosti negirane formule. Važi da je formula valjana ukoliko je negacija formule nezadovoljiva. Slično, formula nije valjana ukoliko je negacija formule zadovoljiva.
 
 Poziv rešavača vrši se korišćenjem klase \texttt{LSolver}. Ova klasa obezbeđuje pripremu formule prevođenjem u formulu odgovarajuće teorije. Komunikacija sa rešavačem Z3 ostvaruje se putem C++ interfejsa koji apstrahuje pristup samom rešavaču. Pored toga, ova klasa je odgovorna za efikasno korišćenje inkrementalnog pristupa poziva rešavača. Kod inkrementalnog pristupa, pri ispitivanju uslova ispravnosti u okviru jedne funkcije, formule koje odgovaraju nepotrebnim, ali već razmatranim blokovim, mogu se zadržati u okviru formule. Na ovaj način, rešavač Z3 može iskoristiti rezultate naučene iz prethodnih pokušaja ispitivanja zadovoljivosti.
@@ -1146,9 +1146,9 @@ Pored C programa, neophodno je postojanje još jednog C fajla
 čiji naziv mora imati format \texttt{ime\_programa\_test}. Sadržaj dopunskog fajla je identičan originalnom sa dodatim anotacijama za izdvajanje naziva i tipova ulaznih promenljivih. Postoje dve vrste anotacija, uz zavisnosti da li je ulazna vrednost programa promenljiva ili niz. Za promenljive se koristi anotacija 
 \texttt{input\_value(ime\_promenljive, pozici-\\ja)}, dok se za nizove koristi 
 anotacija \texttt{input\_value\_array(ime\_niza, pozicija)}, gde pozicija predstavlja redni broj imena promenljive ili niza pri zadavanju ulaznih vrednosti. 
-\\
-
-\begin{primer} \label{example21} Dokazivanje de Morganovog zakona dualnosti ispitivanjem validnosti formule: $\neg{(a \land b)} \Leftrightarrow (\neg{a} \lor \neg{b}) $ tako što se kao ograničenje dodaje negacija polazne formule. Z3 pronalazi da je negacija formule nezadovoljiva, pa je polazna formula tačna u svim interpretacijama. \\
+\par
+U primeru \ref{example21} ispituje se ispravnost jednostavnog C programa korišćenjem alata LAV. Vrednosti modela rešavača ispisuju se nakon izvršavanja svakog bloka naredbi.
+\begin{primer} \label{example21} U ovom primeru javlja se greška pri deljenju sa nulom. Na osnovu modela, praćenjem vrednosti nakon svakog izvršenog bloka, dolazi se do putanje koja proizvodi grešku.\\
 
 \hspace{-0.6cm}
 \begin{minipage}[b]{0.5\textwidth}
@@ -1161,7 +1161,6 @@ int main() \{ \\
 	\tab a++;\\
 	if(a == b)\\
 	\tab b = 0;\\
-	\\
 	return a/b;
 \\ \}
 
@@ -1180,8 +1179,13 @@ error: division\_by\_zero\\
 \end{minipage}
 \end{primer}
 
-\begin{primer} \label{example22} Dokazivanje de Morganovog zakona dualnosti ispitivanjem validnosti formule: $\neg{(a \land b)} \Leftrightarrow (\neg{a} \lor \neg{b}) $ tako što se kao ograničenje dodaje negacija polazne formule. Z3 pronalazi da je negacija formule nezadovoljiva, pa je polazna formula tačna u svim interpretacijama. \\
+U primeru \ref{example22} generiše se test primer za isti C program kao u primeru \ref{example21}. Prilikom generisanja testova, zahteva se postojanje anotacija čime se određuje redosled promenljivih u test primeru. Važno je napomenuti da generisanje modela ne zahteva anotacije, jer nije bitan redosled promenljivih. 
 
+
+%Treba objasniti da generisanje modela ne zahteva anotacije, jer nije bitan redosled nabrajanja promenljivih, dok generisanje testa zahteva odredjen redosled, a automatsko odredjivanje redosleda moze da bude pravac daljeg rada jer to nije trivijalan problem.
+
+\begin{primer} Test primer definisan je vrednostima modela nakon izvršene poslednje instrukcije prvog bloka. Kako je vrednost promenljive b inicijalizovana, uvodimo anotaciju samo za promenljivu a, pa test sadrži samo jednu vrednost. \label{example22}  
+\\ \\
 \hspace{-0.6cm}
 \begin{minipage}[b]{0.5\textwidth}
 \textbf{C program:}\\
