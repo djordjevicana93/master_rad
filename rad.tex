@@ -1113,7 +1113,14 @@ Interno, rešavač Z3 čuva elemente nizova linearno u memoriji, počevši od za
 \par
 Određivanje vrednosti elemenata nizova na osnovu modela rešavača implementirano je u okviru funkcije \texttt{getArrayAssignment} klase \texttt{z3-instance}. Nizovi se interpretiraju pozivom metode interfejsa rešavača \texttt{Z3\_get\_array\_value(context, model, array\_variable, length, indices, values, else\_value)} gde se za prosleđeni kontekst i model popunjavaju vrednosti nizova na odgovarajućim pozicijama. Elementima nizova kojima rešavač nije dodelio vrednost dodeljuje se \texttt{else\_value}. U slučaju korišćenja teorije bitvektora, pozicije i vrednosti nizova imaju heksadekadnu notaciju. Zbog kompatibilnosti sa teorijom linearne aritmetike, brojevi zapisani u heksadekadnom formatu u okviru modula se konvertuju u dekadni format. U zavisnosti od dodeljenih vrednosti, u okviru ove metode instanciraju se objekti klasa \texttt{RegularArray} i \texttt{IrregularArray}. Nakon izdvajanja vrednosti elemenata nizova, alocirana memorija se oslobađa upotebom destruktora.
 \par
-Dijagram klasa modula za automatsko generisanje test primera upotrebom rešavača Z3 dat je na slici.
+Dijagram klasa modula za automatsko generisanje test primera upotrebom rešavača Z3 dat je na slici \ref{fig:piramida}.
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.99\textwidth]{dijagram_klasa.png}
+  \caption{Dijagram klasa}
+  \label{fig:piramida}
+\end{figure}
+
 \par
 
 Pri pokretanju alata LAV, opcijom \texttt{-solver=Z3-LA-ARR-EUF} označava se upotreba teorije linearne aritmetike, teorije nizova i teorije neinterpretiranih funkcija rešavača Z3. Opcijom \texttt{-solver=Z3-BV-ARR-EUF} označava se upotreba teorije bitvektora, teorije nizova i teorije neinterpretiranih funkcija rešavača Z3. Navođenjem opcije \texttt{-model} generišu se fajlovi koji sadrže vrednosti promenljivih i nizova modela nakon izvršavanja svakog bloka naredbi kao i putanja kroz program koja dovodi do greške. Za svaku funkciju C programa, formira se poseban fajl sa vrednostima modela. Navođenjem opcije \texttt{-test} generišu se testovi. Test primeri za koje je potrebno pokrenuti izvršavanje C programa generišu se za svaku funkciju programa u posebnom fajlu. Podrazumevano, test primeri se generišu u Output/test direktorijumu u okviru sistema LAV. Opcijom \texttt{-test-folder} ova putanja se može predefinisati proizvoljnom putanjom fajl sistema.
