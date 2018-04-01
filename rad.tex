@@ -1046,7 +1046,7 @@ Uporedo sa nastajanjem novih tehnologija povećava se obim posla koji je potrebn
 Kao što je opisano u glavi \ref{testiranje}, postoje različite vrste testiranja. U većini slučajeva se generisanje testova vrši manuelno. Ukoliko bi se ovaj proces automatizovao, značajno bi se skratilo vreme potrebno za testiranje kao i broj testera uključenih u proces razvoja. 
 Na osnovu navedenih činjenica, poželjno je da se ispravnost softverskog sistema ispituje automatski generisanim testovima uvek kada je to moguće \cite{AutomatedTestGeneration}.
 
-U ovoj glavi opisana je statička analiza softvera, kao jedan od načina ispitivanja ispravnosti programa, u delu \ref{sec:deo1}. U delu \ref{sec:deo2} opisan je sistem za statičko utvrđivanje ispravnosti softvera LAV. U delu \ref{sec:deo3} navedena je motivacija i značaj automatskog generisanja test primera. U delovima \ref{sec:deo4} i \ref{sec:deo5} opisana je integracija koda u postojeće klase i module kao i implementacija novih klasa sa ciljem automatskog generisanja test primera u okviru alata LAV. Integrisani kod javno je dostupan \footnote{Može se pronaći na adresi \url{https://github.com/djordjevicana93/implementacija/kod.diff}}.
+U ovoj glavi opisana je statička analiza softvera, kao jedan od načina ispitivanja ispravnosti programa, u delu \ref{sec:deo1}. U delu \ref{sec:deo2} opisan je sistem za statičko utvrđivanje ispravnosti softvera LAV. U delu \ref{sec:deo3} navedena je motivacija i značaj automatskog generisanja test primera. U delovima \ref{sec:deo4} i \ref{sec:deo5} opisana je integracija koda u postojeće klase i module kao i implementacija novih klasa sa ciljem automatskog generisanja test primera u okviru alata LAV. Integrisani kod javno je dostupan \footnote{Može se pronaći na adresi \url{https://github.com/djordjevicana93/tree/master/implementacija}}.
 
 
 \section{Statička provera ispravnosti softvera} \label{sec:deo1}
@@ -1097,11 +1097,13 @@ Drugi deo predstavlja izdvajanje vrednosti modela rešavača Z3 na kraju svakog 
 Za izdvajanje vrednosti modela u teoriji linearne aritmetike i bitvektora koriste se klase \texttt{la-expression-z3} i \texttt{bv-expression-z3}. Dodata je podrška za izdvajanje vrednosti modela u okviru teorije nizova (klasa \texttt{Abstract Array}). Vrednosti modela rešavača nakon izvršavanja prvog bloka naredbi predstavljaju test primere za koje je potrebno proveriti da li dovode do softverske greške. 
 Kompozicijom ovih delova implementirana je podrška za automatsko generisanje test primera upotrebom rešavača Z3 u okviru sistema LAV. 
 \par
+Test primeri se generišu pod pretpostavkom da se sve vrednosti unose na početku rada programa. Ovaj uslov veoma ograničava upotrebljivost sistema, ali je prvi korak ka uvođenju potrebne infrastrukture za generisanje test primera u opštem slučaju. 
+\par
 
 
 \section{Nadogradnja sistema LAV} \label{sec:deo5}
 Integracija koda u postojeće klase i module kao i implementacija novih klasa pisana je u programskom jeziku C++ zbog kompatibilnosti sa sistemom LAV.
-%Modul je implementiran u programskom jeziku C++ zbog kompatibilnosti sa sistemom LAV. 
+
 Komunikacijom alata LAV sa rešavačem Z3 proverava se valjanost uslova ispravnosti naredbe i valjanost uslova izlaska iz bloka. Proveravanje valjanosti formule u okviru teorija rešavača Z3 vrši se ispitivanjem zadovoljivosti negirane formule. Važi da je formula valjana ukoliko je negacija formule nezadovoljiva. Slično, formula nije valjana ukoliko je negacija formule zadovoljiva.
 
 Poziv rešavača vrši se korišćenjem ranije implementirane klase \texttt{LSolver}. Ova klasa obezbeđuje pripremu formule prevođenjem u formulu odgovarajuće teorije. Komunikacija sa rešavačem Z3 ostvaruje se putem C++ interfejsa koji apstrahuje pristup samom rešavaču. Pored toga, ova klasa je odgovorna za efikasno korišćenje inkrementalnog pristupa poziva rešavača. Kod inkrementalnog pristupa, pri ispitivanju uslova ispravnosti u okviru jedne funkcije, formule koje odgovaraju nepotrebnim, ali već razmatranim blokovima, mogu se zadržati u okviru formule. Na ovaj način, rešavač Z3 može iskoristiti rezultate naučene iz prethodnih pokušaja ispitivanja zadovoljivosti.
@@ -1217,7 +1219,8 @@ U primeru \ref{example22} generiše se test primer za C program iz primera \ref{
 \end{primer}
 
 U primeru 23 ispituje se ispravnost C programa koji vrši jednostavne algebarske transformacije nad elementima nizova upotrebom alata LAV. Vrednosti elemenata nizova ispisuju se nakon svakog bloka naredbi.
-\begin{primer} U ovom primeru javlja se greška pri deljenju sa nulom odgovarajućih elemenata nizova a i b. Elementi nizova kojima rešavač nije dodelio vrednosti označeni su *.\\ \\
+\begin{primer}
+U ovom primeru javlja se greška pri deljenju sa nulom odgovarajućih elemenata nizova a i b. Elementi nizova kojima rešavač nije dodelio vrednosti označeni su *.\\ \\
 \hspace{-0.6cm} \label{example23}
 \begin{minipage}[b]{0.5\textwidth}
 \textbf{C program:}\\
@@ -1229,17 +1232,17 @@ U primeru 23 ispituje se ispravnost C programa koji vrši jednostavne algebarske
 6 \hspace{0.1cm} \} \\
 7 \hspace{0.1cm} int main()\{ \\
 8	\hspace{0.15cm} \tab int a[5], b[5];\\
-9	\hspace{0.15cm} \tab a[0]=0; \\
-10	\hspace{-0.08cm} \tab a[3]=14; \\
-11	\hspace{-0.08cm} \tab b[0]=10; \\
-12	\hspace{-0.08cm} \tab b[2]=15; \\
-13  \hspace{-0.08cm} \tab readInput(a, 5); \\
-14  \hspace{-0.08cm} \tab readInput(b, 5); \\
-15  \hspace{-0.08cm} \tab if(a[0] < b[0]) \\
-16	\hspace{-0.08cm} \tab \tab	a[3]++; \\
-17	\hspace{-0.08cm} \tab if(a[3] == b[2]) \\
-18	\hspace{-0.08cm} \tab \tab	b[2]=0; \\
-19	\hspace{-0.08cm} \tab return a[3]/b[2]; \\
+9	\hspace{0.15cm} \tab a[3]=0; \\
+10	\hspace{-0.08cm} \tab a[4]=14; \\
+11	\hspace{-0.08cm} \tab b[3]=10; \\
+12	\hspace{-0.08cm} \tab b[4]=15; \\
+13  \hspace{-0.08cm} \tab readInput(a, 3); \\
+14  \hspace{-0.08cm} \tab readInput(b, 3); \\
+15  \hspace{-0.08cm} \tab if(a[3] < b[3]) \\
+16	\hspace{-0.08cm} \tab \tab	a[4]++; \\
+17	\hspace{-0.08cm} \tab if(a[4] == b[4]) \\
+18	\hspace{-0.08cm} \tab \tab	b[4]=0; \\
+19	\hspace{-0.08cm} \tab return a[4]/b[4]; \\
 20 \}
 \end{minipage}
 \hspace{1.1cm}
@@ -1248,11 +1251,11 @@ U primeru 23 ispituje se ispravnost C programa koji vrši jednostavne algebarske
 \textbf{Model:}\\
 function: main \\
 error: division\_by\_zero \\
-19: a[] = \{0, *, *, 15, *\}, \\ b[] = \{10, *, 0, *, *\} \\ \\
-18: a[] = \{0, *, *, 15, *\}, \\ b[] = \{10, *, 0, *, *\} \\ \\
-17: a[] = \{0, *, *, 15, *\}, \\ b[] = \{10, *, 15, *, *\} \\ \\
-16:	a[] = \{0, *, *, 15, *\}, \\ b[] = \{10, *, 15, *, *\} \\ \\
-15: a[] = \{0, *, *, 14, *\}, \\ b[] = \{10, *, 15, *, *\}
+19: a[] = \{*, *, *, 0, 15\}, \\ b[] = \{*, *, *, 10, 0\} \\ \\
+18: a[] = \{*, *, *, 0, 15\}, \\ b[] = \{*, *, *, 10, 0\} \\ \\
+17: a[] = \{*, *, *, 0, 15\}, \\ b[] = \{*, *, *, 10, 15\} \\ \\
+16:	a[] = \{*, *, *, 0, 15\}, \\ b[] = \{*, *, *, 10, 15\} \\ \\
+15: a[] = \{*, *, *, 0, 14\}, \\ b[] = \{*, *, *, 10, 15\}
 \end{minipage}
 \end{primer} 
 \par
@@ -1270,26 +1273,26 @@ U primeru \ref{example24} generiše se test primer za C program iz primera \ref{
 6 \hspace{0.1cm} \} \\
 7 \hspace{0.1cm} int main()\{ \\
 8	\hspace{0.15cm} \tab int a[5], b[5];\\
-9	\hspace{0.15cm} \tab a[0]=0; \\
-10	\hspace{-0.08cm} \tab a[3]=14; \\
-11	\hspace{-0.08cm} \tab b[0]=10; \\
-12	\hspace{-0.08cm} \tab b[2]=15; \\
-13  \hspace{-0.08cm} \tab readInput(a, 5); \\
-14  \hspace{-0.08cm} \tab readInput(b, 5); \\
+9	\hspace{0.15cm} \tab a[3]=0; \\
+10	\hspace{-0.08cm} \tab a[4]=14; \\
+11	\hspace{-0.08cm} \tab b[3]=10; \\
+12	\hspace{-0.08cm} \tab b[4]=15; \\
+13  \hspace{-0.08cm} \tab readInput(a, 3); \\
+14  \hspace{-0.08cm} \tab readInput(b, 3); \\
 15	\hspace{-0.08cm} \tab input\_value\_array(a, 0); \\
-16	\hspace{-0.08cm} \tab input\_value\_array(a, 1); \\
-17  \hspace{-0.08cm} \tab if(a[0] < b[0]) \\
-18	\hspace{-0.08cm} \tab \tab	a[3]++; \\
-19	\hspace{-0.08cm} \tab if(a[3] == b[2]) \\
-20	\hspace{-0.08cm} \tab \tab	b[2]=0; \\
-21	\hspace{-0.08cm} \tab return a[3]/b[2]; \\
+16	\hspace{-0.08cm} \tab input\_value\_array(b, 1); \\
+17  \hspace{-0.08cm} \tab if(a[3] < b[3]) \\
+18	\hspace{-0.08cm} \tab \tab	a[4]++; \\
+19	\hspace{-0.08cm} \tab if(a[4] == b[4]) \\
+20	\hspace{-0.08cm} \tab \tab	b[4]=0; \\
+21	\hspace{-0.08cm} \tab return a[4]/b[4]; \\
 22 \}
 \end{minipage}
 \hspace{1.1cm}
 \begin{minipage}[t]{0.4\textwidth}
 \vspace{-14.2cm}
 \textbf{Test:}\\
-0 1 1 14 1 10 1 15 1 1
+1 1 1 0 14 1 1 1 10 15
 \end{minipage}
 \end{primer}
 
@@ -1305,13 +1308,14 @@ koji pokriva različite kombinacije teorija. Podržane teorije, kojima je moguć
 teorija bitvektora i teorija nizova.
 
 Prilikom pravljenja modela ponašanja programa, korišćenjem izabrane teorije,
-primenjuju se razne aproksimacije. Ove aproksimacije mogu prijavljivati grešku u programu koja zapravo ne postoji. Iz tog razloga neophodno je pokretanjem
+primenjuju se razne aproksimacije. 
+Zbog ovih aproksimacija, mogu se prijaviti greške u programu koje zapravo ne postoje. Iz tog razloga neophodno je pokretanjem
 programa proveriti da li generisani test primer stvarno dovodi do nebezbednog i
 neočekivanog ponašanja. Alatu LAV dodata je podrška za automatsko
 generisanje test primera na osnovu vrednosti iz modela rešavača Z3 za izabranu
 teoriju.
  
-Eksperimentalni rezultati koji ukazuju na bolje performansi pri korišćenju rešavača Z3 u poređenju sa drugim SMT rešavačima dostupni su u literaturi \cite{z3improvements}. U radu je detaljno opisana upotreba rešavača korišćenjem SMT-LIB standarda i C++ interfejsa.
+Eksperimentalni rezultati koji ukazuju na bolje performanse pri korišćenju rešavača Z3 u poređenju sa drugim SMT rešavačima dostupni su u literaturi \cite{z3improvements}. U radu je detaljno opisana upotreba rešavača korišćenjem SMT-LIB standarda i C++ interfejsa.
 
 Buduća istraživanja na temu unapređenja rada mogla bi da obuhvate automatsko određivanje ulaznih promenljivih, da bi se izbeglo dodatno anotiranje promenljivih u samom kodu. Drugo unapređenje moglo bi da obuhvati preciznije izdvajanje modela za druge SMT rešavače pokrivanjem različitih kombinacija teorija. Takođe, format ispisa vrednosti modela i test primera za sve rešavače mogao bi se standardizovati. 
 % ------------------------------------------------------------------------------
