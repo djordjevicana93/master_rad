@@ -1,0 +1,1217 @@
+diff --git a/include/lav/Internal/LInstruction.h b/include/lav/Internal/LInstruction.h
+index 76f7aa3..103b581 100755
+--- a/include/lav/Internal/LInstruction.h
++++ b/include/lav/Internal/LInstruction.h
+@@ -45,6 +45,7 @@ public:
+ 
+   unsigned AssemblyLine() const;
+   std::string GetModelFileName() const;
++  std::string GetTestFileName() const;
+   vUnsigned GetStackLines() const;
+ 
+   std::ostream &Print(std::ostream &ostr) const;
+@@ -52,6 +53,7 @@ public:
+   void PrintFlawedFoundResults(STATUS s) const;
+ 
+ private:
++  std::string GetFileName(bool testOutput) const;
+   void PrintFlawedFound(std::ostream &ostr) const;
+   void PrintFlawedFound(cStr &fileName) const;
+   void PrintFlawedFoundHTML(std::ostream &f, STATUS s) const;
+diff --git a/include/lav/Internal/LSolver.h b/include/lav/Internal/LSolver.h
+index c3e92e2..75a6b7a 100755
+--- a/include/lav/Internal/LSolver.h
++++ b/include/lav/Internal/LSolver.h
+@@ -62,6 +62,10 @@ public:
+   static void setFactory();
+   static void GetModel(stUrsaExp &symbolTable, const LBlock *fb,
+                        const LInstruction *fi, ERRKIND erKind);
++  static void WriteTest(stUrsaExp &symbolTable, const LBlock *fb,
++                        const LInstruction *fi);
++  static void PreparingTestUsingModel(stUrsaExp &symbolTable, const LBlock *fb,
++                         std::map<std::string, int>& variable_map, std::vector<AbstractArray*>& vector_array);
+   static void GetTransform(stUrsaExp &symbolTable, vStr &transforamtions);
+   static void GetFunctionTransforms(const vStr &transformations, cStr &fname,
+                                     vStr &transforms, cStr &context = "");
+@@ -78,12 +82,16 @@ public:
+                              std::string s = "");
+   static void WriteTrace(std::ostream &f, vUnsigned &prvi, vUnsigned &drugi,
+                          const LBlock *fb_tekuci, stUrsaExp &symbolTable);
++  static void WriteSymbolTable(std::ostream &ostr, stUrsaExp &symbolTable);
+   static bool isLATheory();
++  static std::map<std::string, long>& GetAddresses();
++  static std::map<int, std::string> testPosition;
+ 
+ private:
+   LSolver();
+   ~LSolver();
+ 
++  static void freeArray(std::vector<AbstractArray*>& array_vector);
+   static void PrepareSolver();
+   static aExp AbstractFormulaVariable(caExp &e);
+   static aExp AbstractVariable(caExp &e);
+@@ -93,7 +101,6 @@ private:
+                                         cStr &FunctionName);
+   static aExp ReplaceAddresses(caExp &e,
+                                std::map<std::string, long> &Addresses);
+-  static void GetAddresses(caExp &addr, std::map<std::string, long> &Addresses);
+   static bool TryExportExpression(caExp &a, UrsaExp &exported_a,
+                                   stUrsaExp &symbolTable);
+   static UrsaExp ExportExpressionBV(caExp &e, stUrsaExp &symbolTable);
+diff --git a/include/solvers/solver-interfaces/AbstractArray.h b/include/solvers/solver-interfaces/AbstractArray.h
+new file mode 100644
+index 0000000..018466c
+--- /dev/null
++++ b/include/solvers/solver-interfaces/AbstractArray.h
+@@ -0,0 +1,13 @@
++#ifndef ABSTRACTARRAY_H
++#define ABSTRACTARRAY_H
++#include <string>
++#include <map>
++
++class AbstractArray {
++public:
++    virtual void print(const std::map<std::string, long>& arrayAddresses, std::ostream &ostr, std::string currentName="", bool isPrintTest=false) = 0;
++
++    virtual ~AbstractArray() {}
++};
++
++#endif // ABSTRACTARRAY_H
+diff --git a/include/solvers/solver-interfaces/IregularArray.h b/include/solvers/solver-interfaces/IregularArray.h
+new file mode 100644
+index 0000000..318f702
+--- /dev/null
++++ b/include/solvers/solver-interfaces/IregularArray.h
+@@ -0,0 +1,20 @@
++#ifndef IREGULARARRAY_H
++#define IREGULARARRAY_H
++
++#include<string>
++#include<iostream>
++#include "AbstractArray.h"
++
++class IregularArray : public AbstractArray{
++public:
++    IregularArray(std::string& index, std::string& value);
++    void print(const std::map<std::string, long>& arrayAddresses, std::ostream &ostr, std::string currentName="", bool isPrintTest=false);
++
++    ~IregularArray() {}
++
++private:
++    std::string index;
++    std::string value;
++};
++
++#endif // IREGULARARRAY_H
+diff --git a/include/solvers/solver-interfaces/RegularArray.h b/include/solvers/solver-interfaces/RegularArray.h
+new file mode 100644
+index 0000000..37c9257
+--- /dev/null
++++ b/include/solvers/solver-interfaces/RegularArray.h
+@@ -0,0 +1,27 @@
++#ifndef REGULARARRAY_H
++#define REGULARARRAY_H
++
++#include "AbstractArray.h"
++#include <iostream>
++#include <string>
++
++class RegularArray : public AbstractArray
++{
++public:
++    RegularArray(std::string& name, int adress);
++    void print(const std::map<std::string, long>& arrayAddresses, std::ostream &ostr, std::string currentName="", bool isPrintTest=false);
++    void addValues(std::string& first, std::string& second);
++    void setRight(int rightLimit);
++    void setLeft(int leftLimit);
++    int getAddress();
++
++    ~RegularArray() {}
++private:
++    std::string name;
++    int address;
++    int left;
++    int right;
++    std::map<std::string, std::string> values;
++};
++
++#endif // REGULARARRAY_H
+diff --git a/include/solvers/solver-interfaces/boolector/boolector-instance.hpp b/include/solvers/solver-interfaces/boolector/boolector-instance.hpp
+index aa294bf..f90df5e 100755
+--- a/include/solvers/solver-interfaces/boolector/boolector-instance.hpp
++++ b/include/solvers/solver-interfaces/boolector/boolector-instance.hpp
+@@ -4,6 +4,7 @@
+ #include <string>
+ #include <vector>
+ #include <stdio.h>
++#include "solvers/solver-interfaces/AbstractArray.h"
+ 
+ extern "C" {
+ #include "boolector.h"
+@@ -42,6 +43,7 @@ public:
+ 
+   bool nextModel(SOLVER_EXPR_TYPE expr);
+   std::string getAssignment(SOLVER_EXPR_TYPE expr);
++  void getArrayAssignment(const std::map<std::string, long>& addresses, std::vector<AbstractArray*>& result) const;
+   void block(SOLVER_EXPR_TYPE expr, unsigned val);
+   void ExpToRelease(SOLVER_EXPR_TYPE expr) {
+     _exprs_to_release.push_back(expr);
+diff --git a/include/solvers/solver-interfaces/expression.hpp b/include/solvers/solver-interfaces/expression.hpp
+index b59e588..dc64251 100755
+--- a/include/solvers/solver-interfaces/expression.hpp
++++ b/include/solvers/solver-interfaces/expression.hpp
+@@ -8,6 +8,7 @@
+ 
+ #include "../syntax/function.hpp"
+ #include "bit-vector.hpp"
++#include "AbstractArray.h"
+ 
+ #include "llvm/Support/Casting.h"
+ 
+@@ -50,6 +51,7 @@ public:
+   void reset();
+   std::string getAssignment() const;
+ 
++  void getArrayAssignment(const std::map<std::string, long>& addresses, std::vector<AbstractArray*>& result) const;
+   Expression operator+(const Expression &expr) const;
+   Expression operator-(const Expression &expr) const;
+   Expression operator*(const Expression &expr) const;
+@@ -146,6 +148,7 @@ public:
+   virtual void reset() = 0;
+   virtual std::string getAssignment() const = 0;
+ 
++  virtual void getArrayAssignment(const std::map<std::string, long>& addressess, std::vector<AbstractArray*>& result) const = 0;
+   virtual ExpressionImp *signedSymbolic(const std::string &name,
+                                         size_t width) const = 0;
+   virtual ExpressionImp *unsignedSymbolic(const std::string &name,
+@@ -957,6 +960,11 @@ public:
+     return ((_b == true) ? "1" : "0");
+   }
+ 
++  virtual void getArrayAssignment(const std::map<std::string, long>& addresses, std::vector<AbstractArray*>& result) const
++  {
++      throw "ExpressionImpGroundBoolean::getArrayAssignment N/A";
++  }
++
+   virtual ExpressionImp *booleanGround(bool x) const {
+     return new ExpressionImpGroundBoolean(x);
+   }
+@@ -1068,6 +1076,10 @@ public:
+ 
+   virtual std::string getAssignment() const { return _n.toString(); }
+ 
++  virtual void getArrayAssignment(const std::map<std::string, long>& addresses, std::vector<AbstractArray*>& result) const {
++      throw "ExpressionImp::getArrayAssignemnt N/A";
++  }
++
+   virtual bool getBooleanValue() const { throw "getBooleanValue N/A"; }
+ 
+   virtual unsigned long getUnsignedValue() const { return _n.toUnsigned(); }
+@@ -1527,6 +1539,11 @@ public:
+     throw "ExpressionImpSymbolic::store N/A";
+   }
+ 
++  virtual void getArrayAssignment(const std::map<std::string, long>& addresses, std::vector<AbstractArray*> &result) const
++  {
++      throw "ExpressionImpSymbolic::getArrayAssignemnt N/A";
++  }
++
+ private:
+ 
+   virtual ExpressionImp *add(const ExpressionImp *const e) const {
+diff --git a/include/solvers/solver-interfaces/mathsat/mathsat-instance.hpp b/include/solvers/solver-interfaces/mathsat/mathsat-instance.hpp
+index aa86eee..8b2f293 100755
+--- a/include/solvers/solver-interfaces/mathsat/mathsat-instance.hpp
++++ b/include/solvers/solver-interfaces/mathsat/mathsat-instance.hpp
+@@ -1,6 +1,8 @@
+ #if !defined(__MATHSAT_INSTANCE__)
+ #define __MATHSAT_INSTANCE__
+ 
++#include "solvers/solver-interfaces/AbstractArray.h"
++
+ extern "C" {
+ #include <mathsat.h>
+ }
+@@ -58,6 +60,9 @@ public:
+       return "error";
+     }
+   }
++
++  void getArrayAssignment(const std::map<std::string, long>& addresses, std::vector<AbstractArray*>& result) const;
++
+   std::map<std::string, msat_decl> _uf_registry;
+ 
+ private:
+diff --git a/include/solvers/solver-interfaces/yices/yices-instance.hpp b/include/solvers/solver-interfaces/yices/yices-instance.hpp
+index 67489bf..2fa9b89 100755
+--- a/include/solvers/solver-interfaces/yices/yices-instance.hpp
++++ b/include/solvers/solver-interfaces/yices/yices-instance.hpp
+@@ -6,8 +6,10 @@
+ #include <cstdio>
+ #include <cassert>
+ #include <map>
++#include <vector>
+ 
+ #include "solvers/solver-interfaces/auxiliary.hpp"
++#include "solvers/solver-interfaces/AbstractArray.h"
+ 
+ extern "C" {
+ #include <yices_c.h>
+@@ -116,6 +118,8 @@ public:
+     }
+   }
+ 
++  void getArrayAssignment(const std::map<std::string, long>& addresses, std::vector<AbstractArray*>& result) const;
++
+   std::map<std::string, yices_expr> _uf_registry;
+ 
+ private:
+diff --git a/include/solvers/solver-interfaces/z3/bv-expression-z3.hpp b/include/solvers/solver-interfaces/z3/bv-expression-z3.hpp
+index 650b555..0eff4de 100755
+--- a/include/solvers/solver-interfaces/z3/bv-expression-z3.hpp
++++ b/include/solvers/solver-interfaces/z3/bv-expression-z3.hpp
+@@ -67,6 +67,11 @@ public:
+     //      return "error";
+   }
+ 
++  void getArrayAssignment(const std::map<std::string, long>& addresses, std::vector<AbstractArray*>& result) const
++  {
++    Z3Instance::instance().getArrayAssignment(_expr, _width, addresses, result);
++  }
++
+   Z3_sort translateType(Type t) {
+     thread_local static Z3_sort unsigned_type = Z3_mk_int_sort(getSolver());
+     thread_local static Z3_sort bool_type = Z3_mk_bool_sort(getSolver());
+diff --git a/include/solvers/solver-interfaces/z3/la-expression-z3.hpp b/include/solvers/solver-interfaces/z3/la-expression-z3.hpp
+index 4f78219..09b833d 100755
+--- a/include/solvers/solver-interfaces/z3/la-expression-z3.hpp
++++ b/include/solvers/solver-interfaces/z3/la-expression-z3.hpp
+@@ -47,9 +47,13 @@ public:
+   }
+ 
+   std::string getAssignment() const {
+-    // TODO: FIXME: getIntAssignment vs getBooleanAssignment
+-    //      return Z3Instance::instance().getIntAssignment(_expr);
+-    return "error";
++
++    return Z3Instance::instance().getAssignment(_expr,0);
++  }
++
++  void getArrayAssignment(const std::map<std::string, long>& addresses, std::vector<AbstractArray*>& result) const
++  {
++    Z3Instance::instance().getArrayAssignment(_expr, 0, addresses, result);
+   }
+ 
+   LAExpressionImpZ3 *unsignedSymbolic(const std::string &name,
+@@ -521,14 +525,15 @@ public:
+     return s->_expr;
+   }
+ 
+-  virtual ExpressionImp *array(const std::string &name, size_t domain,
+-                               size_t range) {
+-    Z3_sort z3domain = Z3_mk_int_sort(getSolver());
+-    Z3_sort z3range = Z3_mk_int_sort(getSolver());
+-    Z3_sort a = Z3_mk_array_sort(getSolver(), z3domain, z3range);
+-    Z3_symbol s = Z3_mk_string_symbol(getSolver(), name.c_str());
+-    SOLVER_EXPR_TYPE exp = Z3_mk_const(getSolver(), s, a);
+-    return new LAExpressionImpZ3(exp); //, range, Z3_ARRAY);
++
++  virtual ExpressionImp *array(const std::string &name, size_t domain, size_t range)
++  {
++     Z3_sort z3domain = Z3_mk_int_sort(getSolver());
++     Z3_sort z3range = Z3_mk_int_sort(getSolver());
++     Z3_sort a = Z3_mk_array_sort(getSolver(), z3domain, z3range);
++     Z3_symbol s = Z3_mk_string_symbol(getSolver(), name.c_str());
++     SOLVER_EXPR_TYPE exp = Z3_mk_const(getSolver(), s, a);
++     return new LAExpressionImpZ3(exp);
+   }
+ 
+   virtual ExpressionImp *select(const ExpressionImp *const array,
+@@ -538,8 +543,7 @@ public:
+ 
+     SOLVER_EXPR_TYPE exp =
+         Z3_mk_select(getSolver(), sarray->_expr, solverExprFromUnknown(index));
+-    //FIXME ovo width nije jasno sta je
+-    return new LAExpressionImpZ3(exp); //, sarray->_width, Z3_BITVECTOR);
++    return new LAExpressionImpZ3(exp);
+   }
+ 
+   virtual ExpressionImp *store(const ExpressionImp *const array,
+@@ -761,7 +765,6 @@ private:
+   }
+ 
+   static SOLVER_TYPE _ctx;
+-  //  size_t _width;
+   SOLVER_EXPR_TYPE _expr;
+ };
+ 
+diff --git a/include/solvers/solver-interfaces/z3/z3-instance.hpp b/include/solvers/solver-interfaces/z3/z3-instance.hpp
+index 703f5ff..7c875c6 100755
+--- a/include/solvers/solver-interfaces/z3/z3-instance.hpp
++++ b/include/solvers/solver-interfaces/z3/z3-instance.hpp
+@@ -6,8 +6,14 @@
+ #include <cstdio>
+ #include <cassert>
+ #include <stdlib.h>
++#include <algorithm>
++#include <map>
++#include <vector>
+ 
+ #include "solvers/solver-interfaces/auxiliary.hpp"
++#include "solvers/solver-interfaces/AbstractArray.h"
++#include "solvers/solver-interfaces/RegularArray.h"
++#include "solvers/solver-interfaces/IregularArray.h"
+ 
+ extern "C" {
+ #include "z3.h"
+@@ -26,10 +32,14 @@ public:
+   void reset();
+   std::string getAssignment(Z3_ast expr, size_t width);
+ 
++  void getLimits(std::string& limit, std::map<std::string, int>& limitsMap);
++  void getArrayAssignment(Z3_ast expr, size_t width,const std::map<std::string, long>& addresses, std::vector<AbstractArray*>& result);
++  int hexadecimalToDecimal(std::string hexString);
+ 
+ private:
+   Z3Instance();
+   Z3_model _m;
++  void setRightLeft(std::map<std::string, int>& map, std::vector<AbstractArray*> &result, bool isRight);
+   thread_local static Z3_context _ctx;
+   Z3_ast _blocking_clause;
+   thread_local static unsigned _pushed;
+diff --git a/lib/Core/LCommon.cpp b/lib/Core/LCommon.cpp
+index e4d0dc5..4a22d87 100755
+--- a/lib/Core/LCommon.cpp
++++ b/lib/Core/LCommon.cpp
+@@ -28,6 +28,11 @@ llvm::cl::opt<std::string> OutputFolder(
+     llvm::cl::desc("LAV --- Name of the output folder (default = Output)"),
+     llvm::cl::init("Output"));
+ 
++llvm::cl::opt<std::string> TestOutputFolder(
++    "test-folder",
++    llvm::cl::desc("LAV --- Name of the test output folder (default = Output/test)"),
++    llvm::cl::init("Output/test"));
++
+ llvm::cl::opt<std::string> StartFunction(
+     "starting-function",
+     llvm::cl::desc("LAV --- Name of the starting function (default = main)"),
+@@ -41,6 +46,10 @@ llvm::cl::opt<bool>
+           llvm::cl::init(false));
+ 
+ llvm::cl::opt<bool>
++    Test("test", llvm::cl::desc("LAV --- Generate test (default=false)"),
++          llvm::cl::init(false));
++
++llvm::cl::opt<bool>
+     CheckPointers("check-pointers",
+                   llvm::cl::desc("LAV --- Check pointers (default = true)"),
+                   llvm::cl::init(true));
+diff --git a/lib/Core/LInstruction.cpp b/lib/Core/LInstruction.cpp
+index 8761c05..5fcc503 100755
+--- a/lib/Core/LInstruction.cpp
++++ b/lib/Core/LInstruction.cpp
+@@ -25,6 +25,8 @@ extern llvm::cl::opt<std::string> InputFile;
+ extern llvm::cl::opt<std::string> OutputFolder;
+ extern llvm::cl::opt<bool> PrintHtml;
+ extern llvm::cl::opt<bool> Model;
++extern llvm::cl::opt<bool> Test;
++extern llvm::cl::opt<std::string> TestOutputFolder;
+ 
+ //////////////////////////////////////////////////////////////
+ // LInstruction
+@@ -117,16 +119,30 @@ std::ostream &LInstruction::PrintHTML(std::ostream &f) const {
+   return f;
+ }
+ 
++std::string LInstruction::GetFileName(bool testOutput) const {
++
++    std::string filename("");
++    filename.append(testOutput? TestOutputFolder : OutputFolder);
++    filename.append("/");
++
++    filename += GetParentBlock()->GetFunctionName();
++    filename += (std::string("_line") + "_");
++
++    vUnsigned v = GetStackLines();
++    for (unsigned j = 0; j < v.size(); j++)
++      filename += (ItoS(v[j]) + "_");
++    filename += ("assemblyLine_" + ItoS(Info()->assemblyLine));
++
++    filename.append(testOutput? ".test" : "");
++    return filename;
++}
++
+ std::string LInstruction::GetModelFileName() const {
+-  std::string filename(OutputFolder + "/");
+-  filename += GetParentBlock()->GetFunctionName();
+-  filename += (std::string("_line") + "_");
+-
+-  vUnsigned v = GetStackLines();
+-  for (unsigned j = 0; j < v.size(); j++)
+-    filename += (ItoS(v[j]) + "_");
+-  filename += ("assemblyLine_" + ItoS(Info()->assemblyLine));
+-  return filename;
++    return GetFileName(false);
++}
++
++std::string LInstruction::GetTestFileName() const {
++    return GetFileName(true);
+ }
+ 
+ unsigned LInstruction::AssemblyLine() const { return _Info->assemblyLine; }
+diff --git a/lib/Core/LSolver.cpp b/lib/Core/LSolver.cpp
+index 66c29f9..ed7c762 100755
+--- a/lib/Core/LSolver.cpp
++++ b/lib/Core/LSolver.cpp
+@@ -8,6 +8,7 @@
+ //===----------------------------------------------------------------------===//
+ #include <iostream>
+ #include <fstream>
++#include <string>
+ #include "llvm/Support/Timer.h"
+ #include "llvm/Support/CommandLine.h"
+ #include "llvm/IR/Function.h"
+@@ -48,6 +49,7 @@
+ #include "solvers/syntax/symbol-table.hpp"
+ 
+ extern llvm::cl::opt<bool> Model;
++extern llvm::cl::opt<bool> Test;
+ extern llvm::cl::opt<bool> Students;
+ extern llvm::cl::opt<bool> TrackPointers;
+ 
+@@ -145,6 +147,7 @@ namespace lav {
+ 
+ thread_local static argo::SMTFormater SMTF;
+ 
++std::map<int, std::string> LSolver::testPosition;
+ //llvm::Timer IncrementalTime("Incremental Solving");
+ //llvm::Timer BlockIncrementalTime("Block Incremental Solving");
+ //llvm::Timer NonIncrementalTime("Non Incremental Solving");
+@@ -243,6 +246,11 @@ void LSolver::SetAddresses(caExp &addr) {
+ 
+ }
+ 
++std::map<std::string, long>& LSolver::GetAddresses()
++{
++    return _Addresses;
++}
++
+ aExp LSolver::RenameExpressionVariables(caExp &e, int Context,
+                                         cStr &FunctionName) {
+   if (Context == 0)
+@@ -307,11 +315,22 @@ aExp LSolver::AbstractFormulaVariable(caExp &e) {
+ }
+ 
+ int binarystring2signed(cStr &s) {
+-  int val = 0;
+-  std::string::const_iterator i = s.begin();
+-  for (; i != s.end(); i++)
+-    val = 2 * val + (*i != '0');
+-  return val;
++
++    std::stringstream ss(s);
++    int value = 0;
++    ss >> value;
++
++    if(ss.good()) {
++        std::cerr << "No Valid Number " << ss << std::endl;
++    }
++    else if(value == 0 && s[0] != '0') {
++        std::cerr << "No Valid Number " << ss << std::endl;
++    }
++    else {
++        return value;
++    }
++
++   return value;
+ }
+ 
+ //TODO prebacti negde drugde
+@@ -533,7 +552,7 @@ void LSolver::WriteMergedBlocks(std::ostream &f, const LBlock *fb,
+     const std::vector<LBlock *> &merged = fb->BlocksMerged();
+     unsigned n = merged.size();
+     bool nadjen = false;
+-    for (int i = (n > 0 ? n - 1 : -1); i >= 0; i--) {
++    for (int i = (n > 0 ? n - 1 : -1); i > 0; i--) {
+       if (fb_limit) {
+         if (fb_limit && merged[i] == fb_limit) {
+           nadjen = true;
+@@ -628,6 +647,106 @@ void LSolver::GetModel(stUrsaExp &symbolTable, const LBlock *fb,
+   f.close();
+ }
+ 
++void LSolver::PreparingTestUsingModel(stUrsaExp &symbolTable, const LBlock *fb, std::map<std::string, int>& variable_map, std::vector<AbstractArray*>& vector_array)
++{
++    unsigned blokID = fb->Id();
++    vStr transformations;
++    GetTransform(symbolTable, transformations);
++
++    vStr transforms;
++    std::string fname = fb->GetFunctionName();
++    GetFunctionTransforms(transformations, fname, transforms);
++
++    std::vector<unsigned> prvi, drugi;
++    GetEdges(transforms, prvi, drugi);
++
++    for (unsigned i = 0; i < drugi.size(); i++) {
++      if(drugi[i] == blokID) {
++        fb = fb->GetPredWithId(prvi[i]);
++        if (i == 0)
++          break;
++        blokID = fb->Id();
++        i = -1;
++      }
++    }
++
++    mspaExp modelValues = fb->GetModelValues();
++    mspaExp::const_iterator it = modelValues.begin(), ite = modelValues.end();
++
++    for (; it != ite; it++) {
++      UrsaExp exp;
++      if(!TryExportExpression(*(it->second), exp, symbolTable)){
++          return;
++      }
++
++      std::string asgn;
++      bool array_exists = false;
++      try {
++        std::ostringstream stream;
++        exp.print(stream);
++
++        std::string expression_name =  stream.str();
++
++        asgn = exp.getAssignment();
++        if(std::all_of(asgn.begin()+1, asgn.end(), ::isdigit)){
++           int start_pos = expression_name.find("_main_");
++           if(start_pos > 0){
++                std::string variableName = expression_name.substr(start_pos + 6);
++                expression_name = variableName.substr(0, variableName.find('_'));
++           }
++           variable_map.insert(std::make_pair(expression_name, stoi(asgn)));
++        }
++      }
++      catch (char const * ss) {
++        std::cerr << "izuzetak " << it->first << "  " << ss << std::endl;
++        continue;
++      }
++      if(!array_exists && _Addresses.size() > 0){
++        exp.getArrayAssignment(GetAddresses(), vector_array);
++        array_exists=true;
++      }
++    }
++
++}
++
++void LSolver::WriteTest(stUrsaExp &symbolTable, const LBlock *fb,
++                        const LInstruction *fi){
++    if(!Test || fb == NULL)
++        return;
++
++    if(testPosition.size() < 1)
++        return;
++
++    std::map<std::string, int> variable_map;
++    std::vector<AbstractArray*> vector_array;
++
++    PreparingTestUsingModel(symbolTable, fb, variable_map, vector_array);
++
++    std::string filename = fi->GetTestFileName();
++    std::ofstream f(filename.c_str());
++
++    for(auto elem : testPosition){
++      if(std::isdigit(elem.second[0]) || elem.second[0] == '-')
++          f << elem.second << " ";
++
++       for(auto innerElem : variable_map){
++           if(!std::isdigit(elem.second[0]) && elem.second == innerElem.first){
++               f << innerElem.second << " ";
++           }
++       }
++
++       for(auto innerElem : vector_array){
++          innerElem->print(GetAddresses(), f, elem.second, true);
++       }
++    }
++
++    for(auto elem : vector_array){
++        elem->print(GetAddresses(), f, "", true);
++    }
++
++    f.close();
++}
++
+ UrsaExp LSolver::ExportVariable(caExp &e, stUrsaExp &symbolTable, cStr &s) {
+ 
+   if (isAddress(e.GetName())) {
+@@ -1599,6 +1718,8 @@ STATUS LSolver::callSolver(caExp &a, caExp &b, const LBlock *fb,
+ 
+   if (m && (c == NORMAL) && (satnegb == true) && Model) {
+     GetModel(symbolTable, fb, fi, erKind);
++    if(Test)
++        WriteTest(symbolTable, fb, fi);
+   }
+ 
+   if (GetOut(c, satnegb)) {
+@@ -1687,18 +1808,43 @@ void LSolver::GetEdges(const vStr &transforms, std::vector<unsigned> &prvi,
+ 
+ }
+ 
++void LSolver::WriteSymbolTable(std::ostream &ostr, stUrsaExp &symbolTable) {
++
++  stUrsaExp::iterator it = symbolTable.begin(), ite = symbolTable.end();
++  for (; it != ite; it++) {
++    std::string s;
++    if (StartsWith(it->first, VARNAME))
++      continue;
++    if (StartsWith(it->first, TRANSFORMATION))
++      continue;
++    if (StartsWith(it->first, ACTIVEBLOCK))
++      continue;
++
++    try {
++      s = it->second.getAssignment();
++    }
++    catch (char const * ss) {
++      ostr << it->first << "  " << ss << std::endl;
++      continue;
++    }
++    if (s[0] == 'x') { //ostr << it->first << " == " /*<<std::flush << s <<
++                       //std::endl */<< "any value" << ", " ;
++    } else
++      ostr << it->first << " == " /*<<std::flush << s << std::endl */
++           << s << ", ";
++  }
++}
++
+ void LSolver::WriteStoreValues(std::ostream &ostr, const LBlock *fb_tekuci,
+                                stUrsaExp &symbolTable, std::string s) {
+ 
+-  std::set<std::string> skip;
+-  mspaExp modelValues = fb_tekuci->GetModelValues();
+ 
++  mspaExp modelValues = fb_tekuci->GetModelValues();
+   mspaExp::const_iterator it = modelValues.begin(), ite = modelValues.end();
++  bool array_exists = false;
+   for (; it != ite; it++) {
+     UrsaExp exp;
+     bool b;
+-
+-    std::string name;
+     if (s == "") {
+       b = TryExportExpression(*(it->second), exp, symbolTable);
+       if (!b)
+@@ -1713,27 +1859,46 @@ void LSolver::WriteStoreValues(std::ostream &ostr, const LBlock *fb_tekuci,
+ 
+     std::string asgn;
+     try {
+-      asgn = exp.getAssignment();
++      std::ostringstream stream;
++      exp.print(stream);
++
++      if(!array_exists && _Addresses.size() > 0){
++         std::vector<AbstractArray*> vector_array;
++         exp.getArrayAssignment(GetAddresses(), vector_array);
++         for(unsigned i = 0; i<vector_array.size(); i++){
++                 vector_array[i]->print(GetAddresses(), ostr);
++         }
++         freeArray(vector_array);
++         array_exists = true;
++      }
++      else {
++          asgn = exp.getAssignment();
++      }
+     }
+     catch (char const * ss) {
+       ostr << it->first << "  " << ss << std::endl;
+       continue;
+     }
+-    if (isBoolector() && asgn[0] == 'x') {
+-      //ostr << it->first << " = " /*<<std::flush << s << std::endl */<< "any
++    //ovo zapravo vazi samo za boolector
++    if (asgn[0] == 'x') {
++      //ostr << it->first << " = " /*<<std::flush << s << std::endl *///<< "any
+       //value" << ", " ;
+-    } else
+-      //TODO asgn ne mora da bude broj
+-      //ukoliko je u pitanju niz, treba izvuci odgovarajuce informacije
+-      //da bi ovde omogucili da se dobije niz, potrebno je u
+-      //LState::GetModelValues() dozvoliti da se u tabelu ubace nizovi 
+-      //sto je trenutno zabranjeno jer nema podrske za nizove
+-      ostr << it->first << " = " /*<<std::flush << s << std::endl */
++  } else {
++      if(it->first.find("ME") == std::string::npos && std::all_of(asgn.begin()+1, asgn.end(), ::isdigit)) {
++        ostr << it->first << " = " /*<<std::flush << s << std::endl */
+            << binarystring2signed(asgn) << ", ";
++      }
++    }
+   }
+   ostr << std::endl;
+ }
+ 
++void LSolver::freeArray(std::vector<AbstractArray*>& array_vector){
++    for(unsigned i = 0; i<array_vector.size(); i++){
++        delete array_vector[i];
++    }
++}
++
+ /*
+ Ako hoces da proveris da su sve tri safe, treba da ovo bude valjano
+ F => c1 and c2 and c3
+@@ -1979,6 +2144,8 @@ STATUS LSolver::callSolverIncremental(caExp &a, caExp &b, const LBlock *fb,
+   //zadovoljiva je, znaci da je ili unsafe ili flawed
+   if (Model && (satnegb == true)) {
+     GetModel(_SymbolTable, fb, fi, erKind);
++    if(Test)
++        WriteTest(_SymbolTable, fb, fi);
+   }
+ 
+   if (light) {
+diff --git a/lib/Core/LState.cpp b/lib/Core/LState.cpp
+index bd0f578..024d2fe 100755
+--- a/lib/Core/LState.cpp
++++ b/lib/Core/LState.cpp
+@@ -1354,6 +1354,21 @@ void LState::ProcessLibraryCall(LInstruction *fi, llvm::Function *f,
+   } else if (f->getName() == "getchar") {
+     aExp e = ExpVar(GetNextVariable(), fint_type, false);
+     WriteIntoStore(i, e);
++
++  } else if ((f->getName().find("input_value") != std::string::npos))  {
++
++      aExp r = GetValue(argument(i, 0));
++      std::string name = r.GetName();
++      std::string number = (argument(i, 1)).GetName();
++
++      int start_pos = name.find("_main_");
++      if(start_pos > 0){
++          std::string variableName = name.substr(start_pos + 6);
++          name = variableName.substr(0, variableName.find('_'));
++      }
++
++      LSolver::testPosition.insert(std::make_pair(stoi(number), name));
++
+   } else if ((f->getName() == "ASSERT") || (f->getName() == "assert") ||
+              (f->getName() == "ASSERT_") || (f->getName() == "assert_") ||
+              (f->getName() == "ASSERT_LAV") || (f->getName() == "assert_lav") ||
+@@ -1775,14 +1790,11 @@ mspaExp LState::GetModelValues() const {
+ 
+   it = st.begin();
+   for (; it != ite; it++) {
+-    //TODO ova preskakanja treba ukloniti kada se obezbedi
+-    //podrska za uzimanje modela za nizove
+-    if (StartsWith(it->first, MEMORY))
+-      continue;
+-    if (StartsWith(it->first, VARNAME))
+-      continue;
+-    if (isArray(it->first))
+-      continue;
++    //if(StartsWith(it->first, MEMORY))
++    //    continue;
++    if(StartsWith(it->first, VARNAME))
++          continue;
++
+     //FIXME ovo je adresa od argumenata funkcije
+     //ovde je pretpostavka da ce llvm tako da ih nazove
+     if (EndsWith(it->first, "_addr"))
+@@ -1793,6 +1805,8 @@ mspaExp LState::GetModelValues() const {
+     //ovo je retvalue koje pravi llvm, i ovo je budjavo ali ne treba u modelu
+     if (StartsWith(it->first, "retval"))
+       continue;
++    if(StartsWith(it->first, "div"))
++        continue;
+     ModelValues.insert(
+         std::pair<std::string, const aExp *>(it->first, it->second.Value()));
+   }
+diff --git a/lib/Expression/ExpressionFactory.cpp b/lib/Expression/ExpressionFactory.cpp
+index c628484..77b7626 100755
+--- a/lib/Expression/ExpressionFactory.cpp
++++ b/lib/Expression/ExpressionFactory.cpp
+@@ -29,7 +29,7 @@ ExpressionNode *ExpressionFactory::Get(ExpressionNode *expr_node) {
+ void ExpressionFactory::dump() {
+   ExpressionNodePointerSet::const_iterator i, iend = _existing_nodes.end();
+   for (i = _existing_nodes.begin(); i != iend; i++)
+-    coutput << *(*i) << endl;
++    cout << *i << endl;
+ }
+ //#endif
+ 
+diff --git a/lib/Solvers/IregularArray.cpp b/lib/Solvers/IregularArray.cpp
+new file mode 100644
+index 0000000..f4dcd46
+--- /dev/null
++++ b/lib/Solvers/IregularArray.cpp
+@@ -0,0 +1,27 @@
++#include "solvers/solver-interfaces/IregularArray.h"
++
++IregularArray::IregularArray(std::string& index, std::string& value):
++    index(index), value(value) {}
++
++void IregularArray::print(const std::map<std::string, long> &arrayAddresses, std::ostream &ostr, std::string currentName, bool isPrintTest){
++    if(isPrintTest && !currentName.empty())
++        return;
++    if(isPrintTest){
++        ostr << "IndexOutOfBounds";
++        return;
++    }
++
++    std::map<std::string, long>::const_iterator arrayAddressesIterator = arrayAddresses.begin();
++
++    ostr << "(";
++    for(; arrayAddressesIterator != arrayAddresses.end(); arrayAddressesIterator++) {
++        size_t found = arrayAddressesIterator->first.find_last_of("_");
++        std::string name = arrayAddressesIterator->first.substr(found+1);
++        int position = (std::stoi(index) - 1) / 4;
++        ostr << name << "[" << position << "]" << "=" << value;
++        if (std::next(arrayAddressesIterator) != arrayAddresses.end())
++            ostr << " \\/ ";
++    }
++    ostr << "), ";
++}
++
+diff --git a/lib/Solvers/RegularArray.cpp b/lib/Solvers/RegularArray.cpp
+new file mode 100644
+index 0000000..83650b5
+--- /dev/null
++++ b/lib/Solvers/RegularArray.cpp
+@@ -0,0 +1,61 @@
++#include "solvers/solver-interfaces/RegularArray.h"
++#define ARRAY_ELEMENT_SIZE 4
++
++RegularArray::RegularArray(std::string& name, int address):
++    name(name), address(address) {}
++
++void RegularArray::print(const std::map<std::string, long>& arrayAddresses, std::ostream &ostr, std::string currentName, bool isPrintTest){
++
++    if(isPrintTest && this->name != currentName)
++        return;
++
++    int length = (left+right) / ARRAY_ELEMENT_SIZE;
++    int a = address;
++
++    if(!isPrintTest)
++        ostr << name << "[] = { ";
++
++    for(int i=0; i < length ; i++)
++    {
++        auto found = values.find(std::to_string(a));
++        if(found==values.end()){
++            if(isPrintTest)
++                ostr << 1;
++            else
++                ostr << "*";
++        }
++        else {
++            std::map<std::string, std::string>::iterator arrayElement = found;
++            int index = std::stoi(arrayElement->first);
++            if(length >= (index-address)/ARRAY_ELEMENT_SIZE){
++                ostr << arrayElement->second;
++            }
++        }
++
++        if(!isPrintTest && i + 1 != length)
++            ostr << ", ";
++        else
++            ostr << " ";
++
++        a += ARRAY_ELEMENT_SIZE;
++    }
++
++    if(!isPrintTest)
++        ostr << " }, ";
++}
++
++void RegularArray::addValues(std::string& first, std::string& second){
++   values.insert(std::pair<std::string, std::string>(first, second));
++}
++
++void RegularArray::setLeft(int leftLimit){
++    left = leftLimit;
++}
++
++void RegularArray::setRight(int rightLimit){
++    right = rightLimit;
++}
++
++int RegularArray::getAddress(){
++    return address;
++}
+diff --git a/lib/Solvers/expression.cpp b/lib/Solvers/expression.cpp
+index 7cd360a..099ea60 100755
+--- a/lib/Solvers/expression.cpp
++++ b/lib/Solvers/expression.cpp
+@@ -243,6 +243,10 @@ void Expression::reset() { _imp->reset(); }
+ 
+ std::string Expression::getAssignment() const { return _imp->getAssignment(); }
+ 
++void Expression::getArrayAssignment(const std::map<std::string, long>& addresses, std::vector<AbstractArray*>& result) const {
++    return _imp->getArrayAssignment(addresses, result);
++}
++
+ std::ostream &operator<<(std::ostream &ostr, const Expression &e) {
+   e.print(ostr);
+   return ostr;
+diff --git a/lib/Solvers/z3-instance.cpp b/lib/Solvers/z3-instance.cpp
+index cc9ffcd..74cb139 100755
+--- a/lib/Solvers/z3-instance.cpp
++++ b/lib/Solvers/z3-instance.cpp
+@@ -4,6 +4,7 @@
+ 
+ #include "solvers/solver-interfaces/z3/z3-instance.hpp"
+ 
++
+ namespace UrsaMajor {
+ void exitf(const char *message);
+ Z3_context mk_context();
+@@ -62,6 +63,21 @@ bool Z3Instance::addConstraint(Z3_ast expr) {
+ 
+ void display_model(Z3_context c, FILE *out, Z3_model m);
+ 
++void display_sort(Z3_context c, Z3_sort t)
++{
++        switch (Z3_get_sort_kind(c, t)) {
++        case Z3_ARRAY_SORT:
++            std::cout << "[";
++            display_sort(c, Z3_get_array_sort_domain(c, t));
++            std::cout << "->";
++            display_sort(c, Z3_get_array_sort_range(c, t));
++            std::cout << "]";
++            break;
++        default:
++            break;
++        }
++}
++
+ bool Z3Instance::addTempConstraint(Z3_ast expr) {
+   if (_m)
+     Z3_del_model(_ctx, _m);
+@@ -158,6 +174,164 @@ std::string Z3Instance::getAssignment(Z3_ast expr, size_t width) {
+   Z3_eval(_ctx, _m, expr, &v);
+   return display_ast(_ctx, v);
+ }
++void Z3Instance::getLimits(std::string& limit, std::map<std::string, int>& limitsMap)
++{
++    std::string stringModel = Z3_model_to_string(_ctx, _m);
++    std::string limitString(limit);
++    std::size_t limitStringPosition = stringModel.find(limitString);
++    std::string fromLimitToEnd = stringModel.substr(limitStringPosition);
++    std::string rightBracket("}");
++    std::size_t stringBracketPosition = fromLimitToEnd.find(rightBracket);
++    std::string onlyLimitPart = fromLimitToEnd.substr(0, stringBracketPosition);
++
++    std::string line;
++    std::istringstream str(onlyLimitPart);
++    std::getline(str, line);
++
++    std::string delimiter = "->";
++    for(std::string line; getline( str, line ); )
++    {
++        std::string token = line.substr(0, line.find(delimiter));
++        std::string token2 = line.substr(line.find(delimiter)+2);
++
++        size_t found = token.find_first_not_of(' ');
++        token = token.substr(found);
++
++        if(token.rfind("(", 0) == 0)
++        {
++           std::size_t found = token.find("(");
++           std::size_t found2 = token.find(")");
++           token = token.substr(found + 1, found2 - 1);
++           token.erase(std::remove(token.begin(), token.end(), ' '), token.end());
++        }
++
++        if(token2.find("(") == 1)
++        {
++           std::size_t found = token2.find("(");
++           std::size_t found2 = token2.find(")");
++           token2 = token2.substr(found + 1, found2 - 2);
++           token2.erase(std::remove(token2.begin(), token2.end(), ' '), token2.end());
++        }
++
++        if(token.find("else") == std::string::npos)
++        {
++         if(token2.find('#') != std::string::npos)
++             token2 =std::to_string(hexadecimalToDecimal(token2.substr(1)));
++
++          limitsMap.insert(
++                    std::pair<std::string, int>(token, std::stoi(token2)));
++        }
++    }
++}
++
++void Z3Instance::getArrayAssignment(Z3_ast expr, size_t width, const std::map<std::string, long>& addresses, std::vector<AbstractArray*>& result)
++{
++    Z3_ast v = expr;
++    Z3_eval(_ctx, _m, expr, &v);
++    AbstractArray *arrayObject;
++
++    unsigned num_entries;
++    Z3_ast *else_value;
++    std::map<std::string, long>::const_iterator addresses_iterator = addresses.begin();
++    for(addresses_iterator = addresses.begin(); addresses_iterator != addresses.end(); addresses_iterator++)
++    {
++        std::size_t found = addresses_iterator->first.find_last_of("_");
++        int address_first = addresses_iterator->second;
++        std::string name = addresses_iterator->first.substr(found + 1);
++        arrayObject = new RegularArray(name, address_first);
++        result.push_back(arrayObject);
++    }
++
++    Z3_bool is_array = Z3_is_array_value(_ctx, _m, v, &num_entries);
++    if(is_array) {
++      Z3_ast *indices = new Z3_ast[num_entries];
++      Z3_ast *values = new Z3_ast[num_entries];
++      Z3_get_array_value(_ctx, _m, v, num_entries, indices, values, else_value);
++
++      for(unsigned i=0;i < num_entries; i++) {
++          std::string index = Z3_ast_to_string(_ctx, indices[i]);
++          std::string value = Z3_ast_to_string(_ctx, values[i]);
++
++          if(index[0] == '#'){
++              index = std::to_string(hexadecimalToDecimal(index));
++              value = std::to_string(hexadecimalToDecimal(value));
++
++          }
++          if(index.rfind("(",0) == 0)
++          {
++             std::size_t found = index.find("(");
++             std::size_t found2 = index.find(")");
++             index = index.substr(found + 1, found2 - 1);
++             index.erase(std::remove(index.begin(), index.end(), ' '), index.end());
++          }
++          if(std::stoi(index) < 0) {
++              IregularArray* iregular = new IregularArray(index, value);
++              result.push_back(iregular);
++          }
++          for(unsigned i=0; i<result.size(); i++)
++          {
++              if(((RegularArray *)result.at(i))->getAddress() > std::stoi(index) && std::stoi(index) > 0)
++              {
++                i--;
++                ((RegularArray *)result.at(i))->addValues(index, value);
++                break;
++              }
++              else if(i == result.size()-1 && std::stoi(index) > 0){
++                  ((RegularArray *)result.at(i))->addValues(index, value);
++              }
++          }
++      }
++      delete[] indices;
++      delete[] values;
++    }
++
++    std::map<std::string, int> mapRight;
++    setRightLeft(mapRight, result, true);
++
++    std::map<std::string, int> mapLeft;
++    setRightLeft(mapLeft, result, false);
++
++}
++
++void Z3Instance::setRightLeft(std::map<std::string, int>& map, std::vector<AbstractArray*>& result, bool isRight){
++    std::string stringLimit;
++    if(isRight){
++        stringLimit = "right";
++        getLimits(stringLimit, map);
++    }
++    else {
++        stringLimit = "left";
++        getLimits(stringLimit, map);
++    }
++
++    std::map<std::string, int>::iterator mapIterator = map.begin();
++    for(; mapIterator != map.end(); mapIterator++)
++    {
++        std::string value = mapIterator->first;
++        if(value[0] == '#'){
++            value = std::to_string(hexadecimalToDecimal(value));
++        }
++        for(unsigned i = 0; i < result.size(); i++ ){
++            if(isRight && std::stoi(value) == ((RegularArray*)result.at(i))->getAddress())
++            {
++                ((RegularArray*)result.at(i))->setRight(mapIterator->second);
++            }
++            else if(!isRight && std::stoi(value) == ((RegularArray*)result.at(i))->getAddress()){
++                ((RegularArray*)result.at(i))->setLeft(mapIterator->second);
++            }
++        }
++    }
++}
++
++int Z3Instance::hexadecimalToDecimal(std::string hexString){
++    std::stringstream stream;
++    int x;
++
++    stream << hexString.substr(2);
++    stream >> std::hex >> x;
++    return x;
++}
++
+ 
+ void exitf(const char *message) {
+   fprintf(stderr, "BUG: %s.\n", message);
+diff --git a/test.sh b/test.sh
+new file mode 100755
+index 0000000..a2e24ed
+--- /dev/null
++++ b/test.sh
+@@ -0,0 +1,39 @@
++#!/bin/bash
++#script for executing C programs to get potentially unsecured input values using LAV tool
++#first argument is C program and it's required
++#second argument is theory choose LA or BV corresponding to linear aritmetics or bitvector theory, it's required
++#third argument is test folder location and it is optional
++#if it doesn't exist test files are generated in Output/test directory in LAV project
++
++#test folder
++solver=$1;
++program=$2;
++test_folder=$3; 
++
++#making test
++program_test="${program/.c/_test.c}";
++clang -c -g -emit-llvm $program_test;
++program_test_o="${program_test/.c/.o}";
++if [ -z "$3" ]
++then
++   $(pwd)/Release+Asserts/bin/LAV $program_test_o -model -solver=Z3-$solver-ARR-EUF -test;
++   test_folder="Output/test";
++else
++   $(pwd)/Release+Asserts/bin/LAV $program_test_o -model -solver=Z3-$solver-ARR-EUF -test -test-folder $test_folder;
++fi
++
++#checking test
++gcc $program;
++
++for entry in "$test_folder"/*.test
++do
++  ./a.out < $entry; 
++  rc=$?; 
++  if [ $rc != 0 ]
++  then
++	echo "Error status: " $rc;
++        echo $var;
++  else
++       echo 'OK';
++  fi
++done
+diff --git a/tools/LAV/LAV.cpp b/tools/LAV/LAV.cpp
+index 67e72ae..cbbfbd8 100755
+--- a/tools/LAV/LAV.cpp
++++ b/tools/LAV/LAV.cpp
+@@ -43,6 +43,8 @@ using namespace lav;
+ 
+ extern llvm::cl::opt<std::string> InputFile;
+ extern llvm::cl::opt<std::string> OutputFolder;
++extern llvm::cl::opt<std::string> TestOutputFolder;
++extern llvm::cl::opt<bool> Test;
+ 
+ namespace {
+ llvm::cl::opt<bool> EnableOptimizations(
+@@ -106,6 +108,8 @@ int main(int argc, char **argv) {
+ 
+   // Prepare output directory
+   MakeDirectory(OutputFolder);
++  if(Test)
++    MakeDirectory(TestOutputFolder);
+ 
+   // Instantiate the pass manager to organize the passes.
+   PassManager Passes;

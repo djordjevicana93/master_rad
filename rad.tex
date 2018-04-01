@@ -58,7 +58,7 @@
 % Naslov teze na srpskom jeziku (u odabranom pismu)
 \naslov{Automatsko generisanje test primera uz pomoć statičke analize i rešavača Z3}
 % Godina u kojoj je teza predana komisiji
-\godina{2017}
+\godina{2018}
 % Ime i afilijacija mentora (u odabranom pismu)
 \mentor{dr Milena \textsc{Vujošević Janičić}, docent\\ Univerzitet u Beogradu, Matematički fakultet}
 % Ime i afilijacija prvog člana komisije (u odabranom pismu)
@@ -1040,16 +1040,14 @@ void primer_sa_bitvektorima() {
 
 
 
-------------------------------------------------------------------------------
 \chapter{Automatsko generisanje test primera u sistemu LAV} \label{implementacija}
 Uporedo sa nastajanjem novih tehnologija povećava se obim posla koji je potrebno obaviti pri razvoju softverskog rešenja. Takođe, teži se i ka većem kvalitetu softerskog rešenja koji često dovodi do porasta složenosti rešenja. Sa porastom složenosti sistema, povećava se mogućnost pojave greške u softveru. Iz tog razloga se u procesu razvoja posebna pažnja posvećuje ispitivanju ispravnosti softvera \cite{Verification}. Takođe, sve se više teži delimičnoj ili potpunoj automatizaciji poslova koji su se ranije morali izvršavati manuelno. 
 \par
 Kao što je opisano u glavi \ref{testiranje}, postoje različite vrste testiranja. U većini slučajeva se generisanje testova vrši manuelno. Ukoliko bi se ovaj proces automatizovao, značajno bi se skratilo vreme potrebno za testiranje kao i broj testera uključenih u proces razvoja. 
 Na osnovu navedenih činjenica, poželjno je da se ispravnost softverskog sistema ispituje automatski generisanim testovima uvek kada je to moguće \cite{AutomatedTestGeneration}.
 
-U ovoj glavi opisana je statička analiza softvera, kao jedan od načina ispitivanja ispravnosti programa, u delu \ref{sec:deo1}. U delu \ref{sec:deo2} opisan je sistem za statičko utvrđivanje ispravnosti softvera LAV. U delu \ref{sec:deo3} navedena je motivacija i značaj automatskog generisanja test primera. U delovima \ref{sec:deo4} i \ref{sec:deo5} opisana je integracija koda u postojeće klase i module kao i implementacija novih klasa sa ciljem automatskog generisanja test primera u okviru alata LAV.
+U ovoj glavi opisana je statička analiza softvera, kao jedan od načina ispitivanja ispravnosti programa, u delu \ref{sec:deo1}. U delu \ref{sec:deo2} opisan je sistem za statičko utvrđivanje ispravnosti softvera LAV. U delu \ref{sec:deo3} navedena je motivacija i značaj automatskog generisanja test primera. U delovima \ref{sec:deo4} i \ref{sec:deo5} opisana je integracija koda u postojeće klase i module kao i implementacija novih klasa sa ciljem automatskog generisanja test primera u okviru alata LAV. Integrisani kod javno je dostupan \footnote{Može se pronaći na adresi \url{https://github.com/djordjevicana93/implementacija/kod.diff}}.
 
-%implementacija modula za automatsko generisanje test primera integrisanog u sistem LAV.
 
 \section{Statička provera ispravnosti softvera} \label{sec:deo1}
 Statičko ispitivanje ispravnosti programa predstavlja analizu programskog koda, bez njegovog izvršavanja \cite{StaticVerification}. Prema načinu utvrđivanja ispravnosti softvera statičkom analizom, razlikujemo manuelni pristup, koji obuhvata ručne provere koda, kao i automatizovani pristup. Kod automatizovanog pristupa, zbog neodlučnosti halting problema, ne postoji opšti algoritam kojim se utvrđuje da li je neka naredba programa dostižna, a samim tim i da li je sam program ispravan. Iz tog razloga primenjuju se različite aproksimacije u kojima se uslovi ispravnosti programa iskazuju formulama formalno definisanih matematičkih teorija. Automatizovani pristupi statičke analize programa su \textit{proveravanje modela}, \textit{apstraktna interpretacija} i \textit{simboličko izvršavanje}.
@@ -1057,7 +1055,7 @@ Statičko ispitivanje ispravnosti programa predstavlja analizu programskog koda,
 \textbf{Proveravanje modela} je tehnika statičke analize koda u kojem se sistem, čiju je ispravnost potrebno utvrditi, opisuje konačnim automatom, a željeno ponašanje softvera se opisuje u terminima temporalne logike \cite{TemporalLogic}. Dostupna stanja automata se sistematski obilaze radi provere ponašanja sistema. U slučaju neuspešne provere, generiše se kontraprimer koji narušava željeno ponašanje sistema. Proces ispitivanja ispravnosti može biti kompleksan ukoliko je broj mogućih stanja automata veliki. Potencijalni problem ovog pristupa je kombinatorna eksplozija stanja koji podrazumeva eksponencijalni porast broja stanja sa povećanjem broja promenljivih.
 U tom slučaju koristi se metod \textit{proveravanja ograničenih modela} u kojem se ograničava dužina putanje stanja automata \cite{Verification}. Za utvrđivanje ispravnosti uslova programa, metod \textit{proveravanja modela} obično koristi dijagrame binarnih odluka, dok metod \textit{proveravanja ograničenih modela} najčešče koristi SAT ili SMT rešavače \cite{ModelCheck}.
 \par
-\textbf{Apstraktna interpretacija} predstavlja metodu statičke analize u kojoj se semantika programa opisuje matematičkim modelom mogućih ponašanja programa \cite{AbstractInterpretation}. Ponašanje programa modeluje se konkretnim domenom i relacijama nad njim. Potencijalni problem ovog pristupa javlja se u slučajevima jako velikih domena i tada se vrši aproksimacija konačnog domena apstraktnim. Aproksimacijom domena mogu se izgubiti važne informacije. Iz tog razloga, posebna pažnja posvećuje se biranju adekvatne aproksimacije \cite{AbstractInterpretation2}. Sa druge strane, apstrahovanjem domena povećava se skalabilnost metode. Ova tehnika ima široku primenu, ali se najčešče koristi za analizu kompilatora sa ciljem pronalaženja klasa grešaka u programu kao što su deljenje nulom, prekoračenje bafere i dereferenciranje NULL pokazivača.
+\textbf{Apstraktna interpretacija} predstavlja metodu statičke analize u kojoj se semantika programa opisuje matematičkim modelom mogućih ponašanja programa \cite{AbstractInterpretation}. Ponašanje programa modeluje se konkretnim domenom i relacijama nad njim. Potencijalni problem ovog pristupa javlja se u slučajevima jako velikih domena i tada se vrši aproksimacija konačnog domena apstraktnim. Aproksimacijom domena mogu se izgubiti važne informacije. Iz tog razloga, posebna pažnja posvećuje se biranju adekvatne aproksimacije \cite{AbstractInterpretation2}. Sa druge strane, apstrahovanjem domena povećava se skalabilnost metode. Ova tehnika ima široku primenu, ali se najčešče koristi za analizu u okviru kompilatora sa ciljem pronalaženja klasa grešaka u programu kao što su deljenje nulom, prekoračenje bafere i dereferenciranje NULL pokazivača.
 \par
 \textbf{Simboličko izvršavanje} je tehnika statičke analize koda u kojoj se ponašanje programa analizira praćenjem simboličkih izraza \cite{SymbolicExecution}. Umesto konkretnih vrednosti promenljivih upotrebljavaju se simboličke vrednosti, dok se putanje izvršavanja programa modeluju simboličkim izrazima. Ukoliko se simboličkim izvršavanjem neke putanje u programu pokaže da je ona ispravna, time se potvrđuje ispravnost svih mogućih ulaza koji prate tu putanju. Broj putanja programa često je prevelik, čime se onemogućava sistematsko pretraživanje svih mogućih putanja. Iz tog razloga, ova metoda se obično koristi za pronalaženje grešaka umesto dokazivanja ispravnosti. U zavisnosti od redosleda kojem se putanje programa proveravaju, vreme potrebno za pronalaženje greške može značajno da varira \cite{LAVDevelopment}. Šta više, postoji rizik da se greška ne detektuje ukoliko istekne vreme predviđenu za analizu.
 \section{Sistem LAV}  \label{sec:deo2}
@@ -1069,7 +1067,8 @@ Sistem modeluje ponašanje programa, konstruiše uslove ispravnosti programa, vr
 Ispitivanje ispravnosti programa se u sistemu LAV, svodi na proveravanje da li u nekoj liniji programa postoji izraz koji može da ima neku nedozvoljenu vrednost ili da adresa pokazuje na mesto u memoriji koje nije rezervisano za dati program. Ovakvim načinom ispitivanja detektuju se, između ostalog, greške deljenja nulom, prekoraćenja bafera i dereferenciranja NULL pokazivača.
 
 \par
-Izvršavanje programa se u okviru sistema LAV opisuje modelom na osnovu kojeg se generišu uslovi ispravnosti \cite{LAVDevelopment}. Interpretacija modela zavisi od teorije jezika višesortne logike prvog reda koja odgovara semantici programskog jezika. Teorija u koju se transformiše izgrađena formula se može odrediti na osnovu analiziranog koda ili zadavanjem kriterijuma efikasnosti i preciznosti rezultata.
+
+Izvršavanje programa i uslov ispravnosti se u okviru sistema LAV opisuje formulama logike prvog reda \cite{LAVDevelopment}. Teorija u koju se transformiše izgrađena formula se može odrediti na osnovu analiziranog koda ili zadavanjem kriterijuma efikasnosti i preciznosti rezultata.
 \par
 
 Sistem LAV koristi naredne dve osobine LLVM reprezentacije koda. Prva pretpostavka podrazumeva da se ulazni program sastoji od bloka instrukcija. Izvršavanje bloka može početi samo u ulaznoj tački bloka i mora se završiti nakon izvršavanja poslednje instrukcije bloka. Druga pretpostavka podrazumeva da nijedna instrukcija ne može koristiti više operatora ili poziva funkcije, izuzev operatora dodele. Takođe, poslednja instrukcija bloka definiše kojim blokovima u programu je moguće nastaviti izvršavanje.
@@ -1090,15 +1089,10 @@ Cilj sistema za ispitivanje ispravnosti softvera je da pokrije što veći broj g
 \par
 Sistem LAV implementira algoritam koji uslove ispravnosti programa opisuje formulama izabrane teorije logike prvog reda i ispituje njihovu zadovoljivost korišćenjem SMT rešavača. Ukoliko je negiran uslov ispravnosti naredbe zadovoljiva formula, SMT rešavač vraća model sa vrednostima koje predstavljaju potencijalnu grešku u softveru. Cilj ovog rada je izdvajanje vrednosti modela rešavača Z3 radi automatskog generisanja test primera i detektovanja greške integracijom u postojeće klase i module sistema LAV. Nadogradnja obuhvata izdvajanje vrednosti modela teorije neinterpretiranih funkcija, teorije linearne aritmetike, teorije bitvektora i teorije nizova.
 \section{Opis arhitekture} \label{sec:deo4}
-Automatsko generisanje test primera upotrebom rešavača Z3 ostvareno je nadogradnjom postojećih klasa i modula alata LAV. Proces automatskog generisanja test primera primenom tehnika statičke analize i rešavača Z3 ima dva osnovna dela. Prvi deo predstavlja modelovanje uslova ispravnosti programa formulama izabrane teorije rešavača i ostvarena je dopunom klase \texttt{z3-instance}. Ponašanje programa upotrebom rešavača Z3 opisuje se formulom teorije linearne aritmetike (klasa \texttt{la-expression-z3}) ili teorije bitvektora (klasa \texttt{bv-expression-z3}).
+Automatsko generisanje test primera upotrebom rešavača Z3 ostvareno je nadogradnjom postojećih klasa i modula alata LAV. Proces automatskog generisanja test primera primenom tehnika statičke analize i rešavača Z3 ima dva osnovna dela. Prvi deo predstavlja modelovanje uslova ispravnosti programa formulama izabrane teorije i eksportovanje generisane formule u format izabranog rešavača. To je ostvareno kroz hijerarhiju klasa za rad za izrazima i dopunom klase \texttt{z3-instance}. U okviru rešavača Z3 koriste se teorija linearne aritmetike (klasa \texttt{la-expression-z3}) ili teorija bitvektora (klasa \texttt{bv-expression-z3}).
 
 
 
-%Arhitektura modula za automatsko generisanje test primera dizajnirana je tako da ispunjava zahteve sistema LAV. 
-%Modul  za automatsko generisanje test primera primenom tehnika statičke analize i rešavača Z3 ima dva osnovna dela. 
-%Prvi deo predstavlja modelovanje uslova ispravnosti programa formulama izabrane teorije rešavača (klasa \texttt{z3-instance}). Ponašanje programa upotrebom rešavača Z3 opisuje se formulom teorije linearne aritmetike (klasa \texttt{la-expression-z3}) ili teorije bitvektora (klasa \texttt{bv-expression-z3}).
-
-%U okviru ovih teorija, dodata je podrška za teoriju nizova (klasa \texttt{AbstractArray}). 
 Drugi deo predstavlja izdvajanje vrednosti modela rešavača Z3 na kraju svakog bloka naredbi programa. 
 Za izdvajanje vrednosti modela u teoriji linearne aritmetike i bitvektora koriste se klase \texttt{la-expression-z3} i \texttt{bv-expression-z3}. Dodata je podrška za izdvajanje vrednosti modela u okviru teorije nizova (klasa \texttt{Abstract Array}). Vrednosti modela rešavača nakon izvršavanja prvog bloka naredbi predstavljaju test primere za koje je potrebno proveriti da li dovode do softverske greške. 
 Kompozicijom ovih delova implementirana je podrška za automatsko generisanje test primera upotrebom rešavača Z3 u okviru sistema LAV. 
@@ -1114,13 +1108,13 @@ Poziv rešavača vrši se korišćenjem ranije implementirane klase \texttt{LSol
 
 
 Klasi \texttt{LSolver} dodata je mapa (\texttt{std::map}) u kojoj se čuvaju imena promenljivih i redni brojevi koji odgovaraju redosledu učitavanja ulaza. Ova mapa se koristi pri generisanju test primera. Dodata je metoda 
-\texttt{WriteTest(stUrxaExp \&symbolTable, const LBlock *fb, const LInstruction *fi)} koja izdvaja vrednosti modela rešavača nakon izvršenog prvog bloka instrukcija na osnovu sadržaja simboličke tabele u zaseban fajl. Ove vrednosti predstavljaju test primere za koje je potrebno ponovo pokrenuti C program i proveriti da li dovode do greške.
+\texttt{WriteTest(stUrxaExp \&symbolTable, const LBlock *fb, const LInstruction *fi)} koja izdvaja vrednosti modela rešavača nakon izvršenog prvog bloka instrukcija na osnovu sadržaja simboličke tabele u zaseban fajl. Ove vrednosti predstavljaju test primere za koje je potrebno ponovo pokrenuti C program i proveriti da li dovode do greške. Važi pretpostavka da će sve vrednosti modela biti učitane u prvom bloku. U slučaju da ova pretpostavka ne važi, testovi generisani na osnovu modela neće biti ispravni.
 \par
 Izdvajanje vrednosti promenljivih nakon izvršavanja svakog bloka instrukcija implementirano je ranije u okviru metode \texttt{WriteStoreValues}, dok je u okviru nadogradnje dodata podrška za izdvajanje vrednosti elemenata nizova. Vrednosti modela ispisuju se u poseban fajl zajedno sa rednim brojem linije ulaznog programa koja odgovara poslednjoj instrukciji bloka.
 \par
 Tokom analize koda, LAV generiše uslove ispravnosti koje proverava putem interfejsa za programiranje rešavača Z3. Tom prilikom instancira se objekat klase \texttt{z3-instance}. Ova klasa, između ostalog, od članica sadrži kontekst i model koji su definisani u okviru samog interfejsa za komunikaciju sa rešavačem Z3 (klase \texttt{Z3\_context} i \texttt{Z3\_model}). Metod \texttt{std::string getAssignment(Z3\_ast, size\_t)} izdvaja vrednosti promenljivih modela pozivom metode interfejsa za evaluaciju izraza.
 \par
-U zavisnosti od izbora teorije rešavača navođenjem odgovarajuće opcije pri pokretanju sistema LAV, vrši se izdvajanje vrednosti promenljivih modela rešavača upotrebom klasa \texttt{z3-instance-la} i \texttt{z3-instance-bv}. U okviru odgovarajućih metoda ovih klasa vrši se evaluacija prosleđenog izraza. Pri korišćenju teorije bitvektora, navodi se dužina bitvektora za zapis promenljive modela.
+U zavisnosti od izbora teorije rešavača navođenjem odgovarajuće opcije pri pokretanju sistema LAV, vrši se izdvajanje vrednosti promenljivih modela rešavača upotrebom klasa \texttt{la-expression-z3} i \texttt{bv-expression-z3}. U okviru odgovarajućih metoda ovih klasa vrši se evaluacija prosleđenog izraza. Pri korišćenju teorije bitvektora, navodi se dužina bitvektora za zapis promenljive modela.
 
 
 %Modul sadrži podršku za rad sa nizovima u okviru teorije linearne aritmetike, teorije bitvektora i teorije neinterpretiranih funkcija . 
@@ -1141,7 +1135,7 @@ Dijagram klasa koje se koriste pri izdvajanju vrednosti modela i automatskom gen
 
 \par
 
-Pri pokretanju alata LAV, opcijom \texttt{-solver=Z3-LA-ARR-EUF} označava se upotreba teorije linearne aritmetike, teorije nizova i teorije neinterpretiranih funkcija rešavača Z3. Opcijom \texttt{-solver=Z3-BV-ARR-EUF} označava se upotreba teorije bitvektora, teorije nizova i teorije neinterpretiranih funkcija rešavača Z3. Navođenjem opcije \texttt{-model} generišu se fajlovi koji sadrže vrednosti promenljivih i nizova modela nakon izvršavanja svakog bloka naredbi kao i putanja kroz program koja dovodi do greške. Za svaku funkciju C programa, formira se poseban fajl sa vrednostima modela. Navođenjem opcije \texttt{-test} generišu se testovi. Test primeri za koje je potrebno pokrenuti izvršavanje C programa generišu se za svaku funkciju programa u posebnom fajlu. Podrazumevano, test primeri se generišu u Output/test direktorijumu u okviru sistema LAV. Opcijom \texttt{-test-folder} ova putanja se može predefinisati proizvoljnom putanjom fajl sistema.
+Pri pokretanju alata LAV, opcijom \texttt{-solver=Z3-LA-ARR-EUF} označava se upotreba teorije linearne aritmetike, teorije nizova i teorije neinterpretiranih funkcija rešavača Z3. Opcijom \texttt{-solver=Z3-BV-ARR-EUF} označava se upotreba teorije bitvektora, teorije nizova i teorije neinterpretiranih funkcija rešavača Z3. Navođenjem opcije \texttt{-model} generišu se fajlovi koji sadrže vrednosti promenljivih i nizova modela nakon izvršavanja svakog bloka naredbi kao i putanja kroz program koja dovodi do greške. Za svaku potencijalno neispravnu naredbu C programa, formira se poseban fajl sa vrednostima modela. Navođenjem opcije \texttt{-test} generišu se testovi. Test primeri za koje je potrebno pokrenuti izvršavanje C programa generišu se za svaku potencijalno neispravnu naredbu programa u posebnom fajlu. Podrazumevano, test primeri se generišu u Output/test direktorijumu u okviru sistema LAV. Opcijom \texttt{-test-folder} ova putanja se može predefinisati proizvoljnom putanjom fajl sistema.
 
 \par
 \subsubsection{Automatizacija testiranja}
@@ -1150,7 +1144,7 @@ Kao argumenti pri pokretanju skripte navode se
 \par
 \texttt{./testiranje.sh <ime\_programa> <teorija> <test\_direktorijum>}
 \\ gde su:
-\begin{description}[label={--}]
+\begin{description}
   \item \texttt{<ime\_programa>} - C program koji se testira
   \item \texttt{<teorija>} - odabir teorije u koju se formula za opisivanje ponašanja programa transformiše. Podržane teorije su teorija linearne aritmetike (navođenjem argumenta \texttt{LA}) ili teorija bitvektora (navođenjem argumenta \texttt{BV})
   \item \texttt{<test\_direktorijum>} - putanja na kojoj će se generisati test primeri u okviru fajl sistema. Ovaj argument je opcioni. Ukoliko se izostavi, podrazumevana vrednost je Output/test direktorijum u okviru sistema LAV.
@@ -1167,16 +1161,16 @@ U primeru \ref{example21} ispituje se ispravnost jednostavnog C programa koriš�
 \hspace{-0.6cm}
 \begin{minipage}[b]{0.5\textwidth}
 \textbf{C program:}\\
-\#include <stdio.h> \\
-int main() \{ \\
-	int a, b=15;\\
-	scanf($"$\%d $"$, $\&$a);\\
-	if(a < b)\\
-	\tab a++;\\
-	if(a == b)\\
-	\tab b = 0;\\
-	return a/b;
-\\ \}
+1  \hspace{0.1cm} \#include <stdio.h> \\ 
+2  \hspace{0.1cm} int main() \{ \\
+3 	\hspace{0.1cm} \tab int a, b=15;\\
+4	\hspace{0.1cm} \tab scanf($"$\%d $"$, $\&$a);\\
+5	\hspace{0.1cm} \tab if(a < b)\\
+6	\hspace{0.1cm} \tab \tab a++;\\
+7	\hspace{0.1cm} \tab if(a == b)\\
+8	\hspace{0.1cm} \tab \tab b = 0;\\
+9	\hspace{0.1cm} \tab return a/b;\\ 
+10 \hspace{0.1cm} \}
 
 \end{minipage}
 \hspace{0.3cm}
@@ -1185,44 +1179,117 @@ int main() \{ \\
 \textbf{Model:}\\
 function: main\\
 error: division\_by\_zero\\
-16: a = 15, b = 0,\\
-14: a = 15, b = 0,\\
-13: a = 15, b = 15,\\
-12: a = 15, b = 15,\\
-11: a = 14, b = 15,
+9: a = 15, b = 0,\\
+8: a = 15, b = 0,\\
+7: a = 15, b = 15,\\
+6: a = 15, b = 15,\\
+5: a = 14, b = 15,
 \end{minipage}
 \end{primer}
 
 U primeru \ref{example22} generiše se test primer za C program iz primera \ref{example21}. Prilikom generisanja testova, zahteva se navođenje anotacija čime se određuje redosled promenljivih u test primeru. Automatsko određivanje redosleda promenljivih programa može biti dalji pravac rada pošto je reč o netrivijalnom problemu.
-
-
-%Treba objasniti da generisanje modela ne zahteva anotacije, jer nije bitan redosled nabrajanja promenljivih, dok generisanje testa zahteva odredjen redosled, a automatsko odredjivanje redosleda moze da bude pravac daljeg rada jer to nije trivijalan problem.
 
 \begin{primer} Test primer definisan je vrednostima modela nakon izvršene poslednje instrukcije prvog bloka. Kako je vrednost promenljive b inicijalizovana, uvodimo anotaciju samo za promenljivu a, pa test primer sadrži samo jednu vrednost. \label{example22}  
 \\ \\
 \hspace{-0.6cm}
 \begin{minipage}[b]{0.5\textwidth}
 \textbf{C program:}\\
-\#include <stdio.h> \\
-int input\_value(int, int);
-\\ \\
-int main() \{ \\
-	int a, b=15;\\
-	scanf($"$\%d $"$, $\&$a);\\
-	input\_value(a,0);\\
-	if(a < b)\\
-	\tab a++;\\
-	if(a == b)\\
-	\tab b = 0;\\
-	return a/b;
-\\ \}
+1 \hspace{0.1cm} \#include <stdio.h> \\
+2 \hspace{0.1cm} int input\_value(int, int);\\ 
+3 \hspace{0.1cm} int main() \{ \\
+4 \hspace{0.1cm} \tab int a, b=15;\\
+5 \hspace{0.1cm} \tab scanf($"$\%d $"$, $\&$a);\\
+6 \hspace{0.1cm} \tab input\_value(a,0);\\
+7 \hspace{0.1cm} \tab if(a < b)\\
+8 \hspace{0.1cm} \tab \tab a++;\\
+9 \hspace{0.1cm} \tab if(a == b)\\
+10 \hspace{0.1cm} \tab \tab b = 0;\\
+11 \hspace{0.1cm} \tab return a/b;\\
+12 \hspace{0.1cm} \}
 
 \end{minipage}
 \hspace{0.3cm}
 \begin{minipage}[t]{0.4\textwidth}
-\vspace{-8.38cm}
+\vspace{-7.88cm}
 \textbf{Test:}\\
 14
+\end{minipage}
+\end{primer}
+
+U primeru 23 ispituje se ispravnost C programa koji vrši jednostavne algebarske transformacije nad elementima nizova upotrebom alata LAV. Vrednosti elemenata nizova ispisuju se nakon svakog bloka naredbi.
+\begin{primer} U ovom primeru javlja se greška pri deljenju sa nulom odgovarajućih elemenata nizova a i b. Elementi nizova kojima rešavač nije dodelio vrednosti označeni su *.\\ \\
+\hspace{-0.6cm} \label{example23}
+\begin{minipage}[b]{0.5\textwidth}
+\textbf{C program:}\\
+1 \hspace{0.1cm} \#include <stdio.h> \\
+2 \hspace{0.1cm} void readInput(int array[], int n) \{ \\
+3	\hspace{0.15cm} \tab int i; \\
+4	\hspace{0.15cm} \tab for(i=0; i<n; i++) \\
+5	\hspace{0.15cm} \tab \tab	scanf($"$\%d $"$, $\&$array[i]); \\
+6 \hspace{0.1cm} \} \\
+7 \hspace{0.1cm} int main()\{ \\
+8	\hspace{0.15cm} \tab int a[5], b[5];\\
+9	\hspace{0.15cm} \tab a[0]=0; \\
+10	\hspace{-0.08cm} \tab a[3]=14; \\
+11	\hspace{-0.08cm} \tab b[0]=10; \\
+12	\hspace{-0.08cm} \tab b[2]=15; \\
+13  \hspace{-0.08cm} \tab readInput(a, 5); \\
+14  \hspace{-0.08cm} \tab readInput(b, 5); \\
+15  \hspace{-0.08cm} \tab if(a[0] < b[0]) \\
+16	\hspace{-0.08cm} \tab \tab	a[3]++; \\
+17	\hspace{-0.08cm} \tab if(a[3] == b[2]) \\
+18	\hspace{-0.08cm} \tab \tab	b[2]=0; \\
+19	\hspace{-0.08cm} \tab return a[3]/b[2]; \\
+20 \}
+\end{minipage}
+\hspace{1.1cm}
+\begin{minipage}[t]{0.4\textwidth}
+\vspace{-12.98cm}
+\textbf{Model:}\\
+function: main \\
+error: division\_by\_zero \\
+19: a[] = \{0, *, *, 15, *\}, \\ b[] = \{10, *, 0, *, *\} \\ \\
+18: a[] = \{0, *, *, 15, *\}, \\ b[] = \{10, *, 0, *, *\} \\ \\
+17: a[] = \{0, *, *, 15, *\}, \\ b[] = \{10, *, 15, *, *\} \\ \\
+16:	a[] = \{0, *, *, 15, *\}, \\ b[] = \{10, *, 15, *, *\} \\ \\
+15: a[] = \{0, *, *, 14, *\}, \\ b[] = \{10, *, 15, *, *\}
+\end{minipage}
+\end{primer} 
+\par
+U primeru \ref{example24} generiše se test primer za C program iz primera \ref{example23}. Navode se anotacije kojima se određuje redosled učitavanja elemenata nizova. 
+
+\begin{primer} Generisani test primer odgovara vrednostima modela rešavača nakon izvršenog prvog bloka naredbi. Test vrednosti za elemente nizova kojima rešavač nije dodelio vrednosti označene su 1.\\ \\
+\hspace{-0.6cm} \label{example24}
+\begin{minipage}[b]{0.5\textwidth}
+\textbf{C program:}\\
+1 \hspace{0.1cm} \#include <stdio.h> \\
+2 \hspace{0.1cm} void readInput(int array[], int n) \{ \\
+3	\hspace{0.15cm} \tab int i; \\
+4	\hspace{0.15cm} \tab for(i=0; i<n; i++) \\
+5	\hspace{0.15cm} \tab \tab	scanf($"$\%d $"$, $\&$array[i]); \\
+6 \hspace{0.1cm} \} \\
+7 \hspace{0.1cm} int main()\{ \\
+8	\hspace{0.15cm} \tab int a[5], b[5];\\
+9	\hspace{0.15cm} \tab a[0]=0; \\
+10	\hspace{-0.08cm} \tab a[3]=14; \\
+11	\hspace{-0.08cm} \tab b[0]=10; \\
+12	\hspace{-0.08cm} \tab b[2]=15; \\
+13  \hspace{-0.08cm} \tab readInput(a, 5); \\
+14  \hspace{-0.08cm} \tab readInput(b, 5); \\
+15	\hspace{-0.08cm} \tab input\_value\_array(a, 0); \\
+16	\hspace{-0.08cm} \tab input\_value\_array(a, 1); \\
+17  \hspace{-0.08cm} \tab if(a[0] < b[0]) \\
+18	\hspace{-0.08cm} \tab \tab	a[3]++; \\
+19	\hspace{-0.08cm} \tab if(a[3] == b[2]) \\
+20	\hspace{-0.08cm} \tab \tab	b[2]=0; \\
+21	\hspace{-0.08cm} \tab return a[3]/b[2]; \\
+22 \}
+\end{minipage}
+\hspace{1.1cm}
+\begin{minipage}[t]{0.4\textwidth}
+\vspace{-14.2cm}
+\textbf{Test:}\\
+0 1 1 14 1 10 1 15 1 1
 \end{minipage}
 \end{primer}
 
@@ -1238,16 +1305,15 @@ koji pokriva različite kombinacije teorija. Podržane teorije, kojima je moguć
 teorija bitvektora i teorija nizova.
 
 Prilikom pravljenja modela ponašanja programa, korišćenjem izabrane teorije,
-primenjuju se razne aproksimacije. Ove aproksimacije mogu prijavljivati postojanje
-greške u programu koja zapravo ne postoji. Iz tog razloga neophodno je pokretanjem
+primenjuju se razne aproksimacije. Ove aproksimacije mogu prijavljivati grešku u programu koja zapravo ne postoji. Iz tog razloga neophodno je pokretanjem
 programa proveriti da li generisani test primer stvarno dovodi do nebezbednog i
-neočekivanog ponašanja. Alat LAV proširen je modulom za automatsko
+neočekivanog ponašanja. Alatu LAV dodata je podrška za automatsko
 generisanje test primera na osnovu vrednosti iz modela rešavača Z3 za izabranu
 teoriju.
  
-Eksperimentalni rezultati koji ukazuju na poboljšanje performansi pri korišćenju rešavača Z3 u poređenju sa drugim SMT rešavačima dostupni su u literaturi \cite{z3improvements}. U radu je detaljno opisana upotreba rešavača korišćenjem SMT-LIB standarda i C++ interfejsa.
+Eksperimentalni rezultati koji ukazuju na bolje performansi pri korišćenju rešavača Z3 u poređenju sa drugim SMT rešavačima dostupni su u literaturi \cite{z3improvements}. U radu je detaljno opisana upotreba rešavača korišćenjem SMT-LIB standarda i C++ interfejsa.
 
-Buduća istraživanja na temu unapređenja rada mogla bi da obuhvate automatsko određivanje ulaznih promenljivih, čime bi se izbeglo dodatno anotiranje promenljivih u samom kodu. Drugo unapređenje moglo bi da obuhvati preciznije izdvajanje modela za druge SMT rešavače, kao što su Boolector, Yices i Mathsat pokrivanjem različitih kombinacija teorija. Pored toga, format ispisa vrednosti modela kao i vrednosti test primera za sve rešavače mogao bi se standardizovati. 
+Buduća istraživanja na temu unapređenja rada mogla bi da obuhvate automatsko određivanje ulaznih promenljivih, da bi se izbeglo dodatno anotiranje promenljivih u samom kodu. Drugo unapređenje moglo bi da obuhvati preciznije izdvajanje modela za druge SMT rešavače pokrivanjem različitih kombinacija teorija. Takođe, format ispisa vrednosti modela i test primera za sve rešavače mogao bi se standardizovati. 
 % ------------------------------------------------------------------------------
 
 
