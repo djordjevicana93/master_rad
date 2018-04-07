@@ -120,8 +120,8 @@ generisanje test primera.
 
 \subsection{Doprinos rada}
 
-U okviru ovog rada nadograđen je sistem za statičku proveru ispravnosti softvera LAV modulom za automatsko generisanje test primera \cite{LAVTool}. U okviru sistema
-LAV, ponašanje programa modeluje se formulama izabrane teorije. Nadogradnja obuhvata prepoznavanje ulaznih vrednosti programa, a zatim izdvajanje odgovarajućih vrednosti iz modela generisanih od strane alata LAV i rešavača Z3. Na osnovu vrednosti izdvojenih iz modela, formira se test primer za koji je potrebno pokrenuti izvršavanje programa i proveriti da li generisani test primer zaista dovodi do greške u softveru.
+U okviru ovog rada nadograđen je sistem za statičku proveru ispravnosti softvera LAV podrškom za automatsko generisanje test primera \cite{LAVTool}. U okviru sistema
+LAV, ponašanje programa modeluje se formulama izabrane teorije. Nadogradnja obuhvata prepoznavanje ulaznih vrednosti programa, a zatim izdvajanje odgovarajućih vrednosti modela generisanih od strane alata LAV i rešavača Z3. Na osnovu vrednosti izdvojenih iz modela, formira se test primer za koji je potrebno pokrenuti izvršavanje programa i proveriti da li generisani test primer zaista dovodi do greške u softveru.
 
 \subsection{Pregled rada}
 Nastavak rada organizovan je na sledeći način. U glavi \ref{testiranje} opisan je proces testiranja kao važan deo životnog ciklusa razvoja softvera. Navedene su vrste i strategije testiranja uključujući strategiju crne, bele i sive kutije. Opisani su načini izvršavanja i generisanja test primera. Navedeni su neki od alata za automatsko generisanje test primera. Glava \ref{resavac} daje motivaciju za korišćenje rešavača tokom statičke provere ispravnosti softvera. Opisuju se osnove rešavača Z3 navođenjem podržanih teorija. Dat je pregled najvažnijih tipova i struktura podataka. Opisana su dva formata za komunikaciju sa Z3 rešavačem korišćenjem SMT-LIB standarda i C++ interfejsa i njihova upotreba kroz primere. U glavi \ref{implementacija} opisan je detaljno problem kojim se rad bavi i predloženo rešenje. Opisana je statička provera ispravnosti softvera uključujući tehnike statičke analize. Dat je pregled alata za statičku proveru ispravnosti programa LAV kao i osvrt na dodatu funkcionalnost. Opisana je integracija koda u postojeće klase i module kao i implementacija novih klasa sa ciljem automatskog generisanja test primera. U glavi \ref{zakljucak} izneti su osnovni zaključci ovog rada.
@@ -167,7 +167,7 @@ U skladu sa pomenutom podelom, prema nivou testiranja, razlikujemo testove jedin
 U kasnijim fazama razvoja softvera, kada je testiranje sistema po svim nivoima uspešno završeno, pristupa se izvršavanju istraživačkih testova i testova prihvatljivosti.
 \par
 
-Testiranjem jedinice koda (eng. \textit{Unit testing}) proverava se funkcionisanje delova sistema koji se nezavisno mogu testirati \cite{SoftwareUnitTesting}. U zavisnosti od konteksta i programske paradigme, to mogu biti podprogrami ili veće komponente formirane od tesno povezanih jedinica. Ovom vrstom testiranja prolazi se svaki i najmanji deo sistema, pa upravo iz tog razloga ima važnu ulogu prilikom osiguravanja kvaliteta razvijenog softvera. Jedinični testovi definisani su standardom \textit{IEEE Standard for Software Unit Testing} \cite{IEEEStandard}. Cilj jediničnih testova je dokazivanje da komponenta ima predviđenu funkcionalnost. Ukoliko postoje greške u komponenti, one bi trebalo da budu otkrivene u fazi testiranja te komponente. Treba koristiti specijalne slučajeve ulaza, probati granice domena kao i nekorektan ulaz kako bi obezbedili da ne dolazi do pada softverskog sistema pri ovakvim situacijama.
+Testiranjem jedinice koda (eng. \textit{Unit testing}) proverava se funkcionisanje delova sistema koji se nezavisno mogu testirati \cite{SoftwareUnitTesting}. U zavisnosti od konteksta i programske paradigme, to mogu biti podprogrami ili veće komponente formirane od tesno povezanih jedinica. Ovom vrstom testiranja proverava se svaki i najmanji deo sistema, pa upravo iz tog razloga ima važnu ulogu prilikom osiguravanja kvaliteta razvijenog softvera. Jedinični testovi definisani su standardom \textit{IEEE Standard for Software Unit Testing} \cite{IEEEStandard}. Cilj jediničnih testova je dokazivanje da komponenta ima predviđenu funkcionalnost. Ukoliko postoje greške u komponenti, one bi trebalo da budu otkrivene u fazi testiranja te komponente. Treba koristiti specijalne slučajeve ulaza, probati granice domena kao i nekorektan ulaz kako bi obezbedili da ne dolazi do pada softverskog sistema pri ovakvim situacijama.
 \par
 Komponentnim testiranjem (eng. \textit{Component testing}) proveravaju se moduli sastavljeni od više komponenti \cite{ComponentTesting}. Neformalno, komponenta je skup povezanih jedinica koda koje imaju zajednički interfejs prema ostalim komponentama.  Moduli se proveravaju odmah po njihovom kreiranju pri čemu se testiranje može vršiti izolovano od ostatka sistema, u zavisnosti od izabranog modela razvoja. Važno je napomenuti da testiranje jedinica koda obavlja razvojni tim, a testiranje komponenti tim testera. Pored toga, preporuka je da se komponentno testiranje izvrši pre testova integracije koji će biti opisani u nastavku.
 \par
@@ -226,7 +226,7 @@ Opisani načini testiranja ilustrovani su piramidom testiranja na slici \ref{fig
 \end{figure}
 
 
-Pored opisane podele i vrsta testova koji se izvršavaju, postoje i druge podele prema različitim kriterijumima testiranja. Više o podelama i podržanim načinima testiranja može se naći u literaturi \cite{TestingProcess}.
+Pored opisane podele i vrsta testova koje se izvršavaju, postoje i druge podele prema različitim kriterijumima testiranja. Više o podelama i podržanim načinima testiranja može se naći u literaturi \cite{TestingProcess}.
 
 \section{Strategije testiranja} \label{broj3}
 Testiranjem se obezbeđuje bolje razumevanje specifikacije problema, dizajna i implementacije rešenja. Pored otkrivanja grešaka, glavni ciljevi su obezbeđivanje traženog kvaliteta rešenja sistematskim testiranjem u kontrolisanim uslovima i identifikovanje potpunosti i korektnosti softvera. Tri najvažnije strategije za postizanje kvaliteta i detekciju grešaka su 
@@ -275,7 +275,7 @@ mnoge putanje u sistemu mogu ostati netestirane pa se na taj način mogu sakriti
 
 \subsection{Strategija sive kutije}
 
-Strategija testiranja sivom kutijom (eng. \textit{Gray Box Testing}) predstavlja kombinaciju prethodne dve strategije. Kod ove strategije postoji pristup nekom segmentu softvera, ali ne i kompletnom softverskom sistemu \cite{GrayBoxTesting}. Na osnovu analize poznatih delova koda koja odgovara testiranju bele kutije, formiraju se test slučajevi koji se zatim primenjuju na delove sistema o čijoj internoj strukturi nemamo informacija (odgovara testiranju crne kutije). Tehnika sive kutije koristi se u slučajevima testiranja integracije različitih delova koda. Ova strategija povećava pokrivenost koda test primerima kombinovanjem dve strategije. 
+Strategija testiranja sivom kutijom (eng. \textit{Gray Box Testing}) predstavlja kombinaciju prethodne dve strategije. Kod ove strategije postoji pristup nekom segmentu softvera, ali ne i kompletnom softverskom sistemu \cite{GrayBoxTesting}. Na osnovu analize poznatih delova koda koja odgovara testiranju bele kutije, formiraju se test slučajevi koji se zatim primenjuju na delove sistema o čijoj internoj strukturi nemamo informacija (odgovara testiranju crne kutije). Tehnika sive kutije koristi se u slučajevima testiranja integracije različitih delova koda. Ova strategija povećava pokrivenost koda test primerima kombinovanjem strategija crne i bele kutije. 
 \par
 Kada se primenjuje testiranje sivom kutijom, razlikujemo dve vrste testera. Prvu grupu čine kvalifikovani testeri koji na osnovu delimičnog pristupa izvornom kodu formiraju test slučajeve. Drugu grupu čine testeri čiji je zadatak samo izvršavanje dobijenih test slučajeva bez poznavanja interne strukture sistema. 
 U zavisnosti od procenta celokupnog izvornog koda kome se može pristupiti, pokrivenost koda testovima može biti ograničena. 
@@ -289,7 +289,7 @@ Ukoliko se sistem implementira prema nekom obrazcu projektovanja, testovima obra
 U opštem slučaju, test se smatra uspešnim ukoliko je ponašanje sistema pri njegovom izvršavanju u skladu sa korisničkim zahtevima. Međutim, kod sve popularnije metodologije destruktivnog testiranja, test se smatra uspešnim ako se njegovim izvršavanjem otkriva postojanje greške u softveru.
 \par
 Izvršavanje testova sprovodi se na dva načina, automatizovano i manuelno \cite{AutomatedManualExecution}. Manuelno  testiranje predstavlja ručno izvršavanje test slučajeva izabranim alatima. 
-U većini slučajeva, tester prati niz koraka da bi verifikao neki segment softverskog sistema. Nakon toga, formira se izveštaj dobijenih rezultata.
+U većini slučajeva, tester prati niz koraka da bi utvrdio ispravnost nekog segmenta softverskog sistema. Nakon toga, formira se izveštaj dobijenih rezultata.
 \par
 Automatizovano testiranje podrazumeva postojanje određenog koda napisanog kako bi se automatizovali koraci pri izvršavanju test slučaja. 
 Datoteke koje sadrže logiku za testiranje nazivaju se test skripte i mogu biti pisane u svim programskim jezicima. \par
@@ -323,7 +323,7 @@ Pored navedenih osobina, postoji veliki broj metoda rasplinutog testiranja. Jedn
 Jedan od alata koji primenjuje strategiju sive kutije za automatsko generisanje test primera je SAGE \cite{ToolSAGE}. Namena alata SAGE (eng. \textit{Scalable, Automated, Guided Execution}) je proveravanje stabilnosti rada programa koji se izvršavaju na Windows operativnom sistemu čiji su procesori kompatibilni sa x86 skupom instrukcija. Odlikuje se specifičnom arhitekturom i algoritmom koji ga izdvaja od programa slične namene. Za generisanje test primera, alat SAGE koristi program koji se testira i skupove ulaznih podataka koji se jedan za drugim učitavaju u sam program. Cilj je naći skupove ulaznih podataka koji dovode do nedefinisanog i nebezbednog ponašanja tokom izvršavanja programa. Ukoliko SAGE uspe da generiše takav skup ulaznih podataka, smatra se da je on uspešno ispunio svoj zadatak. Nađeni skup podataka se zapisuje u internu bazu alata i nastavlja se potraga za drugim skupovima ulaznih podataka koji izazivaju nebezbedno ponašanje programa, ukoliko takvi postoje. Ulazni podaci se inicijalno biraju praćenjem izvršavanja programa na nivou x86 mašinskog koda. Glavni cilj alata je pokrivenost svih delova programa prolaskom kroz sve grane programa. Važno je napomenuti da se primenom ovog alata ne generišu svi mogući ulazi, s obzirom da njihovo generisanje nije moguće u razumnom roku. 
 \par
 Program SAGE sastoji se od četiri faze koje se izvršavaju jedna za drugom. Te faze su testiranje, praćenje mašinskih instrukcija, generisanje ograničenja i generisanje narednog skupa ulaznih podataka. Izvršavanje četiri faze predstavlja jedan ciklus. Broj ciklusa je jako veliki a ukupno izvršavanje SAGE programa meri se satima ili čak danima. 
-U prvoj fazi program se izvršava koristeći početni skup ulaznih podataka. Ukoliko se tokom ove faze detektuje skup ulaznih podataka koji dovodi do nedefinisanog ponašanja programa, pronađeni skup podataka se dokumentuje u internu bazu alata. Ukoliko ovakav skup ulaznih podataka ne postoji, prelazi se na drugu fazu tokom koje formira se zapis mašinskih instrukcija na osnovu izvornog koda. Za generisanje ograničenja, koriste se blokovi mašinskih instrukcija iz prethodne faze. U poslednjoj fazi se za generisanje novih skupova ulaznih podataka koriste dobijena ograničenja a zatim sledi ponavljanje ciklusa. 
+U prvoj fazi program se izvršava koristeći početni skup ulaznih podataka. Ukoliko se tokom ove faze detektuje skup ulaznih podataka koji dovodi do nedefinisanog ponašanja programa, pronađeni skup podataka se dokumentuje u internu bazu alata. Ukoliko ovakav skup ulaznih podataka ne postoji, prelazi se na drugu fazu tokom koje se formira zapis mašinskih instrukcija na osnovu izvornog koda. Za generisanje ograničenja, koriste se blokovi mašinskih instrukcija iz prethodne faze. U poslednjoj fazi se za generisanje novih skupova ulaznih podataka koriste dobijena ograničenja a zatim sledi ponavljanje ciklusa. 
 \par
 KLEE \cite{ToolKLEE} je alat za simboličko izvršavanje \cite{SymbolicExecution} koji primenjuje strategiju bele kutije za automatsko generisanje test primera. 
 Nastao je na univerzitetu Ilinois i javno je dostupan.
@@ -365,7 +365,7 @@ Nakon simplifikacije, kompajler formira apstraktno sintaksno stablo formula čij
 Glavni gradivni blokovi formula su konstante, funkcije i relacije. Konstante su specijalan slučaj funkcija bez parametara. Svaka konstanta je određene sorte. Sorta odgovara tipu u programskim jezicima. Relacije su funkcije koje vraćaju povratnu vrednost tipa Boolean. Funkcije mogu uzimati argumente tipa Boolean pa se na taj način relacije mogu koristiti kao argumenti funkcija.  
 
 
-Formula $F$ je validna ako je vrednost valuacije $true$ za bilo koje interpretacije funkcija i konstantnih simbola. Formula $F$ je zadovoljiva ukoliko postoji bar jedna valuacija u kojoj je formula tačna. Da bismo odredili da li je formula $F$ validna, rešavač Z3 proverava da li je formula $\lnot F$ zadovoljiva. Ukoliko je negacija formule nezadovoljiva, onda je polazna formula validna. 
+Formula $F$ je validna ako je vrednost valuacije $true$ za bilo koju interpretaciju funkcija i konstantnih simbola. Formula $F$ je zadovoljiva ukoliko postoji bar jedna valuacija u kojoj je formula tačna. Da bismo odredili da li je formula $F$ validna, rešavač Z3 proverava da li je formula $\lnot F$ zadovoljiva. Ukoliko je negacija formule nezadovoljiva, onda je polazna formula validna. 
 
 
 
@@ -374,7 +374,8 @@ Teorije rešavača Z3 su opisane u okviru višesortne logike prvog reda sa jedna
 
 \subsection{Teorija neinterpretiranih funkcija}
 Teorije obično određuju interpretaciju funkcijskih simbola. Teorija koja ne zadaje nikakva ograničenja za funkcijske simbole naziva se teorija neinterpretiranih funkcija 
-(eng. \textit{Theory of Equality with Uninterpreted Functions}, skraćeno EUF). \par Kod rešavača Z3, funkcije i konstantni simboli su neinterpretirani. Ovo je kontrast u odnosu na funkcije odgovarajućih teorija. Funkcija + ima standardnu interpretaciju u teoriji aritmetike. Neinterpretirane funkcije i konstante su maksimalno fleksibilne i dozvoljavaju bilo koju interpretaciju koja je u skladu sa ograničenjima. Za razliku od programskih jezika, funkcije logike prvog reda su totalne, tj. definisane su za sve vrednosti ulaznih parametara. Na primer, deljenje 0 je dozvoljeno, ali nije specifikovano šta ono predstavlja. Teorija neinterpretiranih funkcija je odlučiva i postoji procedura odlučivanja polinomijalne vremenske složenosti. Jedna od procedura odlučivanja za ovu teoriju zasniva se na primeni algoritma Nelson-Open (eng. \textit{Nelson-Open algorithm}). O ovom algoritmu može se više naći u literaturi \cite{NelsonOpen}.
+(eng. \textit{Theory of Equality with Uninterpreted Functions}, skraćeno EUF). \par Kod rešavača Z3, funkcije i konstantni simboli su neinterpretirani. Ovo je kontrast u odnosu na funkcije odgovarajućih teorija. Funkcija + ima standardnu interpretaciju u teoriji aritmetike. Neinterpretirane funkcije i konstante su maksimalno fleksibilne i dozvoljavaju bilo koju interpretaciju koja je u skladu sa ograničenjima. \par
+Za razliku od programskih jezika, funkcije logike prvog reda su totalne, tj. definisane su za sve vrednosti ulaznih parametara. Na primer, deljenje 0 je dozvoljeno, ali nije specifikovano šta ono predstavlja. Teorija neinterpretiranih funkcija je odlučiva i postoji procedura odlučivanja polinomijalne vremenske složenosti. Jedna od procedura odlučivanja za ovu teoriju zasniva se na primeni algoritma Nelson-Open (eng. \textit{Nelson-Open algorithm}). O ovom algoritmu može se više naći u literaturi \cite{NelsonOpen}.
 \par
 
 
@@ -479,7 +480,7 @@ Rešavač Z3 ima podršku za celobrojne i realne konstante. Komandom \texttt{dec
 Realne konstante treba da budu zapisane sa decimalnom tačkom. Primer \ref{example2} ilustruje deklarisanje konstanti i funkcija kao i primenu funkcije na konstante. Ispituje se zadovoljivost ograničenja.
 
 \begin{primer} \label{example2} 
-Rešavaču se prosleđuje ograničenja koje sadrže primenu funkcije f na celobrojnu konstantu a kao i relacijske operatore. Rešavač Z3 pronalazi da je ovo tvrđenje zadovoljivo i daje prikazani model. 
+Rešavaču se prosleđuje ograničenja koje sadrže primenu funkcije f na celobrojnu konstantu a i relacijske operatore. Rešavač Z3 pronalazi da je ovo tvrđenje zadovoljivo i daje prikazani model. 
 \\ 
 
 \hspace{-0.7cm}
@@ -1232,12 +1233,8 @@ U ovom primeru javlja se greška pri deljenju sa nulom odgovarajućih elemenata 
 6 \hspace{0.1cm} \} \\
 7 \hspace{0.1cm} int main()\{ \\
 8	\hspace{0.15cm} \tab int a[5], b[5];\\
-9	\hspace{0.15cm} \tab a[3]=0; \\
-10	\hspace{-0.08cm} \tab a[4]=14; \\
-11	\hspace{-0.08cm} \tab b[3]=10; \\
-12	\hspace{-0.08cm} \tab b[4]=15; \\
-13  \hspace{-0.08cm} \tab readInput(a, 3); \\
-14  \hspace{-0.08cm} \tab readInput(b, 3); \\
+13  \hspace{-0.08cm} \tab readInput(a, 5); \\
+14  \hspace{-0.08cm} \tab readInput(b, 5); \\
 15  \hspace{-0.08cm} \tab if(a[3] < b[3]) \\
 16	\hspace{-0.08cm} \tab \tab	a[4]++; \\
 17	\hspace{-0.08cm} \tab if(a[4] == b[4]) \\
@@ -1247,21 +1244,19 @@ U ovom primeru javlja se greška pri deljenju sa nulom odgovarajućih elemenata 
 \end{minipage}
 \hspace{1.1cm}
 \begin{minipage}[t]{0.4\textwidth}
-\vspace{-12.98cm}
+\vspace{-10.48cm}
 \textbf{Model:}\\
 function: main \\
 error: division\_by\_zero \\
-19: a[] = \{*, *, *, 0, 15\}, \\ b[] = \{*, *, *, 10, 0\} \\ \\
-18: a[] = \{*, *, *, 0, 15\}, \\ b[] = \{*, *, *, 10, 0\} \\ \\
-17: a[] = \{*, *, *, 0, 15\}, \\ b[] = \{*, *, *, 10, 15\} \\ \\
-16:	a[] = \{*, *, *, 0, 15\}, \\ b[] = \{*, *, *, 10, 15\} \\ \\
-15: a[] = \{*, *, *, 0, 14\}, \\ b[] = \{*, *, *, 10, 15\}
+19: a[]=\{*, *, *, 3286, 4681\}, \\ b[]=\{*, *, *, 6283, 0\} \\ \\
+17: a[]=\{*, *, *, 3286, 4681\}, \\ b[]=\{*, *, *, 6283, 4681\} \\ \\
+15: a[]=\{*, *, *, 3286, 4680\}, \\ b[]=\{*, *, *, 6283, 4681\} \\ \\
 \end{minipage}
 \end{primer} 
 \par
 U primeru \ref{example24} generiše se test primer za C program iz primera \ref{example23}. Navode se anotacije kojima se određuje redosled učitavanja odgovarajućih elemenata nizova.
  
-\begin{primer} Generisani test primer odgovara vrednostima modela rešavača nakon izvršenog prvog bloka naredbi. Kako su vrednosti četvrtog i petog elementa nizova a i b inicijalizovane, test primer sadrži samo vrednosti koje učitavamo korišćenjem funkcije \texttt{scanf}. Test vrednosti za elemente nizova kojima rešavač nije dodelio vrednosti označene su 1.\\ \\
+\begin{primer} Generisani test primer odgovara vrednostima modela rešavača nakon izvršenog prvog bloka naredbi. Test vrednosti za elemente nizova kojima rešavač nije dodelio vrednosti označene su 1.\\ \\
 \hspace{-0.6cm} \label{example24}
 \begin{minipage}[b]{0.5\textwidth}
 \textbf{C program:}\\
@@ -1273,12 +1268,8 @@ U primeru \ref{example24} generiše se test primer za C program iz primera \ref{
 6 \hspace{0.1cm} \} \\
 7 \hspace{0.1cm} int main()\{ \\
 8	\hspace{0.15cm} \tab int a[5], b[5];\\
-9	\hspace{0.15cm} \tab a[3]=0; \\
-10	\hspace{-0.08cm} \tab a[4]=14; \\
-11	\hspace{-0.08cm} \tab b[3]=10; \\
-12	\hspace{-0.08cm} \tab b[4]=15; \\
-13  \hspace{-0.08cm} \tab readInput(a, 3); \\
-14  \hspace{-0.08cm} \tab readInput(b, 3); \\
+13  \hspace{-0.08cm} \tab readInput(a, 5); \\
+14  \hspace{-0.08cm} \tab readInput(b, 5); \\
 15	\hspace{-0.08cm} \tab input\_value\_array(a, 0); \\
 16	\hspace{-0.08cm} \tab input\_value\_array(b, 1); \\
 17  \hspace{-0.08cm} \tab if(a[3] < b[3]) \\
@@ -1290,9 +1281,9 @@ U primeru \ref{example24} generiše se test primer za C program iz primera \ref{
 \end{minipage}
 \hspace{1.1cm}
 \begin{minipage}[t]{0.4\textwidth}
-\vspace{-14.2cm}
+\vspace{-11.8cm}
 \textbf{Test:}\\
-1 1 1 1 1 1
+1 1 1 3286 4680 1 1 1 6283 4681
 \end{minipage}
 \end{primer}
 
@@ -1312,7 +1303,7 @@ primenjuju se razne aproksimacije.
 Zbog ovih aproksimacija, mogu se prijaviti greške u programu koje zapravo ne postoje. Iz tog razloga neophodno je pokretanjem
 programa proveriti da li generisani test primer stvarno dovodi do nebezbednog i
 neočekivanog ponašanja. Alatu LAV dodata je podrška za automatsko
-generisanje test primera na osnovu vrednosti iz modela rešavača Z3 za izabranu
+generisanje test primera na osnovu vrednosti modela rešavača Z3 za izabranu
 teoriju.
  
 Eksperimentalni rezultati koji ukazuju na bolje performanse pri korišćenju rešavača Z3 u poređenju sa drugim SMT rešavačima dostupni su u literaturi \cite{z3improvements}. U radu je detaljno opisana upotreba rešavača korišćenjem SMT-LIB standarda i C++ interfejsa.
