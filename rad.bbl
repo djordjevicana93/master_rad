@@ -585,25 +585,6 @@
       \field{howpublished}{\url{http://ix.cs.uoregon.edu/~michal/Classes/W98/LecNotes/10-Testing-system.pdf}}
       \field{title}{Integration and System Testing}
     \endentry
-    \entry{LAVDevelopment}{book}{}
-      \name{author}{1}{}{%
-        {{hash=50cd22763fe49ad6ee336a246e6e5910}{%
-           family={Milena\bibnamedelimb Vujosevic\bibnamedelima Janicic},
-           familyi={M\bibinitperiod\bibinitdelim V\bibinitperiod\bibinitdelim J\bibinitperiod},
-           given={Viktor\bibnamedelima Kuncak},
-           giveni={V\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
-      }
-      \strng{namehash}{50cd22763fe49ad6ee336a246e6e5910}
-      \strng{fullhash}{50cd22763fe49ad6ee336a246e6e5910}
-      \strng{authornamehash}{50cd22763fe49ad6ee336a246e6e5910}
-      \strng{authorfullhash}{50cd22763fe49ad6ee336a246e6e5910}
-      \field{sortinit}{M}
-      \field{sortinithash}{c26a05ef03e4429073ed5c825140fac3}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Development and evaluation of LAV - an smt-based error finding platform system description}
-      \field{year}{2012}
-    \endentry
     \entry{EfficientSMTSolver}{book}{}
       \name{author}{2}{}{%
         {{hash=04ffe79f369bf9f16e299fcf4f98e780}{%
@@ -829,6 +810,37 @@
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{https://pdfs.semanticscholar.org/a29f/6bad.pdf/}}
       \field{title}{Symbolic Execution and Program Testing}
+    \endentry
+    \entry{vstteLAV12}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=ac83454ef5ff67fd291e53a1fe2539e1}{%
+           family={Vujošević\bibnamedelima Janičić},
+           familyi={V\bibinitperiod\bibinitdelim J\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=f2c5c5483dc7205ad1850da9dc3f5c26}{%
+           family={Kuncak},
+           familyi={K\bibinitperiod},
+           given={V.},
+           giveni={V\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{a1a5707b39dfa4a5027772d63f8ae7a3}
+      \strng{fullhash}{a1a5707b39dfa4a5027772d63f8ae7a3}
+      \strng{authornamehash}{a1a5707b39dfa4a5027772d63f8ae7a3}
+      \strng{authorfullhash}{a1a5707b39dfa4a5027772d63f8ae7a3}
+      \field{sortinit}{V}
+      \field{sortinithash}{555737dafdcf1396ebfeae5822e5bde2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Verified Software: Theories, Tools and Experiments (VSTTE)}
+      \field{series}{LNCS}
+      \field{title}{{Development and Evaluation of {LAV}: An {SMT}-Based Error Finding Platform}}
+      \field{year}{2012}
+      \field{pages}{98\bibrangedash 113}
+      \range{pages}{16}
     \endentry
     \entry{WhiteBoxTesting}{misc}{}
       \field{sortinit}{W}
