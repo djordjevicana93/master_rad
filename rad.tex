@@ -16,6 +16,7 @@
 \usepackage{hyperref}
 \newtheorem{primer}{Primer}
 \usepackage{enumitem}
+\usepackage{amsmath}
 
 \usepackage[latinica]{pangrami}
 \usepackage{listings}
@@ -245,11 +246,11 @@ U nastavku će biti opisane dve metode koje primenjuju strategiju crne kutije. T
 Ideja metode deljenja na klase ekvivalencije (eng. \textit{Equivalence Partitioning}) je formiranje podskupova (klasa) podataka na osnovu ulaznih podataka \cite{PartitioningBoundary}. Jedna klasa sadrži ulazne podatke koji proizvode slične rezultate pri testiranju. Na primer, jednu klasu podataka mogu činiti ulazni podaci koji otkrivaju istu grešku. U idealnom slučaju, podskupovi su međusobno disjunktni i ceo ulazni skup je pokriven. 
 \par 
 Da bismo identifikovali klase, posmatramo specifikaciju klijentskih uslova.
-Za svaki uslov kreiramo po dve klase u zavisnosti da li je uslov ispunjen ili nije. Formiramo legalne klase koje obuhvataju ispravne i očekivane ulazne podatke kao i nelegalne klase koje obuhvataja sve ostale slučajeve ulaznih podataka.
+Za svaki uslov kreiramo po dve klase u zavisnosti da li je uslov ispunjen ili nije. Formiramo legalne klase koje obuhvataju ispravne i očekivane ulazne podatke kao i nelegalne klase koje obuhvataju sve ostale slučajeve ulaznih podataka.
 \par 
 Prednost metode deljenja na klase ekvivalencije je manji utrošak vremena pri testiranju softvera usled manjeg broja proverenih test slučajeva. Ulazne vrednosti u okviru jedne klase se smatraju ekvivalentnim, pa je za svaku klasu dovoljno pokretanje samo jednog test slučaja. Proveravanjem većeg broja test slučajeva u istoj klasi, ne identifikuju se nove greške u programu.
 
-Primer \ref{exeq} ilustruje upotrebu metode klasa ekvivalencije.
+Primer \ref{exeq} ilustruje primenu metode klasa ekvivalencije.
 Svaka klasa sadrži ulazne vrednosti koje generišu slične izlazne vrednosti pri izvršavanju testova.
 
 \begin{primer} \label{exeq}U ovom primeru razlikujemo tri klase ekvivalencije. Jedna klasa sadrži ulazne vrednosti koje pri sabiranju dovode do prekoračenja. Druga klasa sadrži ulazne vrednosti koje pri sabiranju dovode do potkoračenja. Treća klasa sadrži sve ostale ulazne vrednosti. 
@@ -284,7 +285,14 @@ Razlog  za korišćenje upravo ovih vrednosti za test vektore jesu česte softve
 granicama opsega važenja. 
 
 Za primenu ove metode, potrebno je više vremena za određivanje test slučajeva u poređenju sa drugim metodama strategije crne kutije zbog određivanja granica između validne i nevalidnih klasa.
+ 
+U primeru \ref{exbva} ilustruje se primena metode graničnih vrednosti pri čemu se vrši testiranje koda iz primera \ref{exeq}.
 
+\begin{primer} \label{exbva} Granice između validne i nevalidnih klasa određujemo na osnovu nejednakosti INT\_MIN $\leq$ a + b $\leq$ INT\_MAX i one predstavljaju test vektore klasa.
+
+
+\end{primer}
+ 
 \subsection{Strategija bele kutije}
 Testiranje strategijom bele kutije (eng. \textit{White Box Testing}) zahteva pristup izvornom kodu, dobro poznavanje programskog jezika u kojem je sistem implementiran kao i dizajn konkrentog softverskog proizvoda \cite{WhiteBoxTesting}. Plan testiranja izvodi se proučavanjem celokupnog programskog koda. Za svaku liniju koda može se proveriti da li se ona izvršava u zavisnosti od podataka na ulazu. Takođe, može se vršiti provera izvršavanja pojedinačnih funkcija. Specifičnim testovima proverava se postojanje beskonačnih petlji ili detektovanje delova koda koji se nikad ne izvrši. 
 \par
@@ -904,7 +912,8 @@ Za upravljanje objektima interfejsa kao i za globalno konfigurisanje koristi se 
 
 Izrazi koji se formiraju pripadaju klasi \texttt{expr}. Sadrži konstruktor čiji je argument objekat klase \texttt{context}. Za dobijanje izraza na zadatoj poziciji u skupu izraza koristi se metoda \texttt{at(expr const \&index)}.  Provera da li podizraz predstavlja deo drugog izraza vrši se metodom  \texttt{contains(expr const \&s)}. Za dobijanje pojednostavljenog izraza ekvivalentnog polaznom koristi se metoda \texttt{simplify()} ukoliko takav izraz postoji. Za dobijanje pojednostavljenog izraza može se navesti i skup parametara koji se prosleđuju Z3 simplifikatoru. Zamenu vektora izraza drugim vektorom vrši se metodom \texttt{substitute(expr\_vector const \&source, expr\_vector const \&destination)}. 
 \par
-Postoji veliki broj metoda i operatora koji se koriste za izgradnju složenih izraza. Podržan je veliki broj aritmetičkih operatora za rad za izrazima uključujući operatore sabiranja, oduzimanja, množenja, deljenja, računanja stepena i modula. Svi aritmetički operatori kao argumente imaju izraze. Rezultat primene operatora je novi izraz. Pored toga, mogu se koristiti i različiti logički operatori. Neke od podržanih logičkih operacija su konjunkcija, disjunkcija, implikacija, negacija konjunkcije i negacija disjunkcije. Konjunkcija vektora izraza vrši se metodom \texttt{mk\_and(expr\_vector const \&args)}. Disjunkcija vektora izraza vrši se metodom \texttt{mk\_or(expr\_vector const \&args)}. Implikacija dva izraza vrši se metodom \texttt{implies(expr const \&a, expr const \&b)}. Negacija konjunkcije dva izraza vrši se metodom \texttt{nand(expr const  \&a, expr const \&b)}. Negacija disjunkcije dva izraza vrši se metodom \texttt{nor(expr const \&a, expr const \&b)}. Nad izrazima se mogu primenjivati relacijski operatori \texttt{==}, \texttt{!=}, \texttt{<}, \texttt{<=}, \texttt{>}, \texttt{>=} pri čemu izrazi moraju biti odgovarajuće sorte kako bi poređenje bilo moguće. Nadovezivanje dva izraza vrši se metodom \texttt{concat(expr const \&a, expr const \&b)}. Može se vršiti i nadovezivanje vektora izraza. Kombinovanjem pomenutih metoda i operatora mogu se graditi izrazi proizvoljne složenosti. 	
+Postoji veliki broj metoda i operatora koji se koriste za izgradnju složenih izraza. Podržan je veliki broj aritmetičkih operatora za rad za izrazima uključujući operatore sabiranja, oduzimanja, množenja, deljenja, računanja stepena i modula. Svi aritmetički operatori kao argumente imaju izraze. Rezultat primene operatora je novi izraz. Pored toga, mogu se koristiti i različiti logički operatori. Neke od podržanih logičkih operacija su konjunkcija, disjunkcija, implikacija, negacija konjunkcije i negacija disjunkcije. Konjunkcija vektora izraza vrši se metodom \texttt{mk\_and(expr\_vector const \&args)}. Disjunkcija vektora izraza vrši se metodom \texttt{mk\_or(expr\_vector const \&args)}. Implikacija dva izraza vrši se metodom \texttt{implies(expr const \&a, expr const \&b)}. Negacija konjunkcije dva izraza vrši se metodom \texttt{nand(expr const  \&a, expr const \&b)}. Negacija disjunkcije dva izraza vrši se metodom \texttt{nor(expr const \&a, expr const \&b)}. Nad izrazima se mogu primenjivati relacijski operatori \texttt{==}, \texttt{!=}, \texttt{<}, \texttt{<=}, \texttt{>}, \texttt{>=} pri čemu izrazi moraju biti odgovarajuće sorte kako bi poređenje bilo moguće. Nadovezivanje dva izraza vrši se metodom \texttt{concat(expr const \&a, expr const \&b)}. 
+Povratna vrednost metode concat je tipa \texttt{expr\_vector} i odgovara konjunkciji izraza a i b. Može se vršiti i nadovezivanje vektora izraza. Kombinovanjem pomenutih metoda i operatora mogu se graditi izrazi proizvoljne složenosti. 	
 \par
 Definicija funkcije vrši se objektima klase \texttt{func\_decl}. Korišćenjem ove klase definišu se interpretirane i neinterpretirane funkcije rešavača Z3. 
 Povratne vrednosti funkcija određene su tipom enumeracije \texttt{Z3\_decl\_kind}. Neke od konstanti enumeracije su \texttt{Z3\_OP\_TRUE}, \texttt{Z3\_OP\_FALSE}, \texttt{Z3\_OP\_REAL}, \texttt{Z3\_OP\_INT} i \texttt{Z3\_OP\_ARRAY}. Dobijanje imena funkcijskog simbola vrši se metodom \texttt{name()}. Određivanje arnosti funkcijskog simbola vrši se metodom \texttt{arity()}. Određivanje sorte i-tog parametra funkcijskog simbola određuje se metodom \texttt{domain(unsigned i)}. 
@@ -1099,9 +1108,14 @@ Ispitivanje ispravnosti programa se u sistemu LAV, svodi na proveravanje da li u
 Izvršavanje programa i uslov ispravnosti se u okviru sistema LAV opisuje formulama logike prvog reda \cite{vstteLAV12}. Teorija u koju se transformiše izgrađena formula se može odrediti na osnovu analiziranog koda ili zadavanjem kriterijuma efikasnosti i preciznosti rezultata.
 \par
 
-Sistem LAV koristi naredne dve osobine LLVM reprezentacije koda. Prva pretpostavka podrazumeva da se ulazni program sastoji od bloka instrukcija. Izvršavanje bloka može početi samo u ulaznoj tački bloka i mora se završiti nakon izvršavanja poslednje instrukcije bloka. Druga pretpostavka podrazumeva da nijedna instrukcija ne može koristiti više operatora ili poziva funkcije, izuzev operatora dodele. Takođe, poslednja instrukcija bloka definiše kojim blokovima u programu je moguće nastaviti izvršavanje.
+Sistem LAV koristi naredne dve osobine LLVM reprezentacije koda. Prva pretpostavka podrazumeva da se ulazni program sastoji od bloka instrukcija. Izvršavanje bloka može početi samo u ulaznoj tački bloka i mora se završiti nakon izvršavanja poslednje instrukcije bloka. Druga pretpostavka podrazumeva da nijedna instrukcija ne može koristiti više operatora ili poziva funkcije, izuzev operatora dodele. Takođe, poslednja instrukcija bloka definiše kojim blokovima u programu je moguće nastaviti izvršavanje. Pomenute osobine LLVM reprezentacije koda su neophodan preduslov za građenje formula koje se koriste u okviru alata LAV.
 \par
-U okviru sistema LAV, vrši se ispitivanje ispravnosti svake naredbe u programu. U tom procesu konstruišu se dve formule, jedna odgovara uslovu ispravnosti naredbe a druga odgovara uslovu neispravnosti naredbe. Na taj način se ispitivanje da li naredba dovodi do greške svodi na ispitivanje valjanosti konstruisanih formula u izabranoj teoriji upotrebom SMT rešavača. U zavisnosti od rezultata ispitivanja, naredba može biti bezbedna, neispravna, nebezbedna i nedostižna. \par 
+%U tom procesu konstruišu se dve formule, jedna odgovara uslovu ispravnosti naredbe a druga odgovara uslovu neispravnosti naredbe. 
+U okviru sistema LAV, vrši se ispitivanje ispravnosti svake naredbe u programu. 
+Za naredbu programa formira se formula \texttt{context} koja opisuje izvršavanje programa do te naredbe i formula \texttt{error} koja predstavlja grešku do koje može doći pri njenom izvršavanju. Uslov ispravnosti odgovara formuli \texttt{context $\Rightarrow$ $\neg$ error}, a uslov neispravnosti odgovara formuli \texttt{context $\Rightarrow$ error}. 
+
+
+Na taj način se ispitivanje da li naredba dovodi do greške svodi na ispitivanje valjanosti formula ispravnosti i neispravnosti u izabranoj teoriji upotrebom SMT rešavača. U zavisnosti od rezultata ispitivanja, naredba može biti bezbedna, neispravna, nebezbedna i nedostižna. \par 
 Naredba je bezbedna	ukoliko prilikom njenog izvršavanja nikada ne dolazi do greške. Naredba se smatra neispravnom ukoliko prilikom njenog izvršavanja uvek dolazi do greške. Nebezbedna naredba je naredba čije izvršavanje može dovesti do greške ali i ne mora. Nedostižna je ona naredba koja nikada neće biti izvršena.
 
 \par
@@ -1111,7 +1125,7 @@ Primenom sistema LAV za ispitivanje ispravnosti C programa pokazano je da je kor
 Proveravanje da li program sadrži grešku, računarski je zahtevan proces. Prema Murovom zakonu \cite{Moore}, eksponencijalni porast snage računara dovodi do povećanja raznovrsnosti problema koji se mogu rešiti. 
 S obzirom da se u procesu automatizacije testiranja softvera posebna pažnja poklanja odnosu efikasnosti i tačnosti, poželjno je iskoristiti pomenuti eksponencijalni rast snage računara. Pri ispitivanju ispravnosti softvera, to se može ostvariti upotrebom striktnih matematičkih metoda.
 \par
-Sistemi čija je svrha ispitivanje ispravnosti softvera korišćenjem tehnika statičke analize, opisanim u poglavlju \ref{sec:deo1}, implementaciono su zahtevni. Imajući u vidu blisku povezanost ovakvih sistema sa matematičkim formalizmima i modelovanjem, potrebno je mnogo uloženog truda i stručan tim ljudi. Pored samih implementacionih troškova sistema za ispitivanje ispravnosti, ulaze i troškovi sistema koji treba da budu testirani kašnjenjem isporuke.
+Sistemi čija je svrha ispitivanje ispravnosti softvera korišćenjem tehnika statičke analize, opisanim u poglavlju \ref{sec:deo1}, implementaciono su zahtevni. Imajući u vidu blisku povezanost ovakvih sistema sa matematičkim formalizmima i modelovanjem, potrebno je mnogo uloženog truda i stručan tim ljudi. 
 \par 
 Cilj sistema za ispitivanje ispravnosti softvera je da pokrije što veći broj grešaka. Kako složeniji sistemi imaju ogroman broj putanja, testiranje svih putanja u praksi je nemoguće. Da bi se ovaj problem prevazišao, rešenje bi bilo da sistem za proveravanje ispravnosti softvera automatski generiše test primere koji bi potencijalno doveli do greške u softveru. S obzirom da tehnike statičke analize primenjuju različite aproksimacije prilikom pravljenja modela programa, ovakvi sistemi mogu dovesti do pojave lažnih upozorenja (eng. \textit{false positives}). Lažno upozorenje je izveštaj da program ima grešku koja zapravo ne postoji. Zbog pojave lažnih upozorenja, potrebno je proveriti njihovu validnost.
 \par
@@ -1169,14 +1183,15 @@ Pri pokretanju alata LAV, opcijom \texttt{-solver=Z3-LA-ARR-EUF} označava se up
 
 \par
 \subsubsection{Automatizacija testiranja}
-Automatizacija testiranja programa vrednostima modela u okviru alata LAV vrši se pokretanjem bash skripte \texttt{testiranje.sh}. Skripta izvršava ulazni C program čime se utvrđuje da li generisani test primeri dovode do nebezbednog ponašanja i softverske greške.
+Automatizacija testiranja programa vrednostima modela u okviru alata LAV vrši se pokretanjem bash skripte \texttt{testiranje.sh}. Skripta poziva sistem LAV koji generiše model i test primere za koje je potrebno proveriti da li dovode do greške pri izvršavanju C programa. Pored toga, skripta izvršava C program čije su ulazne vrednosti generisani test primeri.
+
 Kao argumenti pri pokretanju skripte navode se 
 \par
 \texttt{./testiranje.sh <ime\_programa> <teorija> <test\_direktorijum>}
 \\ gde su:
 \begin{description}
+   \item \texttt{<teorija>} - odabir teorije u koju se formula za opisivanje ponašanja programa transformiše. Podržane teorije su teorija linearne aritmetike (navođenjem argumenta \texttt{LA}) ili teorija bitvektora (navođenjem argumenta \texttt{BV})
   \item \texttt{<ime\_programa>} - C program koji se testira
-  \item \texttt{<teorija>} - odabir teorije u koju se formula za opisivanje ponašanja programa transformiše. Podržane teorije su teorija linearne aritmetike (navođenjem argumenta \texttt{LA}) ili teorija bitvektora (navođenjem argumenta \texttt{BV})
   \item \texttt{<test\_direktorijum>} - putanja na kojoj će se generisati test primeri u okviru fajl sistema. Ovaj argument je opcioni. Ukoliko se izostavi, podrazumevana vrednost je Output/test direktorijum u okviru sistema LAV.
 \end{description}
  
