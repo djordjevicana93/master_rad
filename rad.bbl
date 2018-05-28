@@ -259,6 +259,25 @@
       \field{title}{25 Years of Model Checking - The Birth of Model Checking}
       \field{year}{2008}
     \endentry
+    \entry{QualityAssurance}{book}{}
+      \name{author}{1}{}{%
+        {{hash=ad317d64f9b17011f14f38ae4a8ac7e9}{%
+           family={Claude\bibnamedelimb Y.\bibnamedelimi Laporte},
+           familyi={C\bibinitperiod\bibinitdelim Y\bibinitperiod\bibinitdelim L\bibinitperiod},
+           given={Alain\bibnamedelima April},
+           giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{ad317d64f9b17011f14f38ae4a8ac7e9}
+      \strng{fullhash}{ad317d64f9b17011f14f38ae4a8ac7e9}
+      \strng{authornamehash}{ad317d64f9b17011f14f38ae4a8ac7e9}
+      \strng{authorfullhash}{ad317d64f9b17011f14f38ae4a8ac7e9}
+      \field{sortinit}{C}
+      \field{sortinithash}{095692fd22cc3c74d7fe223d02314dbd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Software Quality Assurance}
+      \field{year}{2017}
+    \endentry
     \entry{AbstractInterpretation2}{book}{}
       \name{author}{1}{}{%
         {{hash=3e25d8d97111295c8ef6290b9df103d1}{%
