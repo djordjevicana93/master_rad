@@ -141,8 +141,7 @@ U užem smislu, testiranje predstavlja proveru da li je softver implementiran u 
 %: brzina rada, brzina pokretanja, jednostavnost održavanja kao i prenošenje na druge platforme, rad u uslovima sa ogromnim količinama podataka.
 %Pored proveravanja samog softvera, testiranje uključuje proveravanje svih pratećih komponenti i karakteristika. 
 \par 
-Sa porastom složenosti projekta, raste i značaj testiranja i provera celokupnog softverskog sistema kako bi se izbegli ishodi koji mogu da unište ceo projekat. 
-S obzirom na to da se greške ne mogu izbeći, potrebno ih je što je moguće ranije otkriti kako bi njihovo otklanjanje bilo brže i jeftinije. Zbog prednosti koje se ostvaruju, najzastupljenije i trenutno najpopularnije metodologije razvoja softvera promovišu paralelnu implementaciju i pisanje testova za svaku od celina koja se razvija u okviru softverskog sistema \cite{AgileDevelopment}. Pre isporučivanja softvera, neophodno je da uspešno prođu testovi za svaku od celina sistema.
+Sa porastom složenosti projekta, raste i značaj testiranja i provera celokupnog softverskog sistema kako bi se izbegli ishodi koji mogu da unište ceo projekat. Osobe koje sprovode testiranje nazivaju se testeri. S obzirom na to da se greške ne mogu izbeći, potrebno ih je što je moguće ranije otkriti kako bi njihovo otklanjanje bilo brže i jeftinije. Zbog prednosti koje se ostvaruju, najzastupljenije i trenutno najpopularnije metodologije razvoja softvera promovišu paralelnu implementaciju i pisanje testova za svaku od celina koja se razvija u okviru softverskog sistema \cite{AgileDevelopment}. Pre isporučivanja softvera, neophodno je da uspešno prođu testovi za svaku od celina sistema.
 \par 
 
 U poglavlju \ref{broj1} opisane su faze i aktivnosti koje se primenjuju tokom procesa testiranja. U poglavlju \ref{broj2} opisane su vrste testiranja softverskog sistema. U poglavlju \ref{broj3} opisane su strategije testiranja uključujući strategiju crne, bele i sive kutije. Načini izvršavanja testova opisani su u poglavlju \ref{broj4}. Načini generisanja testova opisani su u poglavlju \ref{broj5}. U poglavlju \ref{broj5} opisane su i neke od tehnika i alata za automatsko generisanje test primera korišćenjem strategija crne, bele i sive kutije. 
@@ -286,7 +285,7 @@ Kod \emph{metode graničnih  vrednosti} (eng. \textit{Boundary Value  Analysis})
 napravljeni  tako  da  reprezentuju  granice  odgovarajućih 
 klasa (ulaznih podataka). Osnovu čini princip prethodno objašnjene 
 metode klasa ekvivalencija \cite{PartitioningBoundary}.
-Za svaki skup ulaznih podataka formiraju se tri klase, jedna validna i dve nevalidne. Validna klasa ima ispravne ulazne vrednosti, a nevalidne klase sadrže ulazne vrednosti koje ne pripadaju ispravnim opsezima. Vrednosti na granicama između validne i nevalidnih klasa nazivaju se test vektorima klasa.
+Za svaki skup ulaznih podataka formiraju se tri klase, jedna validna i dve nevalidne. Validna klasa ima ispravne ulazne vrednosti, a nevalidne klase sadrže ulazne vrednosti koje ne pripadaju ispravnim opsezima. Vrednosti na granicama između validne i nevalidnih klasa nazivaju se test vektori klasa.
 Razlog  za korišćenje upravo ovih vrednosti za test vektore jesu česte softverske greške baš na
 granicama opsega važenja. 
 
@@ -357,19 +356,19 @@ Ovom tehnikom formiraju se neispravni i neočekivani ulazi na osnovu specifikaci
 Test primer sa kojim se započinje testiranje može biti slučajno generisan ili ulaz definisan od strane programera. Svaki naredni test primer generiše se na osnovu potencijalnih slabosti rada aplikacije. Rasplinuto testiranje može se fokusirati na granične vrednosti ulaza ali i na bilo koje ulazne vrednosti koje mogu izazvati nedefinisano ili nebezbedno ponašanje. Može se definisati i kao metod otkrivanja grešaka softvera kreiranjem neočekivanih ulaza i upravljanjem izuzecima. Danas se rasplinuto testiranje najviše koristi u velikim sistemima jer se pokazalo da ova metoda daje jako dobar odnos cene i vremena naspram kvaliteta testiranja. 
 \par
 
-Uopšteno, postoje dve vrste alata za generisanje testova primenom tehnike rasplinutog testiranja. Jedna grupa alata zahteva posebno kvalifikovane testera koji unose detalje o implementaciji sistema. Druga grupa alata omogućava generisanje testova samo konfigurisanjem parametara o očekivanom ulazu i definisanjem programskog jezika. Prednost ovog pristupa je jednostavnost, dok je mana niži kvalitet testiranja u odnosu na testove koji se formiraju za specifični sistem. 
+Uopšteno, postoje dve vrste alata za generisanje testova primenom tehnike rasplinutog testiranja. Jedna grupa alata zahteva posebno kvalifikovane testere koji unose detalje o implementaciji sistema. Druga grupa alata omogućava generisanje testova samo konfigurisanjem parametara o očekivanom ulazu i definisanjem programskog jezika. Prednost ovog pristupa je jednostavnost, dok je mana niži kvalitet testiranja u odnosu na testove koji se formiraju za specifični sistem. 
 \par
-Pored navedenih osobina, postoji veliki broj metoda rasplinutog testiranja. Jedna od njih je random metoda koja je najmanje efikasna i podrazumeva generisanje slučajnog test primera. Pored ove metode, koristi se i metoda izučavanja ulaznih vrednosti koja analizira sve podržane strukture podataka i opsege ulaznih vrednosti. Takođe, primenjuje se i rasplinuto testiranje grubom silom u kojem testiranje počinje ispravnim ulazom, a zatim se u svakom sledećem koraku menja svaki bajt ili karakter niske u zavisnosti od tipa ulazne vrednosti. Složeniji ulazi zahtevaju ogroman broj varijacija pa u tom slučaju ne postoji dobra pokrivenost testovima.
+Postoji veliki broj metoda rasplinutog testiranja. Jedna od njih je \emph{random metoda} koja je najmanje efikasna i podrazumeva generisanje slučajnog test primera. Pored ove metode, koristi se i \emph{metoda izučavanja ulaznih vrednosti} koja analizira sve podržane strukture podataka i opsege ulaznih vrednosti. Takođe, primenjuje se i \emph{rasplinuto testiranje grubom silom} u kojem testiranje počinje ispravnim ulazom, a zatim se u svakom sledećem koraku menja svaki bajt ili karakter niske u zavisnosti od tipa ulazne vrednosti. Složeniji ulazi zahtevaju ogroman broj varijacija pa u tom slučaju ne postoji dobra pokrivenost testovima.
 \par
-Jedan od alata koji primenjuje strategiju sive kutije za automatsko generisanje test primera je SAGE \cite{ToolSAGE}. Namena alata SAGE (eng. \textit{Scalable, Automated, Guided Execution}) je proveravanje stabilnosti rada programa koji se izvršavaju na Windows operativnom sistemu čiji su procesori kompatibilni sa x86 skupom instrukcija. Odlikuje se specifičnom arhitekturom i algoritmom koji ga izdvaja od programa slične namene. Za generisanje test primera, alat SAGE koristi program koji se testira i skupove ulaznih podataka koji se jedan za drugim učitavaju u sam program. Cilj je naći skupove ulaznih podataka koji dovode do nedefinisanog i nebezbednog ponašanja tokom izvršavanja programa. Ukoliko SAGE uspe da generiše takav skup ulaznih podataka, smatra se da je on uspešno ispunio svoj zadatak. Nađeni skup podataka se zapisuje u internu bazu alata i nastavlja se potraga za drugim skupovima ulaznih podataka koji izazivaju nebezbedno ponašanje programa, ukoliko takvi postoje. Ulazni podaci se inicijalno biraju praćenjem izvršavanja programa na nivou x86 mašinskog koda. Glavni cilj alata je pokrivenost svih delova programa prolaskom kroz sve grane programa. Važno je napomenuti da se primenom ovog alata ne generišu svi mogući ulazi, s obzirom da njihovo generisanje nije moguće u razumnom roku. 
+Jedan od alata koji primenjuje strategiju sive kutije za automatsko generisanje test primera je \emph{SAGE} \cite{ToolSAGE}. Namena alata SAGE (eng. \textit{Scalable, Automated, Guided Execution}) je proveravanje stabilnosti rada programa koji se izvršavaju na Windows operativnom sistemu čiji su procesori kompatibilni sa x86 skupom instrukcija. Odlikuje se specifičnom arhitekturom i algoritmom koji ga izdvaja od programa slične namene. Za generisanje test primera, alat SAGE koristi program koji se testira i skupove ulaznih podataka koji se jedan za drugim učitavaju u sam program. Cilj je naći skupove ulaznih podataka koji dovode do nedefinisanog i nebezbednog ponašanja tokom izvršavanja programa. Ukoliko SAGE uspe da generiše takav skup ulaznih podataka, smatra se da je on uspešno ispunio svoj zadatak. Nađeni skup podataka se zapisuje u internu bazu alata i nastavlja se potraga za drugim skupovima ulaznih podataka koji izazivaju nebezbedno ponašanje programa, ukoliko takvi postoje. Ulazni podaci se inicijalno biraju praćenjem izvršavanja programa na nivou x86 mašinskog koda. Glavni cilj alata je pokrivenost svih delova programa prolaskom kroz sve grane programa. Važno je napomenuti da se primenom ovog alata ne generišu svi mogući ulazi, s obzirom da njihovo generisanje nije moguće u razumnom roku. 
 \par
 Program SAGE sastoji se od četiri faze koje se izvršavaju jedna za drugom. Te faze su testiranje, praćenje mašinskih instrukcija, generisanje ograničenja i generisanje narednog skupa ulaznih podataka. Izvršavanje četiri faze predstavlja jedan ciklus. Broj ciklusa je jako veliki a ukupno izvršavanje SAGE programa meri se satima ili čak danima. 
 U prvoj fazi program se izvršava koristeći početni skup ulaznih podataka. Ukoliko se tokom ove faze detektuje skup ulaznih podataka koji dovodi do nedefinisanog ponašanja programa, pronađeni skup podataka se dokumentuje u internu bazu alata. Ukoliko ovakav skup ulaznih podataka ne postoji, prelazi se na drugu fazu tokom koje se formira zapis mašinskih instrukcija na osnovu izvornog koda. Za generisanje ograničenja, koriste se blokovi mašinskih instrukcija iz prethodne faze. U poslednjoj fazi se za generisanje novih skupova ulaznih podataka koriste dobijena ograničenja a zatim sledi ponavljanje ciklusa. 
 \par
-KLEE \cite{ToolKLEE} je alat za simboličko izvršavanje \cite{SymbolicExecution} koji primenjuje strategiju bele kutije za automatsko generisanje test primera. 
+\emph{KLEE} \cite{ToolKLEE} je alat za simboličko izvršavanje \cite{SymbolicExecution} koji primenjuje strategiju bele kutije za automatsko generisanje test primera. 
 Nastao je na univerzitetu Ilinois i javno je dostupan.
 Alat proverava greške u radu sa pokazivačima, greške prekoračenja bafera i greške deljenja nulom za programe napisane u programskom jeziku C. Ovim alatom postiže se velika pokrivenost kompleksnih programa testovima. KLEE koristi razne optimizacije i heuristike za poboljšanje pokrivenosti koda prilikom simboličkog izvršavanja. Alat ima dva cilja, pokrivanje svake linije izvršnog koda u programu i detektovanje svake nebezbedne operacije ukoliko takva postoji. \par
-Kod normalnog izvršavanja programa, operacije nad operandima proizvode konkretne vrednosti. Problem složenih programa je eksplozija stanja sistema koju je potrebno proveriti kako bi se generisali test primeri. Iz tog razloga, koristi se pristup simboličkog izvršavanja programa koji opisuje skup vrednosti koji je moguć na datoj putanji u programu. Kada KLEE detektuje grešku, vrši se rešavanje ograničenja trenutne putanje kako bi se proizveo test primer za koji je potrebno izvršiti program upotrebom kompajlera. 
+Kod normalnog izvršavanja programa, operacije nad operandima proizvode konkretne vrednosti. Problem složenih programa je eksplozija stanja sistema koju je potrebno proveriti kako bi se generisali test primeri. Iz tog razloga, koristi se pristup simboličkog izvršavanja programa koji opisuje skup vrednosti koji je moguć na datoj putanji u programu. Kada KLEE detektuje grešku, vrši se rešavanje ograničenja trenutne putanje kako bi se proizveo test primer za koji je potrebno izvršiti program upotrebom kompilatora. 
 \par 
 KLEE koristi jednostavan pristup za sinhronizaciju sa okruženjem. Naime, veliki deo koda je kontrolisan vrednostima koje se dobijaju iz okruženja kao što su argumenti komandne linije i fajl sistem. 
  
@@ -377,17 +376,17 @@ KLEE koristi jednostavan pristup za sinhronizaciju sa okruženjem. Naime, veliki
 \label{chp:razrada}
 
 Sistemi za analizu i proveru ispravnosti softvera su veoma kompleksni. Njihovu osnovu predstavlja komponenta koja koristi logičke formule za opisivanja stanja i transformacija između stanja sistema. Opisivanje stanja sistema i provera zahtevanih svojstava sistema zadatih specifikacijom često se svodi na ispitivanje zadovoljivosti odgovarajuće formule logike prvog reda.
-Proveravanje zadovoljivosti formula vrši se procedurama odlučivanja u odnosu na definisanu teoriju. Formalno, zadovoljivost u odnosu na teoriju (eng. \textit{Satisfiability Modulo Theory}, skraćeno SMT) problem je odlučivanja zadovoljivosti u odnosu na osnovnu teoriju T opisanu u klasičnoj logici prvog reda sa jednakošću \cite{Barrett}. Alati koji se koriste za rešavanje ovog problema nazivaju se SMT rešavači. 
+Proveravanje zadovoljivosti formula vrši se procedurama odlučivanja u odnosu na definisanu teoriju. Formalno, \emph{zadovoljivost u odnosu na teoriju} (eng. \textit{Satisfiability Modulo Theory}, skraćeno SMT) problem je odlučivanja zadovoljivosti u odnosu na osnovnu teoriju T opisanu u klasičnoj logici prvog reda sa jednakošću \cite{Barrett}. Alati koji se koriste za rešavanje ovog problema nazivaju se \emph{SMT rešavači}. 
 \par
 
-Jedan od najpoznatijih SMT rešavača je rešavač Z3 kompanije Microsoft koji se koristi za proveru zadovoljivosti logičkih formula u velikom broju teorija \cite{EfficientSMTSolver}. Z3 se najčešće koristi kao podrška drugim alatima, pre svega alatima za analizu i ispitivanje ispravnosti softvera. Pripada grupi SMT rešavača sa integrisanim procedurama odlučivanja.
+Jedan od najpoznatijih SMT rešavača je \emph{rešavač Z3} kompanije Microsoft koji se koristi za proveru zadovoljivosti logičkih formula u velikom broju teorija \cite{EfficientSMTSolver}. Z3 se najčešće koristi kao podrška drugim alatima, pre svega alatima za analizu i ispitivanje ispravnosti softvera. Pripada grupi SMT rešavača sa integrisanim procedurama odlučivanja.
 \par
 U ovoj glavi opisane su osnove rešavača Z3 u poglavlju \ref{sec:num1}. U poglavlju \ref{sec:num2} opisane su najvažnije teorije uključujući teoriju neinterpretiranih funkcija, teoriju linearne aritmetike, teoriju nelinearne aritmetike, teoriju bitvektora i teoriju nizova. U poglavlju \ref{sec:num3} opisani su  podržani tipovi podataka. U poglavlju \ref{sec:num4} opisan je format za komunikaciju sa Z3 rešavačem korišćenjem SMT-LIB standarda. Pored toga, rešavač Z3 nudi interfejse za direktnu komunikaciju sa programskim jezicima C, C++, Java i Python. U poglavlju \ref{sec:num5} opisan je interfejs rešavača Z3 za komunikaciju sa programskim jezikom C++. Oba formata komunikacije imaju istu moć izražajnosti. Šta više, sintaksno se jako slično zapisuju. U poglavlju sa implementacijom biće korišćen C++ interfejs za komunikaciju sa Z3 rešavačem. Važno zapažanje je da su interfejsi za programske jezike C i C++ veoma slični. Više materijala o podržanim interfejsima za programske jezike C, C++, Java i Python može se pronaći u literaturi \cite{api}.
 
 \section{Osnove rešavača}  \label{sec:num1}
-Problem zadovoljivosti (eng. \textit{Satisfiability problem}, skraćeno SAT) problem je odlučivanja da li za iskaznu formulu u konjunktivnoj normalnoj formi postoji valuacija u kojoj su sve njene 
+\emph{Problem zadovoljivosti} (eng. \textit{Satisfiability problem}, skraćeno SAT) problem je odlučivanja da li za iskaznu formulu u konjunktivnoj normalnoj formi postoji valuacija u kojoj su sve njene 
 klauze tačne \cite{Handbook}. 
-Rešavači koji se koriste za rešavanje ovog problema nazivaju se SAT rešavači. Rešavač Z3 integriše SAT rešavač zasnovan na savremenoj DPLL proceduri i procedure odlučivanja za veliki broj teorija.
+Rešavači koji se koriste za rešavanje ovog problema nazivaju se \emph{SAT rešavači}. Rešavač Z3 integriše SAT rešavač zasnovan na savremenoj DPLL proceduri i procedure odlučivanja za veliki broj teorija.
 Implementiran je u programskom jeziku C++. Šematski prikaz arhitekture rešavača \cite{EfficientSMTSolver} prikazan je na slici \ref{fig:arhitektura}. 
 \begin{figure}[!ht]
   \centering
@@ -397,13 +396,13 @@ Implementiran je u programskom jeziku C++. Šematski prikaz arhitekture rešava�
 \end{figure}
 \par
 Formule prosleđene rešavaču se najpre procesiraju upotrebom simplifikacije. Simplifikacija primenjuje algebarska pravila redukcije kao što je \texttt{p $\land$ true $\vdash$ p}. Ovim procesom vrše se i odgovarajuće zamene kao što je \texttt{x=4 $\land$ q(x) $\vdash$ x=4 $\land$ q(4)}.
-Nakon simplifikacije, kompajler formira apstraktno sintaksno stablo formula čiji su čvorovi simplifikovane formule (klauze). Zatim se jezgru kongruentnog zatvorenja (eng. 
+Nakon simplifikacije, kompilator formira apstraktno sintaksno stablo formula čiji su čvorovi simplifikovane formule (klauze). Zatim se jezgru kongruentnog zatvorenja (eng. 
 \textit{Congruence closure core}) prosleđuje apstraktno sintaksno stablo. Jezgro kongruentnog zatvorenja komunicira sa SAT rešavačem koji određuje istinitosnu vrednost literala prvog reda i klauza. 
 \par
 
-Glavni gradivni blokovi formula su konstante, funkcijski i relacijski simboli. Konstante su specijalan slučaj funkcijskih simbola bez parametara. Svaka konstanta je određene sorte. Sorta odgovara tipu u programskim jezicima. Takođe, svaki funkcijski simbol ima zadate sorte svojih argumenata, kao i povratnu sortu. Relacijski simboli se mogu smatrati funkcijskim simbolima čija je povratna sorta Boolean. Od konstanti, funkcijskih i relacijskih simbola formiraju se izrazi. Svaki izraz ima sortu koja odgovara povratnoj sorti vodećeg simbola. Izrazi sorte Boolean nazivaju se formule. Funkcijski simboli mogu imati argumente sorte Boolean, pa se na taj način formule mogu koristiti kao argumenti funkcijskih simbola.
+Glavni gradivni blokovi formula su konstante, funkcijski i relacijski simboli. \emph{Konstante} su specijalan slučaj funkcijskih simbola bez parametara. Svaka konstanta je određene sorte. \emph{Sorta} odgovara tipu u programskim jezicima. Takođe, svaki \emph{funkcijski simbol} ima zadate sorte svojih argumenata, kao i povratnu sortu. \emph{Relacijski simboli} se mogu smatrati funkcijskim simbolima čija je povratna sorta Boolean. Od konstanti, funkcijskih i relacijskih simbola formiraju se izrazi. Svaki \emph{izraz} ima sortu koja odgovara povratnoj sorti vodećeg simbola. Izrazi sorte Boolean nazivaju se formule. Funkcijski simboli mogu imati argumente sorte Boolean, pa se na taj način formule mogu koristiti kao argumenti funkcijskih simbola.
 
-Formula $F$ je validna ako je vrednost valuacije $true$ za bilo koju interpretaciju funkcijskih i konstantnih simbola. Formula $F$ je zadovoljiva ukoliko postoji bar jedna interpretacija u kojoj je formula tačna. Da bismo odredili da li je formula $F$ validna, rešavač Z3 proverava da li je formula $\lnot F$ zadovoljiva. Ukoliko je negacija formule nezadovoljiva, onda je polazna formula validna. 
+Formula $F$ je valjana ako je vrednost valuacije $true$ za bilo koju interpretaciju funkcijskih i konstantnih simbola. Formula $F$ je zadovoljiva ukoliko postoji bar jedna interpretacija u kojoj je formula tačna. Da bismo odredili da li je formula $F$ valjana, rešavač Z3 proverava da li je formula $\lnot F$ zadovoljiva. Ukoliko je negacija formule nezadovoljiva, onda je polazna formula valjana. 
 
 
 
@@ -411,31 +410,31 @@ Formula $F$ je validna ako je vrednost valuacije $true$ za bilo koju interpretac
 Teorije rešavača Z3 su opisane u okviru višesortne logike prvog reda sa jednakošću.  Definisanjem specifične teorije, uvode se restrikcije pri definisanju formula kao i podržanih relacijskih simbola koje se nad njima primenjuju. Na taj način, specijalizovane metode u odgovarajućoj teoriji mogu biti efikasnije implementirane u poređenju sa opštim slučajem. U nastavku će biti opisane teorija neinterpretiranih funkcija, teorija linearne aritmetike, teorija nelinearne aritmetike, teorija bitvektora i teorija nizova.
 
 \subsection{Teorija neinterpretiranih funkcija}
-Teorije obično određuju interpretaciju funkcijskih simbola. Teorija koja ne zadaje nikakva ograničenja za funkcijske simbole naziva se teorija neinterpretiranih funkcija 
+Teorije obično određuju interpretaciju funkcijskih simbola. Teorija koja ne zadaje nikakva ograničenja za funkcijske simbole naziva se \emph{teorija neinterpretiranih funkcija}
 (eng. \textit{Theory of Equality with Uninterpreted Functions}, skraćeno EUF). \par 
 Kod rešavača Z3, funkcijski i konstantni simboli EUF teorije su neinterpretirani. Ovo je kontrast u odnosu na simbole ostalih teorija. Na primer, simbol + ima standardnu interpretaciju u teoriji aritmetike. Neinterpretirani funkcijski i konstantni simboli su maksimalno fleksibilni i dozvoljavaju bilo koju interpretaciju koja je u skladu sa ograničenjima. \par
-Za razliku od programskih jezika, funkcije logike prvog reda su totalne, tj. definisane su za sve vrednosti ulaznih parametara. Na primer, deljenje 0 je dozvoljeno, ali nije specifikovano šta ono predstavlja. 
+Za razliku od programskih jezika, funkcije logike prvog reda su totalne, tj. definisane su za sve vrednosti ulaznih parametara. Na primer, deljenje nulom je dozvoljeno, ali nije specifikovano šta ono predstavlja. 
 \par
 Bazni fragment teorije neinterpretiranih funkcija je odlučiv i postoji procedura odlučivanja polinomijalne vremenske složenosti. U opštem slučaju, ako razmatramo i kvantifikatore, ova teorija je neodlučiva. Jedna od procedura odlučivanja baznog fragmenta teorije neinterpretiranih funkcija zasniva se na primeni algoritma Nelson-Open (eng. \textit{Nelson-Oppen algorithm}). O ovom algoritmu može se više naći u literaturi \cite{NelsonOpen}.
 \subsection{Teorija linearne aritmetike} 
 
-Rešavač Z3 sadrži procedure odlučivanja za linearnu aritmetiku nad celobrojnim i realnim brojevima. Dodatni materijali o procedurama odlučivanja linearne aritmetike dostupni su u literaturi \cite{FastLinearArithmetic}.
+Rešavač Z3 sadrži procedure odlučivanja za \emph{linearnu aritmetiku nad celobrojnim i realnim brojevima}. Dodatni materijali o procedurama odlučivanja linearne aritmetike dostupni su u literaturi \cite{FastLinearArithmetic}.
 \par
 
-U okviru celobrojne linearne aritmetike, podržani funkcijski simboli su $+$, $-$ i $*$ pri čemu je kod množenja drugi operand numeral. Numerali (poput 0, 1, 2...) imaju unapred zadatu interpretaciju u teoriji celobrojne linearne aritmetike. Važno je napomenuti da celobrojna linearna aritmetika dozvoljava izraze poput 2*x, ali ne i izraze poput a*x, gde je a simbol konstante. Nad funkcijskim simbolima, čiji su specijalni slučajevi konstante mogu se primenjivati relacijski operatori $<$, $\leq$, $>$ i $\geq$. 
+U okviru celobrojne linearne aritmetike, podržani funkcijski simboli su $+$, $-$ i $*$ pri čemu je kod množenja bar jedan operand numeral. Numerali (poput 0, 1, 2...) imaju unapred zadatu interpretaciju u teoriji celobrojne linearne aritmetike. Važno je napomenuti da celobrojna linearna aritmetika dozvoljava izraze poput 2*x, ali ne i izraze poput a*x, gde je a simbol konstante. Nad funkcijskim simbolima, čiji su specijalni slučajevi konstante mogu se primenjivati relacijski operatori $<$, $\leq$, $>$ i $\geq$. 
 \par
-U okviru realne linearne aritmetike, podržani funkcijski simboli su $+$, $-$ i $*$ pri čemu je kod množenja drugi operand numeral. Za interpretaciju numerala i operaciju množenja važe ista pravila koja su navedena za teoriju celobrojne linearne aritmetike. Podržane su operacije $div$ i $mod$, uz uslov da je drugi operand konstanta različita od 0. Nad funkcijskim simbolima, čiji su specijalni slučajevi konstante mogu se primenjivati relacijski operatori $<$, $\leq$, $>$ i $\geq$. 
+U okviru realne linearne aritmetike, podržani funkcijski simboli su $+$, $-$ i $*$ pri čemu je kod množenja bar jedan operand numeral. Za interpretaciju numerala i operaciju množenja važe ista pravila koja su navedena za teoriju celobrojne linearne aritmetike. Podržane su operacije $div$ i $mod$, uz uslov da je drugi operand konstanta različita od 0. Nad funkcijskim simbolima, čiji su specijalni slučajevi konstante mogu se primenjivati relacijski operatori $<$, $\leq$, $>$ i $\geq$. 
 \par
 \subsection{Teorija nelinearne aritmetike} 
 
-Formula predstavlja formulu nelinearne aritmetike ako sadrži izraz oblika (* t s), gde ni t ni s nisu numerali.
+Formula predstavlja \emph{formulu nelinearne aritmetike} ako sadrži izraz oblika (* t s), gde ni t ni s nisu numerali.
 Celobrojna nelinearna aritmetika je neodlučiva, tj. ne postoji procedura koja za proizvoljnu formulu vraća zadovoljivost ili nezadovoljivost. U najvećem broju slučajeva, Z3 vraća nepoznat rezultat. Realna nelinearna aritmetika je odlučiva. Za nelinearne probleme, rešavač Z3 koristi posebne metode odlučivanja zasnovane na Grebnerovim bazama. 
 
 
 \subsection{Teorija bitvektora} 
 Rešavač Z3 podržava bitvektore proizvoljne konačne dužine. \texttt{(\_ BitVec n)} je sorta bitvektora čija je dužina \texttt{n}. Bitvektor literali se mogu definisati koristeći binarnu, decimalnu ili heksadecimalnu notaciju. U binarnom i heksadecimalnom slučaju, veličina bitvektora je određena brojem karaktera. Na primer, literal \textit{\#b010} u binarnom formatu je bitvektor dužine 3. Kako konstanta \textit{a} u heksadecimalnom formatu odgovara dekadnom broju 10, literal \textit{\#x0a} je bitvektor veličine 8 sa vrednošću 10. Veličina bitvektora mora biti specifikovana u decimalnom formatu. Na primer, reprezentacija \textit{(\_ bv10 32)} je bitvektor dužine 32 sa vrednošću 10. Podrazumevano, Z3 predstavlja bitvektore u heksadecimalnom formatu ukoliko je dužina bitvektora umnožak broja 4 a u suprotnom u binarnom formatu. Bitvektor literali mogu biti reprezentovani u decimalnom formatu. Više materijala o procedurama odlučivanja za teoriju bitvektora može se naći u literaturi \cite{DPBitvector}.
 
-Pri korišćenju operatora nad bitvektorima, mora se eksplicitno navesti tip operatora. Zapravo, za svaki operator podržane su dve varijante za rad sa označenenim i neoznačenim operandima. Ovo je kontrast u odnosu na programske jezike u kojima kompajler na osnovu argumenata implicitno određuje tip operacije (označena ili neoznačena varijanta).
+Pri korišćenju operatora nad bitvektorima, mora se eksplicitno navesti tip operatora. Zapravo, za svaki operator podržane su dve varijante za rad sa označenenim i neoznačenim operandima. Ovo je kontrast u odnosu na programske jezike u kojima kompilator na osnovu argumenata implicitno određuje tip operacije (označena ili neoznačena varijanta).
 \par
 U skladu sa prethodno navedenom činjenicom, teorija bitvektora ima na raspolaganju različite verzije aritmetičkih operacija za označene i neoznačene operande. Za rad sa bitvektorima od aritmetičkih operacija definisane su operacije sabiranja, oduzimanja, određivanje negacije (zapisivanja broja u komplementu invertovanjem svih bitova polaznog broja), množenja, izračunavanja modula pri deljenju, šiftovanje u levo kao i označeno i neoznačeno šiftovanje u desno. Podržane su sledeće logičke operacije: disjunkcija, konjunkcija, unarna negacija, negacija konjunkcije i negacija disjunkcije. Definisane su različite relacije nad bitvektorima kao što su $\leq$, $<$, $\geq$ i $>$.
 
@@ -462,27 +461,27 @@ Nad nizovima se mogu vršiti slične operacije kao i nad skupovima. Rešavač Z3
 \texttt{(difference a b)} ; kreiranje razlike dva niza kao skupa
 
 \section{Tipovi podataka} \label{sec:num3}
-U okviru rešavača Z3 dostupni su primitivni tipovi podataka, definisanjem konstanti različitih sorti. Neke od najčešće korišćenih su konstante bulovske, celobrojne i realne sorte.
-Pored toga, mogu se definisati algebarski tipovi podataka. Algebarski tipovi podataka omogućavaju specifikaciju uobičajnih struktura podataka. Slogovi, torke i skalari (enumeracijski tipovi) spadaju u algebarske tipove podataka. Primena algebarskih tipova podataka može se generalizovati. Mogu se koristiti za specifikovanje konačnih listi, stabala i rekurzivnih struktura. 
+U okviru rešavača Z3 dostupni su \emph{primitivni tipovi podataka}, definisanjem konstanti različitih sorti. Neke od najčešće korišćenih su konstante bulovske, celobrojne i realne sorte.
+Pored toga, mogu se definisati \emph{algebarski tipovi podataka}. Algebarski tipovi podataka omogućavaju specifikaciju uobičajnih struktura podataka. Slogovi, torke i skalari (enumeracijski tipovi) spadaju u algebarske tipove podataka. Primena algebarskih tipova podataka može se generalizovati. Mogu se koristiti za specifikovanje konačnih listi, stabala i rekurzivnih struktura. 
 \subsubsection{Slogovi}
-Slog se specifikuje kao tip podataka sa jednim konstruktorom i proizvoljnim brojem elemenata sloga. Rešavač Z3 ne dozvoljava povećavanje broja argumenata sloga nakon njegovog definisanja. Važi svojstvo da su dva sloga jednaka samo ako su im svi argumenti jednaki.
+\emph{Slog} se specifikuje kao tip podataka sa jednim konstruktorom i proizvoljnim brojem elemenata sloga. Rešavač Z3 ne dozvoljava povećavanje broja argumenata sloga nakon njegovog definisanja. Važi svojstvo da su dva sloga jednaka samo ako su im svi argumenti jednaki.
 \subsubsection{Skalari (tipovi enumeracije)}
 
-Sorta skalara je sorta konačnog domena. Elementi konačnog domena se tretiraju kao različite konstante. Na primer, neka je S skalarni tip sa tri vrednosti A, B i C. Moguće je da tri konstante skalarnog tipa S budu različite. Ovo svojstvo ne može važiti u slučaju četiri konstante.
+Sorta \emph{skalara} je sorta konačnog domena. Elementi konačnog domena se tretiraju kao različite konstante. Na primer, neka je S skalarni tip sa tri vrednosti A, B i C. Moguće je da tri konstante skalarnog tipa S budu različite. Ovo svojstvo ne može važiti u slučaju četiri konstante.
 
 
 \subsubsection{Rekurzivni tipovi podataka}
 
-Deklaracija rekurzivnog tipa podataka uključuje sebe direktno kao komponentu. Standardni primer rekurzivnog tipa podataka je lista. 
+Deklaracija \emph{rekurzivnog tipa podataka} uključuje sebe direktno kao komponentu. Standardni primer rekurzivnog tipa podataka je lista. 
 Lista celobrojnih vrednosti sa imenom \texttt{list} može se deklarisati naredbom:\\
 \texttt{(declare-datatypes (list (nil) ((head Int) (tail list)))}
 \par
 Rešavaš Z3 ima ugrađenu podršku za liste korišćenjem ključne reči \texttt{List}.
-Prazna lista se definiše korišćenjem klučne reči \texttt{nil} a konstruktor \texttt{insert} se koristi za dodavanje elemenata u listu. Selektori \texttt{head} i \texttt{tail} se definišu na uobičajan način.
+Prazna lista se definiše korišćenjem ključne reči \texttt{nil} a konstruktor \texttt{insert} se koristi za dodavanje elemenata u listu. Selektori \texttt{head} i \texttt{tail} se definišu na uobičajan način.
 
 
 \section{Upotreba rešavača korišćenjem SMT-LIB standarda} \label{sec:num4}
-Ulazni format rešavača Z3 je definisan SMT-LIB 2.5 standardom \cite{SMTLIB}. Standard definiše jezik logičkih formula čija se zadovoljivost proverava u odnosu na neku teoriju. Cilj standarda je pojednostavljivanje jezika logičkih formula povećavanjem njihove izražajnosti i fleksibilnosti kao i obezbeđivanje zajedničkog jezika za sve SMT rešavače. 
+Ulazni format rešavača Z3 je definisan \emph{SMT-LIB 2.5 standardom} \cite{SMTLIB}. Standard definiše jezik logičkih formula čija se zadovoljivost proverava u odnosu na neku teoriju. Cilj standarda je pojednostavljivanje jezika logičkih formula povećavanjem njihove izražajnosti i fleksibilnosti kao i obezbeđivanje zajedničkog jezika za sve SMT rešavače. 
 \par
 Interno, Z3 održava stek korisnički definisanih formula i deklaracija. Formule i deklaracije jednim imenom nazivamo tvrđenjima. Komandom \texttt{push} kreira se novi opseg i čuva se trenutna veličina steka. Komandom \texttt{pop} uklanjaju se sva tvrđenja i deklaracije zadate posle push-a sa kojim se komanda uparuje. Komandom \texttt{assert} dodaje se formula na interni stek. Skup formula na steku je zadovoljiv ako postoji interpretacija u kojoj sve formule imaju istinitosnu vrednost tačno. Ova provera se vrši komandom \texttt{check-sat}. U slučaju zadovoljivosti vraća se \texttt{sat}, u slučaju nezadovoljivosti vraća se \texttt{unsat}, a kada rešavač ne može da proceni da li je formula zadovoljiva ili ne vraća se \texttt{unknown}. Komandom \texttt{get-model} vraća se interpretacija u kojoj su sve formule na steku tačne. 
 \par
@@ -578,7 +577,7 @@ Ograničenja sadrže aritmetičke i relacijske operatore. Rešavač vraća zadov
 \end{primer}
 
 Jezik SMT-LIB podržava i uslovni operator. Na primer,
-izraz (ite (and (= x!1 11) (= x!2 false)) 21 0) ima vrednost 21 kada je promenljiva x!1 jednaka 11, a promenljiva x!2 ima vrednost False. U suprotnom, vraća se 0.
+izraz \texttt{(ite (and (= x!1 11) (= x!2 false)) 21 0)} ima vrednost 21 kada je promenljiva x!1 jednaka 11, a promenljiva x!2 ima vrednost False. U suprotnom, vraća se 0.
 
 U slučaju deljenja, može se koristiti \texttt{ite} (if-then-else) operator i na taj način se može dodeliti interpretacija u slučaju deljenja nulom.
 \par
@@ -606,7 +605,7 @@ Definišemo operator deljenja tako da rezultat bude specifikovan i kada je delil
 Primer \ref{example5} ilustruje rešavanje nelinearnog problema uvođenjem ograničenja nad realnim konstantama. Ispituje se zadovoljivost prosleđenih ograničenja. Kada su prisutna samo nelinearna ograničenja nad realnim konstantama, Z3 koristi posebne metode odlučivanja.
 
 \begin{primer}
-\label{example5} Rešavaču se prosleđuje ograničenja $b^{3} + b*c = 3$ nad realnim konstantama. Rešavač vraća zadovoljivost tvrđenja i dobijeni model prikazujemo u nastavku.   
+\label{example5} Rešavaču se prosleđuje ograničenje $b^{3} + b*c = 3$ nad realnim konstantama. Rešavač vraća zadovoljivost tvrđenja i dobijeni model prikazujemo u nastavku.   
 \\ \\
 \begin{minipage}[b]{0.43\textwidth}
 \textbf{Formula prosleđena rešavaču:}
@@ -813,7 +812,7 @@ Primer \ref{example11} ilustruje kako se definišu nizovi sa konstantnim vrednos
 \par
 Primer \ref{example12} ilustruje primenu funkcije \texttt{map} na sve elemente konstatnih nizova. Za svaka dva elementa koji pripadaju različitim nizovima, pokazuje se važenje De Morganovog zakona iz primera \ref{example1}. 
 \begin{primer} \label{example12} 
-Kao ograničenje dodajemo negaciju navedene formule. Rešavač Z3 vraća nezadovoljivost negirane formule, odakle zaključujemo da je polazna formula validna.\\ \\
+Kao ograničenje dodajemo negaciju navedene formule. Rešavač Z3 vraća nezadovoljivost negirane formule, odakle zaključujemo da je polazna formula valjana.\\ \\
 \begin{minipage}[b]{0.65\textwidth}
 \textbf{Formula prosleđena rešavaču:}
 \\(define-sort Set (T) (Array T Bool))
@@ -947,8 +946,8 @@ void demorgan() {
     s.add(!e);
 
     switch (s.check()) {
-    case unsat:   std::cout << "Formula je validna"; break;
-    case sat:     std::cout << "Formula nije validna"; break;
+    case unsat:   std::cout << "Formula je valjana"; break;
+    case sat:     std::cout << "Formula nije valjana"; break;
     case unknown: std::cout << "Rezultat je nepoznat"; break;
     }
 }
@@ -1059,7 +1058,7 @@ void primer_nelinearne_aritmetike() {
 Primer \ref{ex6} ilustruje pronalaženje interpretacija konstanti koje imaju bitvektorsku reprezentaciju korišćenjem metode \texttt{bv\_const} klase \texttt{context}. Parametri ove metode su ime i broj mesta za zapisivanje konstante. 
 \begin{primer} \label{ex6} 
 Rešavaču se prosleđuje ograničenje $x^y - 103 = x*y$. 
-Ispisuju se imena i interpretacije konstantni predstavljenih bitvektorom dužine 32 korišćenjem funkcije \texttt{arity} klase \texttt{func\_decl}.
+Ispisuju se imena i interpretacije konstanti predstavljenih bitvektorom dužine 32 korišćenjem funkcije \texttt{arity} klase \texttt{func\_decl}.
 \begin{lstlisting}[language=C++]
 void primer_sa_bitvektorima() {
     context c;
@@ -1093,10 +1092,10 @@ U ovoj glavi opisana je statička analiza softvera, kao jedan od načina ispitiv
 
 
 \section{Statička provera ispravnosti softvera} \label{sec:deo1}
-Statičko ispitivanje ispravnosti programa predstavlja analizu programskog koda, bez njegovog izvršavanja \cite{StaticVerification}. Prema načinu utvrđivanja ispravnosti softvera statičkom analizom, razlikujemo manuelni pristup, koji obuhvata ručne provere koda, kao i automatizovani pristup. Kod automatizovanog pristupa, zbog neodlučnosti halting problema, ne postoji opšti algoritam kojim se utvrđuje da li je neka naredba programa dostižna, a samim tim i da li je sam program ispravan. Iz tog razloga primenjuju se različite aproksimacije u kojima se uslovi ispravnosti programa iskazuju formulama formalno definisanih matematičkih teorija. Automatizovani pristupi statičke analize programa su \textit{proveravanje modela}, \textit{apstraktna interpretacija} i \textit{simboličko izvršavanje}.
+Statičko ispitivanje ispravnosti programa predstavlja analizu programskog koda, bez njegovog izvršavanja \cite{StaticVerification}. Prema načinu utvrđivanja ispravnosti softvera statičkom analizom, razlikujemo \emph{manuelni pristup}, koji obuhvata ručne provere koda, kao i \emph{automatizovani pristup}. Kod automatizovanog pristupa, zbog neodlučnosti halting problema, ne postoji opšti algoritam kojim se utvrđuje da li je neka naredba programa dostižna, a samim tim i da li je sam program ispravan. Iz tog razloga primenjuju se različite aproksimacije u kojima se uslovi ispravnosti programa iskazuju formulama formalno definisanih matematičkih teorija. Automatizovani pristupi statičke analize programa su \emph{proveravanje modela}, \textit{apstraktna interpretacija} i \textit{simboličko izvršavanje}.
 \par
 \textbf{Proveravanje modela} je tehnika statičke analize koda u kojem se sistem, čiju je ispravnost potrebno utvrditi, opisuje konačnim automatom, a željeno ponašanje softvera se opisuje u terminima temporalne logike \cite{TemporalLogic}. Dostupna stanja automata se sistematski obilaze radi provere ponašanja sistema. U slučaju neuspešne provere, generiše se kontraprimer koji narušava željeno ponašanje sistema. Proces ispitivanja ispravnosti može biti kompleksan ukoliko je broj mogućih stanja automata veliki. Potencijalni problem ovog pristupa je kombinatorna eksplozija stanja koji podrazumeva eksponencijalni porast broja stanja sa povećanjem broja promenljivih.
-U tom slučaju koristi se metod \textit{proveravanja ograničenih modela} u kojem se ograničava dužina putanje stanja automata \cite{Verification}. Za utvrđivanje ispravnosti uslova programa, metod \textit{proveravanja modela} obično koristi dijagrame binarnih odluka, dok metod \textit{proveravanja ograničenih modela} najčešće koristi SAT ili SMT rešavače \cite{ModelCheck}.
+U tom slučaju koristi se metod \textit{proveravanja ograničenih modela} u kojem se ograničava dužina putanje stanja automata \cite{Verification}. Za utvrđivanje ispravnosti uslova programa, metod proveravanja modela obično koristi dijagrame binarnih odluka, dok metod proveravanja ograničenih modela najčešće koristi SAT ili SMT rešavače \cite{ModelCheck}.
 \par
 \textbf{Apstraktna interpretacija} predstavlja metodu statičke analize u kojoj se semantika programa opisuje matematičkim modelom mogućih ponašanja programa \cite{AbstractInterpretation}. Ponašanje programa modeluje se konkretnim domenom i relacijama nad njim. Potencijalni problem ovog pristupa javlja se u slučajevima jako velikih domena i tada se vrši aproksimacija konačnog domena apstraktnim. Aproksimacijom domena mogu se izgubiti važne informacije. Iz tog razloga, posebna pažnja posvećuje se biranju adekvatne aproksimacije \cite{AbstractInterpretation2}. Sa druge strane, apstrahovanjem domena povećava se skalabilnost metode. Ova tehnika ima široku primenu, ali se najčešče koristi za analizu u okviru kompilatora sa ciljem pronalaženja klasa grešaka u programu kao što su deljenje nulom, prekoračenje bafere i dereferenciranje NULL pokazivača.
 \par
@@ -1104,7 +1103,7 @@ U tom slučaju koristi se metod \textit{proveravanja ograničenih modela} u koje
 \section{Sistem LAV}  \label{sec:deo2}
 LAV (akronim \textit{\textbf{L}LVM \textbf{A}utomated \textbf{V}erifier}) je alat otvorenog koda za statičku proveru ispravnosti softvera \cite{LAVTool}. Implementiran je u programskom jeziku C++ \cite{LAVCode}. Svrha sistema LAV je statička analiza, generisanje i proveravanje uslova ispravnosti imperativnih programa koristeći tehnike opisane u poglavlju \ref{sec:deo1}. Sistem koristi LLVM međujezik, radi transformisanja programa u oblik koji je pogodniji za analizu \cite{LLVMTool}. Osnovna namena alata je analiza programa napisanih u programskom jeziku C, ali se zbog univerzalnosti LLVM reprezentacije koda može koristiti za analizu drugih imperativnih jezika za koje postoje pristupne komponente. \par
 
-Sistem modeluje ponašanje programa, konstruiše uslove ispravnosti programa, vrši transformaciju formiranih uslova u formule odgovarajućih teorija logike prvog reda. Podržane teorije su teorija neinterpretiranih funkcija, teorija linearne aritmetike, teorija bitvektora i teorija nizova \cite{Barrett}. Formule kojima se definišu uslovi ispravnosti programa šalju se na proveru SMT rešavaču. Sistem LAV ima podršku za rad sa nekoliko SMT rešavača (Boolector, Z3, MathSAT i Yices). Na osnovu rezultata rešavača, LAV generiše izveštaj o ispravnosti naredbi programa.
+Sistem modeluje ponašanje programa, konstruiše uslove ispravnosti programa i vrši transformaciju formiranih uslova u formule logike prvog reda. Podržane teorije su teorija neinterpretiranih funkcija, teorija linearne aritmetike, teorija bitvektora i teorija nizova \cite{Barrett}. Formule kojima se definišu uslovi ispravnosti programa šalju se na proveru SMT rešavaču. Sistem LAV ima podršku za rad sa nekoliko SMT rešavača (Boolector, Z3, MathSAT i Yices). Na osnovu rezultata rešavača, LAV generiše izveštaj o ispravnosti naredbi programa.
 \par
 
 Ispitivanje ispravnosti programa se u sistemu LAV, svodi na proveravanje da li u nekoj liniji programa postoji izraz koji može da ima neku nedozvoljenu vrednost ili da adresa pokazuje na mesto u memoriji koje nije rezervisano za dati program. Ovakvim načinom ispitivanja detektuju se, između ostalog, greške deljenja nulom, prekoraćenja bafera i dereferenciranja NULL pokazivača.
@@ -1122,7 +1121,7 @@ Za naredbu programa formira se formula \texttt{context} koja opisuje izvršavanj
 
 
 Na taj način se ispitivanje da li naredba dovodi do greške svodi na ispitivanje valjanosti formula ispravnosti i neispravnosti u izabranoj teoriji upotrebom SMT rešavača. U zavisnosti od rezultata ispitivanja, naredba može biti bezbedna, neispravna, nebezbedna i nedostižna. \par 
-Naredba je bezbedna	ukoliko prilikom njenog izvršavanja nikada ne dolazi do greške. Naredba se smatra neispravnom ukoliko prilikom njenog izvršavanja uvek dolazi do greške. Nebezbedna naredba je naredba čije izvršavanje može dovesti do greške ali i ne mora. Nedostižna je ona naredba koja nikada neće biti izvršena.
+Naredba je \emph{bezbedna}	ukoliko prilikom njenog izvršavanja nikada ne dolazi do greške. Naredba se smatra \emph{neispravnom} ukoliko prilikom njenog izvršavanja uvek dolazi do greške. \emph{Nebezbedna naredba} je naredba čije izvršavanje može dovesti do greške ali i ne mora. \emph{Nedostižna} je ona naredba koja nikada neće biti izvršena.
 
 \par
 Primenom sistema LAV za ispitivanje ispravnosti C programa pokazano je da je korišćeni pristup uporediv sa drugim alatima slične namene \cite{vstteLAV12}.  Dodatno, eksperimentalni rezultati pokazuju prednost alata LAV u odnosu na alate koji koriste tehniku simboličkog izvršavanja u programima u kojima postoji veliki broj mogućih putanja. 
@@ -1133,7 +1132,7 @@ S obzirom na to da se u procesu automatizacije testiranja softvera posebna pažn
 \par
 Sistemi čija je svrha ispitivanje ispravnosti softvera korišćenjem tehnika statičke analize, opisanim u poglavlju \ref{sec:deo1}, implementaciono su zahtevni. Imajući u vidu blisku povezanost ovakvih sistema sa matematičkim formalizmima i modelovanjem, potrebno je mnogo uloženog truda i stručan tim ljudi. 
 \par 
-Cilj sistema za ispitivanje ispravnosti softvera je da pokrije što veći broj grešaka. Kako složeniji sistemi imaju ogroman broj putanja, testiranje svih putanja u praksi je nemoguće. Da bi se ovaj problem prevazišao, rešenje bi bilo da sistem za proveravanje ispravnosti softvera automatski generiše test primere koji bi potencijalno doveli do greške u softveru. S obzirom da tehnike statičke analize primenjuju različite aproksimacije prilikom pravljenja modela programa, ovakvi sistemi mogu dovesti do pojave lažnih upozorenja (eng. \textit{false positives}). Lažno upozorenje je izveštaj da program ima grešku koja zapravo ne postoji. Zbog pojave lažnih upozorenja, potrebno je proveriti njihovu validnost.
+Cilj sistema za ispitivanje ispravnosti softvera je da pokrije što veći broj grešaka. Kako složeniji sistemi imaju ogroman broj putanja, testiranje svih putanja u praksi je nemoguće. Da bi se ovaj problem prevazišao, rešenje bi bilo da sistem za proveravanje ispravnosti softvera automatski generiše test primere koji bi potencijalno doveli do greške u softveru. S obzirom da tehnike statičke analize primenjuju različite aproksimacije prilikom pravljenja modela programa, ovakvi sistemi mogu dovesti do pojave lažnih upozorenja (eng. \textit{false positives}). \emph{Lažno upozorenje} je izveštaj da program ima grešku koja zapravo ne postoji. Zbog pojave lažnih upozorenja, potrebno je proveriti njihovu validnost.
 \par
 Sistem LAV implementira algoritam koji uslove ispravnosti programa opisuje formulama izabrane teorije logike prvog reda i ispituje njihovu zadovoljivost korišćenjem SMT rešavača. Ukoliko je negiran uslov ispravnosti naredbe zadovoljiva formula, SMT rešavač vraća model sa vrednostima koje predstavljaju potencijalnu grešku u softveru. Cilj ovog rada je izdvajanje vrednosti modela rešavača Z3 radi automatskog generisanja test primera i detektovanja greške integracijom u postojeće klase i module sistema LAV. Nadogradnja obuhvata izdvajanje vrednosti modela teorije neinterpretiranih funkcija, teorije linearne aritmetike, teorije bitvektora i teorije nizova.
 \section{Opis arhitekture} \label{sec:deo4}
@@ -1169,7 +1168,7 @@ U zavisnosti od izbora teorije rešavača navođenjem odgovarajuće opcije pri p
 
 %Modul sadrži podršku za rad sa nizovima u okviru teorije linearne aritmetike, teorije bitvektora i teorije neinterpretiranih funkcija . 
 Dodata je podrška za izdvajanje vrednosti modela u teoriji nizova (klasa \texttt{Abstract\\Array}). Teorija nizova se može kombinovati sa teorijom neinterpretiranih funkcija, teorijom linearne aritmetike i teorijom bitvektora.
-Zbog potreba testiranja, razlikuju se dve vrste nizova: regularni i neregularni nizovi, koji su implementirani u okviru klasa \texttt{RegularArray} i \texttt{IrregularArray}. Ove dve klase nasleđuju klasu \texttt{AbstractArray}. Regularni nizovi su nizovi koji sadrže vrednosti na pozicijama koje su u skladu sa dužinom niza. Neregularni nizovi su nizovi koji sadrže vrednosti na negativnim pozicijama ili pozicijama van granica niza. U nekim slučajevima, model rešavača sadrži vrednosti elemenata na pozicijama za koje nije moguće utvrditi kom nizu pripadaju. Iz tog razloga, onemogućeno je pravljenje regularnog niza zbog nedostatka informacija. U ovakvim slučajevima koristi se neregularni niz.
+Zbog potreba testiranja, razlikuju se dve vrste nizova: regularni i neregularni nizovi, koji su implementirani u okviru klasa \texttt{RegularArray} i \texttt{IrregularArray}. Ove dve klase nasleđuju klasu \texttt{AbstractArray}. \emph{Regularni nizovi} su nizovi koji sadrže vrednosti na pozicijama koje su u skladu sa dužinom niza. \emph{Neregularni nizovi} su nizovi koji sadrže vrednosti na negativnim pozicijama ili pozicijama van granica niza. U nekim slučajevima, model rešavača sadrži vrednosti elemenata na pozicijama za koje nije moguće utvrditi kom nizu pripadaju. Iz tog razloga, onemogućeno je pravljenje regularnog niza zbog nedostatka informacija. U ovakvim slučajevima koristi se neregularni niz.
 \par
 Interno, rešavač Z3 čuva elemente nizova linearno u memoriji, počevši od zadate pozicije. Elementi odgovarajućih nizova smeštaju se u okviru globalnog niza jedan iza drugog. Pri instanciranju objekta klase \texttt{RegularArray} zadaje se ime niza, adresa prvog i poslednjeg elementa niza. Instanciranje objekta klase \texttt{IrregularArray} zahteva navođenje negativne pozicije i vrednosti elementa niza koja toj poziciji odgovara. Ukoliko rešavač nekim elementima niza nije dodelio vrednost, one se mogu interpretirati na proizvoljan način. Pri ispisu vrednosti modela nakon svakog bloka instrukcija, nevažne vrednosti označavaju se sa \texttt{*}. Pri formiranju test primera, nevažne vrednosti interpretiraju se brojem \texttt{1}.
 \par
