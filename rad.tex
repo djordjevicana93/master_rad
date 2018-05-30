@@ -358,7 +358,7 @@ Test primer sa kojim se započinje testiranje može biti slučajno generisan ili
 
 Uopšteno, postoje dve vrste alata za generisanje testova primenom tehnike rasplinutog testiranja. Jedna grupa alata zahteva posebno kvalifikovane testere koji unose detalje o implementaciji sistema. Druga grupa alata omogućava generisanje testova samo konfigurisanjem parametara o očekivanom ulazu i definisanjem programskog jezika. Prednost ovog pristupa je jednostavnost, dok je mana niži kvalitet testiranja u odnosu na testove koji se formiraju za specifični sistem. 
 \par
-Postoji veliki broj metoda rasplinutog testiranja. Jedna od njih je \emph{random metoda} koja je najmanje efikasna i podrazumeva generisanje slučajnog test primera. Pored ove metode, koristi se i \emph{metoda izučavanja ulaznih vrednosti} koja analizira sve podržane strukture podataka i opsege ulaznih vrednosti. Takođe, primenjuje se i \emph{rasplinuto testiranje grubom silom} u kojem testiranje počinje ispravnim ulazom, a zatim se u svakom sledećem koraku menja svaki bajt ili karakter niske u zavisnosti od tipa ulazne vrednosti. Složeniji ulazi zahtevaju ogroman broj varijacija pa u tom slučaju ne postoji dobra pokrivenost testovima.
+Postoji veliki broj metoda rasplinutog testiranja. Jedna od njih je \emph{slučajna metoda} koja je najmanje efikasna i podrazumeva generisanje nasumičnog test primera. Pored ove metode, koristi se i \emph{metoda izučavanja ulaznih vrednosti} koja analizira sve podržane strukture podataka i opsege ulaznih vrednosti. Takođe, primenjuje se i \emph{rasplinuto testiranje grubom silom} u kojem testiranje počinje ispravnim ulazom, a zatim se u svakom sledećem koraku menja svaki bajt ili karakter niske u zavisnosti od tipa ulazne vrednosti. Složeniji ulazi zahtevaju ogroman broj varijacija pa u tom slučaju ne postoji dobra pokrivenost testovima.
 \par
 Jedan od alata koji primenjuje strategiju sive kutije za automatsko generisanje test primera je \emph{SAGE} \cite{ToolSAGE}. Namena alata SAGE (eng. \textit{Scalable, Automated, Guided Execution}) je proveravanje stabilnosti rada programa koji se izvršavaju na Windows operativnom sistemu čiji su procesori kompatibilni sa x86 skupom instrukcija. Odlikuje se specifičnom arhitekturom i algoritmom koji ga izdvaja od programa slične namene. Za generisanje test primera, alat SAGE koristi program koji se testira i skupove ulaznih podataka koji se jedan za drugim učitavaju u sam program. Cilj je naći skupove ulaznih podataka koji dovode do nedefinisanog i nebezbednog ponašanja tokom izvršavanja programa. Ukoliko SAGE uspe da generiše takav skup ulaznih podataka, smatra se da je on uspešno ispunio svoj zadatak. Nađeni skup podataka se zapisuje u internu bazu alata i nastavlja se potraga za drugim skupovima ulaznih podataka koji izazivaju nebezbedno ponašanje programa, ukoliko takvi postoje. Ulazni podaci se inicijalno biraju praćenjem izvršavanja programa na nivou x86 mašinskog koda. Glavni cilj alata je pokrivenost svih delova programa prolaskom kroz sve grane programa. Važno je napomenuti da se primenom ovog alata ne generišu svi mogući ulazi, s obzirom da njihovo generisanje nije moguće u razumnom roku. 
 \par
@@ -390,7 +390,7 @@ Rešavači koji se koriste za rešavanje ovog problema nazivaju se \emph{SAT re�
 Implementiran je u programskom jeziku C++. Šematski prikaz arhitekture rešavača \cite{EfficientSMTSolver} prikazan je na slici \ref{fig:arhitektura}. 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=1\textwidth]{arhitektura.png}
+  \includegraphics[width=1.05\textwidth]{arhitektura.png}
   \caption{Arhitektura rešavača Z3}
   \label{fig:arhitektura}
 \end{figure}
@@ -402,7 +402,9 @@ Nakon simplifikacije, kompilator formira apstraktno sintaksno stablo formula či
 
 Glavni gradivni blokovi formula su konstante, funkcijski i relacijski simboli. \emph{Konstante} su specijalan slučaj funkcijskih simbola bez parametara. Svaka konstanta je određene sorte. \emph{Sorta} odgovara tipu u programskim jezicima. Takođe, svaki \emph{funkcijski simbol} ima zadate sorte svojih argumenata, kao i povratnu sortu. \emph{Relacijski simboli} se mogu smatrati funkcijskim simbolima čija je povratna sorta Boolean. Od konstanti, funkcijskih i relacijskih simbola formiraju se izrazi. Svaki \emph{izraz} ima sortu koja odgovara povratnoj sorti vodećeg simbola. Izrazi sorte Boolean nazivaju se formule. Funkcijski simboli mogu imati argumente sorte Boolean, pa se na taj način formule mogu koristiti kao argumenti funkcijskih simbola.
 
-Formula $F$ je valjana ako je vrednost valuacije $true$ za bilo koju interpretaciju funkcijskih i konstantnih simbola. Formula $F$ je zadovoljiva ukoliko postoji bar jedna interpretacija u kojoj je formula tačna. Da bismo odredili da li je formula $F$ valjana, rešavač Z3 proverava da li je formula $\lnot F$ zadovoljiva. Ukoliko je negacija formule nezadovoljiva, onda je polazna formula valjana. 
+
+Formula $F$ je valjana ako je istinitosna vrednost formule 
+$true$ za bilo koju interpretaciju funkcijskih i konstantnih simbola. Formula $F$ je zadovoljiva ukoliko postoji bar jedna interpretacija u kojoj je formula tačna. Da bismo odredili da li je formula $F$ valjana, rešavač Z3 proverava da li je formula $\lnot F$ zadovoljiva. Ukoliko je negacija formule nezadovoljiva, onda je polazna formula valjana. 
 
 
 
