@@ -457,28 +457,28 @@ Nizovi sa konstantnim vrednostima mogu se specifikovati koristeći \texttt{const
 \subsubsection{Primena map funkcije na nizove}
 Rešavač Z3 obezbeđuje primenu parametrizovane funkcije \texttt{map} na nizove. Funkcijom \texttt{map} omogućava se primena proizvoljnih funkcija na sve elemente niza.
 
-Nad nizovima se mogu vršiti slične operacije kao i nad skupovima. Rešavač Z3 ima podršku za računanje unije, preseka i razlike dva niza. Ovi operatori se tumače na isti način kao i u teoriji skupova. Za nizove a i b, pomenuti operatori mogu se koristiti navođenjem funkcija:\\
+Nad nizovima se mogu vršiti slične operacije kao i nad skupovima. Rešavač Z3 podržava računanje unije, preseka i razlike dva niza. Ovi operatori se tumače na isti način kao i u teoriji skupova. Za nizove a i b, pomenuti operatori mogu se koristiti navođenjem funkcija:\\
 \texttt{(union a b)} ; kreiranje unije dva niza kao skupa \\
 \texttt{(intersect a b)} ; kreiranje preseka dva niza kao skupa \\
 \texttt{(difference a b)} ; kreiranje razlike dva niza kao skupa
 
 \section{Tipovi podataka} \label{sec:num3}
 U okviru rešavača Z3 dostupni su \emph{primitivni tipovi podataka}, definisanjem konstanti različitih sorti. Neke od najčešće korišćenih su konstante bulovske, celobrojne i realne sorte.
-Pored toga, mogu se definisati \emph{algebarski tipovi podataka}. Algebarski tipovi podataka omogućavaju specifikaciju uobičajnih struktura podataka. Slogovi, torke i skalari (enumeracijski tipovi) spadaju u algebarske tipove podataka. Primena algebarskih tipova podataka može se generalizovati. Mogu se koristiti za specifikovanje konačnih listi, stabala i rekurzivnih struktura. 
+Pored toga, mogu se definisati \emph{algebarski tipovi podataka}. Algebarski tipovi podataka omogućavaju specifikaciju uobičajnih struktura podataka. Slogovi, torke i skalari (nabrojivi tipovi) spadaju u algebarske tipove podataka. Primena algebarskih tipova podataka može se generalizovati. Mogu se koristiti za specifikovanje konačnih listi, stabala i rekurzivnih struktura. 
 \subsubsection{Slogovi}
 \emph{Slog} se specifikuje kao tip podataka sa jednim konstruktorom i proizvoljnim brojem elemenata sloga. Rešavač Z3 ne dozvoljava povećavanje broja argumenata sloga nakon njegovog definisanja. Važi svojstvo da su dva sloga jednaka samo ako su im svi argumenti jednaki.
-\subsubsection{Skalari (tipovi enumeracije)}
+\subsubsection{Skalari (nabrojivi tipovi)}
 
 Sorta \emph{skalara} je sorta konačnog domena. Elementi konačnog domena se tretiraju kao različite konstante. Na primer, neka je S skalarni tip sa tri vrednosti A, B i C. Moguće je da tri konstante skalarnog tipa S budu različite. Ovo svojstvo ne može važiti u slučaju četiri konstante.
 
 
 \subsubsection{Rekurzivni tipovi podataka}
-
-Deklaracija \emph{rekurzivnog tipa podataka} uključuje sebe direktno kao komponentu. Standardni primer rekurzivnog tipa podataka je lista. 
+\emph{Rekurzivni tip podatka} uključuje u sebi drugi podatak istog tipa. Standardni primer rekurzivnog tipa podataka je lista.
+%Deklaracija \emph{rekurzivnog tipa podataka} uključuje sebe direktno kao komponentu. Standardni primer rekurzivnog tipa podataka je lista. 
 Lista celobrojnih vrednosti sa imenom \texttt{list} može se deklarisati naredbom:\\
 \texttt{(declare-datatypes (list (nil) ((head Int) (tail list)))}
 \par
-Rešavaš Z3 ima ugrađenu podršku za liste korišćenjem ključne reči \texttt{List}.
+Rešavač Z3 ima ugrađenu podršku za liste korišćenjem ključne reči \texttt{List}.
 Prazna lista se definiše korišćenjem ključne reči \texttt{nil} a konstruktor \texttt{insert} se koristi za dodavanje elemenata u listu. Selektori \texttt{head} i \texttt{tail} se definišu na uobičajan način.
 
 
@@ -514,7 +514,7 @@ U primeru \ref{example1} koristimo činjenicu da se validnost formule pokazuje i
 \end{minipage}
 \end{primer}
 
-Rešavač Z3 ima podršku za celobrojne i realne konstante. Komandom \texttt{declare-const} deklarišu se celobrojne i realne konstante. Rešavač ne vrši automatsku konverziju između celobrojnih i realnih konstanti. Ukoliko je potrebno izvršiti ovakvu konverziju koristi se funkcija \texttt{to-real} za konvertovanje celobrojnih u realne vrednosti.
+Rešavač Z3 podržava celobrojne i realne konstante. Komandom \texttt{declare-const} deklarišu se celobrojne i realne konstante. Rešavač ne vrši automatsku konverziju između celobrojnih i realnih konstanti. Ukoliko je potrebno izvršiti ovakvu konverziju koristi se funkcija \texttt{to-real} za konvertovanje celobrojnih u realne vrednosti.
 Realne konstante treba da budu zapisane sa decimalnom tačkom. Primer \ref{example2} ilustruje deklarisanje konstanti i funkcija kao i primenu funkcije na konstante. Ispituje se zadovoljivost ograničenja.
 
 \begin{primer} \label{example2} 
@@ -912,9 +912,9 @@ nije specifikovana u slučaju praznih lista.
 \section{Upotreba rešavača korišćenjem C++ interfejsa} \label{sec:num5}
 C++ interfejs prema rešavaču Z3 obezbeđuje različite strukture podataka, klase i funkcije koje su potrebne za direktnu komunikaciju C++ aplikacije sa rešavačem. Neke od najbitnijih klasa biće opisane u nastavku, dok se kompletan opis interfejsa može naći na internetu \cite{cppapi}.
 
-Klasa \texttt{Z3\_sort} koristi se za definisanje sorte izraza.  Prilikom definisanja izraza navodi se sorta kako bi bio poznat skup vrednosti koje mu se mogu dodeliti kao i skup dozvoljenih metoda. Sorte izraza definisane su tipom enumeracije. Neke od najvažnijih sorti su \texttt{Z3\_BOOL\_SORT}, \texttt{Z3\_INT\_SORT}, \texttt{Z3\_REAL\_SORT}, \texttt{Z3\_BV\_SORT} i \texttt{Z3\_ARRAY\_SORT}. Određivanje sorte izraza vrši se funkcijom \texttt{sort\_kind()} sa povratnom vrednošću tipa enumeracije. Za proveru pripadnosti izraza sorti, koriste se funkcije \texttt{is\_bool()}, \texttt{is\_int()}, \texttt{is\_real()}, \texttt{is\_array()} i \texttt{is\_bv()}. Sorte različitih izraza se mogu porediti korišćenjem operatora jednakosti. \par 
+Klasa \texttt{Z3\_sort} koristi se za definisanje sorte izraza.  Prilikom definisanja izraza navodi se sorta kako bi bio poznat skup vrednosti koje mu se mogu dodeliti kao i skup dozvoljenih metoda. Sorte izraza definisane su nabrojivim tipom. Neke od najvažnijih sorti su \texttt{Z3\_BOOL\_SORT}, \texttt{Z3\_INT\_SORT}, \texttt{Z3\_REAL\_SORT}, \texttt{Z3\_BV\_SORT} i \texttt{Z3\_ARRAY\_SORT}. Određivanje sorte izraza vrši se funkcijom \texttt{sort\_kind()} sa povratnom vrednošću nabrojivog tipa. Za proveru pripadnosti izraza sorti, koriste se funkcije \texttt{is\_bool()}, \texttt{is\_int()}, \texttt{is\_real()}, \texttt{is\_array()} i \texttt{is\_bv()}. Sorte različitih izraza se mogu porediti korišćenjem operatora jednakosti. \par 
 
-Za upravljanje objektima interfejsa kao i za globalno konfigurisanje koristi se klasa \texttt{context}. Klasa sadrži konstruktor bez argumenata. Upotrebom klase \texttt{context}, mogu se detektovati različite vrste grešaka u korišćenju C++ API-ja. Greške su definisane tipom enumeracije \texttt{Z3\_ERROR\_CODE}. Neke od konstanti enumeracije su \texttt{Z3\_OK}, \texttt{Z3\_SORT\_ERROR}, \texttt{Z3\_INVALID\_USAGE} i \texttt{Z3\_INTERNAL\_FATAL}.  Kontekst omogućava kreiranje konstanti metodama \texttt{bool\_const()}, \texttt{int\_const()}, \texttt{real\_const()} i \texttt{bv\_const()}. Definisanje različitih sorti omogućeno je metodama \texttt{bool\_sort()}, \texttt{int\_sort()}, \texttt{real\_sort()}, \texttt{bv\_sort()} i \texttt{array\_sort()}. 
+Za upravljanje objektima interfejsa kao i za globalno konfigurisanje koristi se klasa \texttt{context}. Klasa sadrži konstruktor bez argumenata. Upotrebom klase \texttt{context}, mogu se detektovati različite vrste grešaka u korišćenju C++ API-ja. Greške su definisane nabrojivim tipom \texttt{Z3\_ERROR\_CODE}. Neke od nabrojivih konstanti su \texttt{Z3\_OK}, \texttt{Z3\_SORT\_ERROR}, \texttt{Z3\_INVALID\_USAGE} i \texttt{Z3\_INTERNAL\_FATAL}.  Kontekst omogućava kreiranje konstanti metodama \texttt{bool\_const()}, \texttt{int\_const()}, \texttt{real\_const()} i \texttt{bv\_const()}. Definisanje različitih sorti omogućeno je metodama \texttt{bool\_sort()}, \texttt{int\_sort()}, \texttt{real\_sort()}, \texttt{bv\_sort()} i \texttt{array\_sort()}. 
 \par
 
 Izrazi koji se formiraju pripadaju klasi \texttt{expr}. Sadrži konstruktor čiji je argument objekat klase \texttt{context}. Za dobijanje izraza na zadatoj poziciji u skupu izraza koristi se metoda \texttt{at(expr const \&index)}.  Provera da li podizraz predstavlja deo drugog izraza vrši se metodom  \texttt{contains(expr const \&s)}. Za dobijanje pojednostavljenog izraza ekvivalentnog polaznom koristi se metoda \texttt{simplify()} ukoliko takav izraz postoji. Za dobijanje pojednostavljenog izraza može se navesti i skup parametara koji se prosleđuju Z3 simplifikatoru. Zamenu vektora izraza drugim vektorom vrši se metodom \texttt{substitute(expr\_vector const \&source, expr\_vector const \&destination)}. 
@@ -923,7 +923,7 @@ Postoji veliki broj metoda i operatora koji se koriste za izgradnju složenih iz
 Povratna vrednost metode \texttt{concat} je tipa \texttt{expr\_vector} i odgovara konjunkciji izraza a i b. Može se vršiti i nadovezivanje vektora izraza. Kombinovanjem pomenutih metoda i operatora mogu se graditi izrazi proizvoljne složenosti. 	
 \par
 Definicija funkcije vrši se objektima klase \texttt{func\_decl}. Korišćenjem ove klase definišu se interpretirane i neinterpretirane funkcije rešavača Z3. 
-Povratne vrednosti funkcija određene su tipom enumeracije \texttt{Z3\_decl\_kind}. Neke od konstanti enumeracije su \texttt{Z3\_OP\_TRUE}, \texttt{Z3\_OP\_FALSE}, \texttt{Z3\_OP\_REAL}, \texttt{Z3\_OP\_INT} i \texttt{Z3\_OP\_ARRAY}. Dobijanje imena funkcijskog simbola vrši se metodom \texttt{name()}. Određivanje arnosti funkcijskog simbola vrši se metodom \texttt{arity()}. Određivanje sorte i-tog parametra funkcijskog simbola određuje se metodom \texttt{domain(unsigned i)}. 
+Povratne vrednosti funkcija određene su nabrojivim tipom \texttt{Z3\_decl\_kind}. Neke od nabrojivih konstanti su \texttt{Z3\_OP\_TRUE}, \texttt{Z3\_OP\_FALSE}, \texttt{Z3\_OP\_REAL}, \texttt{Z3\_OP\_INT} i \texttt{Z3\_OP\_ARRAY}. Dobijanje imena funkcijskog simbola vrši se metodom \texttt{name()}. Određivanje arnosti funkcijskog simbola vrši se metodom \texttt{arity()}. Određivanje sorte i-tog parametra funkcijskog simbola određuje se metodom \texttt{domain(unsigned i)}. 
 \par
 
 
@@ -1105,7 +1105,7 @@ U tom slučaju koristi se metod \textit{proveravanja ograničenih modela} u koje
 \section{Sistem LAV}  \label{sec:deo2}
 LAV (akronim \textit{\textbf{L}LVM \textbf{A}utomated \textbf{V}erifier}) je alat otvorenog koda za statičku proveru ispravnosti softvera \cite{LAVTool}. Implementiran je u programskom jeziku C++ \cite{LAVCode}. Svrha sistema LAV je statička analiza, generisanje i proveravanje uslova ispravnosti imperativnih programa koristeći tehnike opisane u poglavlju \ref{sec:deo1}. Sistem koristi LLVM međujezik, radi transformisanja programa u oblik koji je pogodniji za analizu \cite{LLVMTool}. Osnovna namena alata je analiza programa napisanih u programskom jeziku C, ali se zbog univerzalnosti LLVM reprezentacije koda može koristiti za analizu drugih imperativnih jezika za koje postoje pristupne komponente. \par
 
-Sistem modeluje ponašanje programa, konstruiše uslove ispravnosti programa i vrši transformaciju formiranih uslova u formule logike prvog reda. Podržane teorije su teorija neinterpretiranih funkcija, teorija linearne aritmetike, teorija bitvektora i teorija nizova \cite{Barrett}. Formule kojima se definišu uslovi ispravnosti programa šalju se na proveru SMT rešavaču. Sistem LAV ima podršku za rad sa nekoliko SMT rešavača (Boolector, Z3, MathSAT i Yices). Na osnovu rezultata rešavača, LAV generiše izveštaj o ispravnosti naredbi programa.
+Sistem modeluje ponašanje programa, konstruiše uslove ispravnosti programa i vrši transformaciju formiranih uslova u formule logike prvog reda. Podržane teorije su teorija neinterpretiranih funkcija, teorija linearne aritmetike, teorija bitvektora i teorija nizova \cite{Barrett}. Formule kojima se definišu uslovi ispravnosti programa šalju se na proveru SMT rešavaču. Sistem LAV podržava rad sa nekoliko SMT rešavača (Boolector, Z3, MathSAT i Yices). Na osnovu rezultata rešavača, LAV generiše izveštaj o ispravnosti naredbi programa.
 \par
 
 Ispitivanje ispravnosti programa se u sistemu LAV, svodi na proveravanje da li u nekoj liniji programa postoji izraz koji može da ima neku nedozvoljenu vrednost ili da adresa pokazuje na mesto u memoriji koje nije rezervisano za dati program. Ovakvim načinom ispitivanja detektuju se, između ostalog, greške deljenja nulom, prekoraćenja bafera i dereferenciranja NULL pokazivača.
