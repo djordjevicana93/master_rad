@@ -300,6 +300,26 @@
       \field{title}{Abstract Interpretation Based Formal Methods and Future Challenges}
       \field{year}{2001}
     \endentry
+    \entry{SolvingNLA}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=df560b9213663f5dd234a3c4293080fb}{%
+           family={Dejan\bibnamedelima Jovanovic},
+           familyi={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+           given={Leonardo\bibnamedelimb de\bibnamedelima Moura},
+           giveni={L\bibinitperiod\bibinitdelim d\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{df560b9213663f5dd234a3c4293080fb}
+      \strng{fullhash}{df560b9213663f5dd234a3c4293080fb}
+      \strng{authornamehash}{df560b9213663f5dd234a3c4293080fb}
+      \strng{authorfullhash}{df560b9213663f5dd234a3c4293080fb}
+      \field{sortinit}{D}
+      \field{sortinithash}{d10b5413de1f3d197b20897dd0d565bb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/nonlinear.pdf}}
+      \field{title}{Solving Non-Linear Arithmetic}
+      \field{year}{2016}
+    \endentry
     \entry{ImportanceOfTesting}{misc}{}
       \name{author}{1}{}{%
         {{hash=a93585bdbe5ed75b7facd2ccbc367bcd}{%
@@ -558,6 +578,25 @@
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{https://klee.github.io/}}
       \field{title}{{KLEE project}}
+    \endentry
+    \entry{Simplex}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=965e26a9d4e203455c48564107d73cdc}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={D.\bibnamedelimi Nagesh},
+           giveni={D\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+      }
+      \strng{namehash}{965e26a9d4e203455c48564107d73cdc}
+      \strng{fullhash}{965e26a9d4e203455c48564107d73cdc}
+      \strng{authornamehash}{965e26a9d4e203455c48564107d73cdc}
+      \strng{authorfullhash}{965e26a9d4e203455c48564107d73cdc}
+      \field{sortinit}{K}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://nptel.ac.in/courses/105108127/pdf/Module_3/M3L3_LN.pdf}}
+      \field{title}{Simplex Method}
     \endentry
     \entry{z3improvements}{book}{}
       \name{author}{1}{}{%
