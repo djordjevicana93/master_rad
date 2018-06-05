@@ -348,7 +348,7 @@ Na primer, za programske jezike C i C++ slabosti su prekoračenje bafera, neispr
 Automatizacija procesa generisanja test primera posebno je važna jer ubrzava proces testiranja. U nastavku će biti navedene neke od tehnika i alata koje imaju za cilj automatsko generisanje test primera. 
 
 
-\emph{Rasplinuto testiranje} (eng. \textit{Fuzz testing}) je primer tehnike koju je moguće potpuno automatizovati i zasniva se na primeni strategije crne kutije \cite{FuzzTestingForDummies}. 
+\emph{Rasplinuto testiranje}\footnote{Naziv testiranja se zasniva na činjenici da postoje situacije u kojima nije moguće znanje o sistemu reprezentovati na apsolutno precizan način. Zbog nepoznavanja interne strukture koda pokušava se generisanje što različitijih ulaznih podataka sa ciljem detektovanja gresaka.} (eng. \textit{Fuzz testing}) je primer tehnike koju je moguće potpuno automatizovati i zasniva se na primeni strategije crne kutije \cite{FuzzTestingForDummies}. 
 Ovom tehnikom formiraju se neispravni i neočekivani ulazi na osnovu specifikacije softverskog sistema.
 Test primer sa kojim se započinje testiranje može biti slučajno generisan ili ulaz definisan od strane programera. Svaki naredni test primer generiše se na osnovu potencijalnih slabosti rada aplikacije. Rasplinuto testiranje može se fokusirati na granične vrednosti ulaza ali i na bilo koje ulazne vrednosti koje mogu izazvati nedefinisano ili nebezbedno ponašanje. Može se definisati i kao metod otkrivanja grešaka softvera kreiranjem neočekivanih ulaza i upravljanjem izuzecima. Danas se rasplinuto testiranje najviše koristi u velikim sistemima jer se pokazalo da ova metoda daje jako dobar odnos cene i vremena naspram kvaliteta testiranja. 
 \par
@@ -388,7 +388,7 @@ Implementiran je u programskom jeziku C++. Šematski prikaz arhitekture rešava�
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=1.05\textwidth]{arhitektura.jpg}
-  \caption{Arhitektura rešavača Z3}
+  \caption{Arhitektura rešavača Z3 (slika je preuzeta iz rada \cite{EfficientSMTSolver})}
   \label{fig:arhitektura}
 \end{figure}
 \par
@@ -1217,9 +1217,10 @@ Kao argumenti pri pokretanju skripte navode se
 \end{description}
  
 Pored C programa, neophodno je postojanje još jednog C fajla
-čiji naziv mora imati format \texttt{ime\_programa\_test}. Sadržaj dopunskog fajla je identičan originalnom sa dodatim anotacijama za izdvajanje naziva i tipova ulaznih promenljivih. Postoje dve vrste anotacija, uz zavisnosti da li je ulazna vrednost programa promenljiva ili niz. Za promenljive se koristi anotacija 
-\texttt{input\_value(ime\_promenljive, pozici-\\ja)}, dok se za nizove koristi 
-anotacija \texttt{input\_value\_array(ime\_niza, pozicija)}, gde pozicija predstavlja redni broj promenljive ili niza pri zadavanju ulaznih vrednosti. 
+čiji naziv mora imati format \texttt{ime\_programa\_test}\footnote{Trenutno, u okviru sistema LAV nije implementirano automatsko određivanje ulaznih promenljivih, pa se u okviru C koda anotiranje mora navesti. U budućem radu, sa implementacijom automatskog određivanja ulaznih promenljivih, postojanje ovakve datoteke nece biti potrebno.}
+. Sadržaj dopunskog fajla je identičan originalnom sa dodatim anotacijama za izdvajanje naziva i tipova ulaznih promenljivih. Postoje dve vrste anotacija, uz zavisnosti da li je ulazna vrednost programa promenljiva ili niz. Za promenljive se koristi anotacija 
+\texttt{input\_value(ime\_promenljive, pozicija)}, dok se za nizove koristi 
+anotacija \texttt{input\_value\_array(ime\_niza, \\pozicija)}, gde pozicija predstavlja redni broj promenljive ili niza pri zadavanju ulaznih vrednosti. 
 \par
 U primeru \ref{example21} ispituje se ispravnost jednostavnog C programa korišćenjem alata LAV. Vrednosti modela rešavača ispisuju se nakon izvršavanja svakog bloka naredbi. Važno je napomenuti da generisanje modela ne zahteva uvođenje anotacija, jer nije bitan redosled nabrajanja promenljivih. 
 \begin{primer} \label{example21} U ovom primeru javlja se greška pri deljenju sa nulom. Na osnovu modela, praćenjem vrednosti nakon svakog izvršenog bloka, dolazi se do putanje koja proizvodi grešku.\\

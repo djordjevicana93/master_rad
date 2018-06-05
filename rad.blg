@@ -1,16 +1,16 @@
 [0] Config.pm:354> INFO - This is Biber 2.7 (beta)
-[0] Config.pm:357> INFO - Logfile is 'rad.blg'
-[28] biber:303> INFO - === Sat Jun  2, 2018, 18:00:16
-[44] Biber.pm:360> INFO - Reading 'rad.bcf'
-[117] Biber.pm:836> INFO - Found 46 citekeys in bib section 0
-[128] Biber.pm:3671> INFO - Processing section 0
-[143] Biber.pm:3841> INFO - Looking for bibtex format file 'literatura.bib' for section 0
-[145] bibtex.pm:1424> INFO - Decoding LaTeX character macros into UTF-8
-[153] bibtex.pm:1281> INFO - Found BibTeX data source 'literatura.bib'
-[157] Utils.pm:164> WARN - Duplicate entry key: 'SymbolicExecution' in file 'literatura.bib', skipping ...
-[236] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[236] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'variable = shifted' with 'variable = non-ignorable'
-[237] Biber.pm:3500> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'sr-Latn'
-[276] bbl.pm:608> INFO - Writing 'rad.bbl' with encoding 'UTF-8'
-[284] bbl.pm:712> INFO - Output to rad.bbl
-[284] Biber.pm:110> INFO - WARNINGS: 1
+[1] Config.pm:357> INFO - Logfile is 'rad.blg'
+[70] biber:303> INFO - === Tue Jun  5, 2018, 20:58:28
+[183] Biber.pm:360> INFO - Reading 'rad.bcf'
+[343] Biber.pm:836> INFO - Found 46 citekeys in bib section 0
+[390] Biber.pm:3671> INFO - Processing section 0
+[496] Biber.pm:3841> INFO - Looking for bibtex format file 'literatura.bib' for section 0
+[525] bibtex.pm:1424> INFO - Decoding LaTeX character macros into UTF-8
+[563] bibtex.pm:1281> INFO - Found BibTeX data source 'literatura.bib'
+[570] Utils.pm:164> WARN - Duplicate entry key: 'SymbolicExecution' in file 'literatura.bib', skipping ...
+[721] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[722] UCollate.pm:68> INFO - Overriding locale 'sr-Latn' defaults 'variable = shifted' with 'variable = non-ignorable'
+[722] Biber.pm:3500> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'sr-Latn'
+[803] bbl.pm:608> INFO - Writing 'rad.bbl' with encoding 'UTF-8'
+[816] bbl.pm:712> INFO - Output to rad.bbl
+[816] Biber.pm:110> INFO - WARNINGS: 1
